@@ -1,0 +1,17 @@
+.page-header
+  %h1 Reorder Objectives
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to @standard.name, standard_path(@standard)
+  %li.active Reorder
+
+%table.table.table-striped{data: {behavior: :tablednd, reorder_url: reorder_standard_objectives_path(@standard)}}
+  %thead
+    %tr
+      %th Objective
+  %tbody
+    - @objectives.each do |objective|
+      %tr{id: objective.id}
+        %td= link_to objective.name, objective_path(objective)

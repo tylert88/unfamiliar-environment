@@ -1,0 +1,17 @@
+.page-header
+  .pull-right
+    = link_to "View All Assessments", assessments_path, class: "btn btn-info"
+  %h1 Assessments given to #{@cohort.name}
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Time Allowed
+      %th Given on
+  %tbody
+    - @given_assessments.each do |given_assessment|
+      %tr
+        %td= link_to given_assessment.name, cohort_given_assessment_path(@cohort, given_assessment)
+        %td= given_assessment.time_allowed_in_minutes
+        %td= given_assessment.given_on

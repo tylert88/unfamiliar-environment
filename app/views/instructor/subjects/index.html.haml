@@ -1,0 +1,23 @@
+.page-header
+  .pull-right
+    - if policy(Subject).create?
+      = link_to "Reorder Subjects", reorder_curriculum_subjects_path(@curriculum), :class => "btn btn-default"
+      = link_to "New Subject", new_curriculum_subject_path(@curriculum), :class => "btn btn-info"
+
+  %h1 #{@curriculum.name}
+
+= render '/instructor/curriculums/nav', tab: :subjects
+
+%table.table
+  %tbody
+    - @subjects.each do |subject|
+      %tr.bg-warning
+        %th
+          %div= link_to subject.name, curriculum_subject_path(subject.curriculum, subject)
+        %td.text-right= link_to 'edit', edit_curriculum_subject_path(subject.curriculum, subject, return_to: :index)
+      - subject.learning_experiences.each do |learning_experience|
+        %tr
+          %td
+            &nbsp;&nbsp;&nbsp;
+            = link_to learning_experience.name, curriculum_learning_experience_path(@curriculum, learning_experience)
+          %td.text-right= link_to 'edit', edit_curriculum_learning_experience_path(@curriculum, learning_experience, return_to: :index)

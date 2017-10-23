@@ -1,0 +1,22 @@
+- content_for(:outside_main) do
+  .hero{:style => "background-image: url(#{@cohort.hero_url}), linear-gradient(10deg, #844507, #d37b05), none;"}
+    .hero-inner
+      .hero-copy
+        %h1= @cohort.name
+
+%ul.showcase
+  - User.for_cohort(@cohort).ordered.each do |student|
+    %li
+      = link_to student_path(student), :class => "container" do
+        - if @cohort.show_employment_ribbon?
+          %div.ribbon-wrapper
+            - if student.is_employed?
+              %div.ribbon-employed
+                HIRED
+            - else
+              %div.ribbon-unemployed
+                HIRE ME!
+        .image
+          = image_tag student.avatar_url(:card)
+        .header
+          %p= student.full_name

@@ -1,0 +1,13 @@
+%h2.page-header
+  Edit Note for
+  = @assignment_submission.user.full_name
+
+.row
+  .col-md-8
+    = form_for @assignment_submission_note, url: instructor_cohort_assignment_submission_assignment_submission_note_path(@cohort.id, @assignment_submission.id, @assignment_submission_note.id), method: :patch do |f|
+      .form-group
+        = f.label :content
+        = f.text_area :content, class: "form-control", size: "10x10"
+
+      .form-group
+        = f.submit "Add Note", class: "btn btn-info"

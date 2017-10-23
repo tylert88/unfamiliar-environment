@@ -1,0 +1,48 @@
+.col-md-12.well.well-sm
+  = link_to "All Assignments", instructor_cohort_assignments_path, class: "pull-right btn btn-info"
+  %h4.page-title= @assignment.name
+
+.col-md-3.well
+  %h3.page-title Awaiting Submission
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Name
+    %tbody
+      - @unsubmitted_assignment_submissions.each do |assignment_submission|
+        %tr
+          %td= assignment_submission.user.full_name if assignment_submission.user
+.col-md-9
+  %h3.page-title Submitted Assignments
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Name
+        %th URL
+        %th Submission Date
+        %th Toggle
+        %th Notes
+        %th Time Spent
+    %tbody
+      - @submitted_assignment_submissions.each do |assignment_submission|
+        %tr
+          %td= assignment_submission.user.full_name if assignment_submission.user
+          %td= link_to "Submission URL", assignment_submission.submission_url, target: "_blank"
+          %td= assignment_submission.created_at.strftime("%b %e, %l:%M %p")
+          %td= link_to "Toggle Completion", toggle_instructor_cohort_assignment_submission_path(@cohort, assignment_submission.id), class: "btn btn-info btn-xs", method: :patch
+          %td= link_to "Add Note", new_instructor_cohort_assignment_submission_assignment_submission_note_path(@cohort.id, assignment_submission), class: "btn btn-info btn-xs"
+          %td= assignment_submission.time_spent
+  %h3.page-title Completed Assignments
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Name
+        %th URL
+        %th Toggle
+    %tbody
+      - @completed_assignment_submissions.each do |assignment_submission|
+        %tr
+          %td= assignment_submission.user.full_name if assignment_submission.user
+          %td= link_to "Submission URL", assignment_submission.submission_url
+          %td= assignment_submission.complete
+          %td= link_to "Toggle Completion", toggle_instructor_cohort_assignment_submission_path(@cohort, assignment_submission.id), class: "btn btn-info btn-xs", method: :patch

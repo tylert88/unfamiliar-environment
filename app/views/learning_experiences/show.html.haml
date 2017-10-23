@@ -1,0 +1,48 @@
+.page-header
+  .pull-right
+    = link_to "Edit", edit_curriculum_learning_experience_path(@curriculum, @learning_experience), class: 'btn btn-info'
+  %h2
+    = @learning_experience.name
+    - if @learning_experience.suggested_days?
+      %small
+        (#{"~" + @learning_experience.suggested_days.to_s} #{pluralize(@learning_experience.suggested_days, "day")})
+  - if @learning_experience.subject
+    %p
+      %strong Subject:
+      = @learning_experience.subject.name
+
+%ul.breadcrumb
+  %li= link_to 'Curriculums', curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to 'Learning Experiences', curriculum_learning_experiences_path(@curriculum)
+  %li.active Show
+
+.row
+  .col-md-6
+    .page-header
+      %h3 Student Version
+      %pre
+        [#{@learning_experience.name}](/redirects/learning_experiences/#{@learning_experience.to_param})
+      %a{"href" => "", "data-clipboard-text" => "#{request.protocol}#{request.host_with_port}/redirects/learning_experiences/#{@learning_experience.to_param}"} Copy URL
+
+    = markdownify @learning_experience.description
+  .col-md-6
+    .page-header
+      = link_to "ZPD Responses", learning_experience_zpd_responses_path(@learning_experience), class: "btn btn-primary pull-right"
+      %h3 Instructor Notes
+    = markdownify @learning_experience.instructor_notes
+
+- if @learning_experience.objectives.present?
+  %table.table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th Standard
+        %th Objective
+    %tbody
+      - @learning_experience.objectives.each do |objective|
+        %tr
+          %td= link_to objective.standard.name, standard_path(objective.standard)
+          %td= link_to objective.name, objective_path(objective)
+- else
+  .jumbotron
+    %p.lead Oh no!  No standards have been connected to this LE.

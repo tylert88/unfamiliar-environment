@@ -1,0 +1,8 @@
+%h2.page-header
+  Notes for
+  = @assignment_submission.assignment.name
+
+- @assignment_submission_notes.each do |assignment_submission_note|
+  .panel.panel-default
+    .panel-body
+      = assignment_submission_note.content

@@ -1,0 +1,139 @@
+.page-header
+  .pull-right
+    - if policy(Objective).update?
+      = link_to "Reorder", reorder_standard_objectives_path(@standard), class: 'btn btn-default'
+    - if policy(Standard).create?
+      = link_to "New Standard", new_curriculum_standard_path(@curriculum, @standard), class: 'btn btn-default'
+    - if policy(Objective).create?
+      = link_to "New Objective", new_standard_objective_path(@standard), class: 'btn btn-info'
+    - if policy(Objective).update?
+      = link_to "Edit Standard", edit_standard_path(@standard), class: 'btn btn-info'
+  %h2= @standard.name
+  %p
+    Subject: #{@standard.subject.try(:name) || "(none)"}
+    - @standard.tags.each do |tag|
+      %span.label.label-info= tag
+
+= render '/instructor/curriculums/nav', tab: :standards
+%ol.breadcrumb
+  %li= link_to_if policy(@curriculum).create?, "Curriculums", curriculums_path
+  %li
+    - if policy(@curriculum).edit?
+      = link_to @curriculum.name, curriculum_path(@curriculum)
+    - else
+      = link_to @curriculum.name, user_performances_path(current_user)
+  %li.active= @standard.name
+
+- if @standard.description?
+  %blockquote= markdownify(@standard.description)
+
+.row
+  .col-md-12
+    = form_tag merge_objectives_standard_path(@standard) do
+      .form-group
+        %table.table.table-striped
+          %tbody
+            %tr.tr-standard
+              %th{style: "width: 2em"}
+              %th
+                %div= link_to @standard.name, standard_path(@standard)
+                .standard-tags= @standard.tags.join(", ")
+              %td.text-right
+                - if policy(@standard).update?
+                  = link_to "edit", edit_standard_path(@standard)
+
+            - @standard.objectives.sort_by(&:position).each do |objective|
+              %tr
+                - if policy(@standard).merge_objectives?
+                  %td
+                    %input{type: "checkbox", id: "objective_#{objective.id}", name: "objectives[#{objective.id}]"}
+                %td
+                  = link_to objective.name, objective_path(objective)
+                  .text-muted= markdownify objective.description
+                %td.text-right
+                  - if policy(objective).update?
+                    = link_to 'edit', edit_objective_path(objective, return_to: :standard)
+
+      - if policy(@standard).merge_objectives?
+        .form-group.well
+          %p
+            %label(for="new_objective_name") Merged Objectives
+          %p
+            %input{type: "text", id: "new_objective_name", name: "new_objective_name", placeholder: "New Objective Name", class: "form-control", style: "max-width: 500px;"}
+          %p
+            %input{type: "submit", value: "Merge", class:"btn btn-primary", data: {confirm: "Are you sure you want to merge these objectives?"}}
+
+- if @standard.guiding_questions?
+  .row
+    %h3 Guiding Questions
+    = markdownify(@standard.guiding_questions)
+
+- if @standard.resources?
+  .row
+    %h3 Resources
+    = markdownify(@standard.resources)
+
+- @standard.objectives.sort_by(&:position).each do |objective|
+  .row
+    - if objective.resources?
+      %h3
+        Resources for #{truncate objective.name}
+        - if policy(objective).edit?
+          %small= link_to "(edit)", edit_objective_path(objective)
+      = markdownify(objective.resources)
+
+
+- if policy(@standard).edit? && @standard.instructor_notes?
+  .row
+    %h3 Instructor Notes
+    = markdownify(@standard.instructor_notes)
+
+
+.row
+  .page-header
+    %h1 Assessments
+  - @standard.exercises.each do |exercise|
+    .panel.panel-default
+      .panel-heading
+        - if policy(exercise).update?
+          .pull-right
+            = link_to "edit", edit_curriculum_exercise_path(@curriculum, exercise)
+        %h3.panel-title
+          - if policy(exercise).update?
+            = link_to "Exercise - #{exercise.name}", edit_curriculum_exercise_path(@curriculum, exercise)
+          - else
+            = link_to "Exercise - #{exercise.name}", curriculum_exercise_path(@curriculum, exercise)
+        .panel-body
+          - exercise.objectives.each do |objective|
+            = objective.name
+  - @standard.objectives.each do |objective|
+    - if objective.questions.present?
+      .panel.panel-default
+        .panel-heading
+          = link_to objective.name, edit_objective_path(objective)
+        .panel-body
+          - objective.questions.each do |question|
+            .question
+              %h3= question.question
+              %p= question.correct_answer
+
+
+
+- if @learning_experiences.present?
+  .row
+    .page-header
+      %h1 Learning Experiences
+    - @learning_experiences.each do |experience|
+      .panel.panel-default
+        .panel-heading
+          - if policy(experience).update?
+            .pull-right
+              = link_to "edit", edit_curriculum_learning_experience_path(@curriculum, experience)
+          %h3.panel-title
+            - if policy(experience).update?
+              = link_to experience.name, edit_curriculum_learning_experience_path(@curriculum, experience)
+            - else
+              = link_to experience.name, user_learning_experience_path(current_user, experience)
+        - if experience.description?
+          .panel-body
+            %blockquote= markdownify experience.description

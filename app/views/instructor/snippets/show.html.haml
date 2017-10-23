@@ -1,0 +1,23 @@
+.container
+  %h2.loading.text-center Loading Student Snippets
+  %button.btn.btn-xs.btn-warning{"data-content" => "<ul><li>Execute code: Command & Return</li><li>Cycle Down: Command & J</li><li>Cycle Up: Command & K</li>", "data-toggle" => "popover", :title => "Help", :type => "button", "data-html" => "true"} Shortcuts
+  .row.student-snippets{style: "display: none;"}
+    .col-md-2
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Student Name
+        %tbody
+          - @student_snippets.each do |student_snippet|
+            %tr
+              %td= link_to student_snippet.user.full_name, cohort_student_snippet_path(@cohort, student_snippet), class: "student-editor-link", "data-snippet-id" => student_snippet.id
+    .col-md-10
+      .row
+        .col-md-6
+          .editor-container.instructor-editor
+            #editor{'data-cohort-id' => @cohort.id}
+        .col-md-6
+          #sandbox-result
+          %button.execute_editor.btn.btn-primary{disabled: true} Execute
+
+%iframe{:sandbox => "allow-same-origin allow-scripts allow-popups allow-forms", :style => "border: 0; width:0px; height:0px;", id: "sadboxed-eval", src: "/frame.html"}

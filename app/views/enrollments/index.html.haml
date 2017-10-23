@@ -1,0 +1,32 @@
+.page-header
+  .pull-right
+    = link_to 'New Enrollment', new_enrollment_path, class: 'btn btn-info'
+  %h1 Enrollments
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Cohort
+      %th Role
+      %th Status
+      %th
+  %tbody
+    - @enrollments.each do |enrollment|
+      %tr
+        %td
+          - if enrollment.user
+            = link_to enrollment.user.full_name, user_path(enrollment.user)
+        %td
+          - if enrollment.user
+            = mail_to enrollment.user.email, enrollment.user.email
+        %td
+          - if enrollment.cohort
+            = link_to enrollment.cohort.name, cohort_path(enrollment.cohort)
+        %td
+          = enrollment.role
+        %td
+          = enrollment.status
+        %td
+          = link_to 'edit', edit_enrollment_path(enrollment)

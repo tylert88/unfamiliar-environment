@@ -1,0 +1,39 @@
+.page-header
+  %h1 New Pair Rotation for #{@cohort.name}
+
+= form_for [@cohort, @pair_rotation], html: {class: "form-horizontal"} do |f|
+  = errors_for(f)
+
+  .form-group
+    .col-md-6.col-md-offset-2
+      - @users.each do |user|
+        .checkbox
+          %label
+            %input{type: :checkbox, data: {user_id: user.id, full_name: user.full_name, behavior: 'select-user'}}
+            = user.full_name
+      - if @users.length.odd?
+        .checkbox
+          %label
+            %input{type: :checkbox, data: {user_id: nil, full_name: 'Instructor', behavior: 'select-user'}}
+            Instructor
+
+      %button(data-behavior="pair-users" class="btn btn-default") Pair Users
+
+  .form-group
+    .col-md-offset-2.col-md-4
+      = f.submit class: 'btn btn-primary'
+      - path = cohort_pair_rotations_path(@cohort)
+      = link_to "cancel", path, class: "btn btn-default"
+
+  .form-group
+    .col-md-offset-2.col-md-4
+      %table.table
+        %thead
+          %tr
+            %th Pair One
+            %th Pair Two
+        %tbody(data-placeholder='pairs')
+
+- content_for :javascripts do
+  :javascript
+    PairRotation.init();

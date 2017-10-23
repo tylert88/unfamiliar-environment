@@ -1,0 +1,19 @@
+.page-header
+  %h2= "Dashboard for " + current_user.full_name
+.row
+  .col-md-6
+    - if @daily_plan.new_record?
+      %p.lead There's no plan for this day yet.
+    - else
+      - daily_plan_renderer = new_daily_plan_renderer(@daily_plan)
+      %ul.list-group
+        %li.list-group-item
+          = link_to "View Full Agenda", cohort_daily_plan_path(@cohort, @daily_plan), class: 'btn btn-sm btn-primary pull-right'
+          %h5
+            %b Today's Agenda
+        - daily_plan_renderer.nav_links.each do |nav_link|
+          %li.list-group-item
+            = nav_link[:text]
+  .col-md-5.col-md-offset-1
+    .well
+      %h3 Problem of the week

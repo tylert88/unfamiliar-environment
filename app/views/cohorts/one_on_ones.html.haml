@@ -1,0 +1,56 @@
+.page-header
+  %h1= @cohort.name
+
+= form_tag one_on_ones_cohort_path(params[:id]), method: :get, class: "form-horizontal" do
+  .form-group
+    %label.control-label.col-sm-2 Start Date
+    .col-sm-2
+      = date_field_tag 'start_date', @start_date, class: "form-control"
+  .form-group
+    %label.control-label.col-sm-2 Start Time
+    .col-sm-2
+      = select_tag 'start_time', options_for_select(OneOnOneScheduler.all_times, @start_time), class: 'form-control'
+  .form-group
+    %label.control-label.col-sm-2 End Time
+    .col-sm-2
+      = select_tag 'end_time', options_for_select(OneOnOneScheduler.all_times, @end_time), class: "form-control"
+  .form-group
+    %label.control-label.col-sm-2 Instructors
+    .col-sm-10
+      - @all_instructors.each do |instructor|
+        .checkbox
+          %label
+            %input{type: 'checkbox', value: instructor.id, name: 'instructor_ids[]', checked: @selected_instructors.include?(instructor)}
+            = instructor.full_name
+  .form-group
+    .col-sm-6.col-sm-offset-2
+      = submit_tag 'Regenerate', class: 'btn btn-primary'
+
+= form_tag send_one_on_ones_cohort_path(params[:id]), method: :post do
+  - index = 0
+  - @appointments.group_by(&:date).each do |date, appointments|
+    .page-header
+      .pull-right
+        = pluralize appointments.length, 'appointment'
+      %h2 Appointments for #{date.strftime('%A')}, #{date.to_s(:long)}
+    %table.table
+      %thead
+        %th Student
+        %th Instructor
+        %th Time
+      %tbody
+        - appointments.each do |appointment|
+          - index += 1
+          %tr
+            %td
+              %label
+                %input{type: "checkbox", value: 1, name: "appointments[#{index}][selected]", checked: true}
+                = appointment.student.full_name
+              %input{type: "hidden", value: appointment.student.id, name: "appointments[#{index}][student_id]"}
+              %input{type: "hidden", value: appointment.date, name: "appointments[#{index}][date]"}
+              %input{type: "hidden", value: appointment.time, name: "appointments[#{index}][time]"}
+              %input{type: "hidden", value: appointment.instructor.id, name: "appointments[#{index}][instructor_id]"}
+            %td= appointment.instructor.full_name
+            %td= appointment.time
+
+  %p= submit_tag "Send Emails", class: "btn btn-primary"

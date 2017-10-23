@@ -1,0 +1,24 @@
+.page-header
+  .pull-right
+  %h1 Delete Standard
+
+%br
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to @standard.name, standard_path(@standard)
+  %li.active Delete
+
+.jumbotron
+  %h3
+    There are #{pluralize @performances.length, "performance"} for this standard.
+
+  %p
+    Are you sure you want to delete "#{@standard.name}"?
+
+  %p
+    You cannot undo this action.
+
+  = form_for @standard, method: :delete do |f|
+    %p.text-center
+      = f.submit "Yes, Delete", class: "btn btn-lg btn-danger", data: {confirm: "Are you sure?"}

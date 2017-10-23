@@ -1,0 +1,20 @@
+.page-header
+  %h1 Reorder Standards
+
+= render '/instructor/curriculums/nav', tab: :standards
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li.active Reorder
+
+%table.table.table-striped{data: {behavior: :tablednd, reorder_url: reorder_curriculum_standards_path(@curriculum, subject_id: params[:subject_id])}}
+  %thead
+    %tr
+      %th Standards
+      %th Subject
+  %tbody
+    - @standards.each do |standard|
+      %tr{id: standard.id}
+        %td= link_to standard.name, standard_path(standard)
+        %td= standard.subject.try(:name)

@@ -1,0 +1,29 @@
+.page-header
+  .pull-right
+    = link_to all_job_activities_path(format: :csv), class: "btn btn-default" do
+      %i.glyphicon.glyphicon-download
+      Download as CSV
+  %h1 All Job Activities
+
+%table.table.table-hover.table-striped
+  %thead
+    %tr
+      %th User
+      %th Company
+      %th Position
+      %th Status
+      %th Date of last interaction
+      %th Job Source
+      %th URL
+  %tbody
+    - @job_activities.each do |job_activity|
+      %tr
+        %td= link_to job_activity.user.full_name, user_path(job_activity.user)
+        %td= job_activity.company
+        %td= job_activity.position
+        %td= job_activity.status
+        %td.text-right= job_activity.date_of_last_interaction.try(:strftime, '%-m/%-d/%Y')
+        %td= job_activity.job_source
+        %td
+          - if job_activity.url?
+            = link_to job_activity.url, job_activity.url

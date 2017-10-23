@@ -1,0 +1,19 @@
+.page-header
+  %h1 Exercises
+
+.row
+  .col-sm-12
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Tags
+          %th Completed?
+      %tbody
+        - @exercises.each do |exercise|
+          %tr
+            %td= link_to exercise.name, cohort_exercise_path(@cohort, exercise)
+            %td
+              - exercise.tag_list.each do |tag|
+                %span.label.label-default= tag
+            %td= exercise.completed_text

@@ -1,0 +1,34 @@
+= form_for [@class_project, @epic, @story], html: {class: "form-horizontal"} do |f|
+  = errors_for(f)
+  - rows = 12
+
+  - if @story.persisted?
+    .form-group
+      = f.label :epic_id, class: "col-sm-2 control-label"
+      .col-sm-2
+        = f.collection_select :epic_id, @class_project.epics.order(:position), :id, :name, {}, class: "form-control"
+
+  .form-group
+    = f.label :story_type, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.select :story_type, %w(feature chore bug), {}, class: "form-control"
+
+  .form-group
+    = f.label :title, class: "col-sm-2 control-label"
+    .col-sm-7
+      = f.text_field :title, class: "form-control", autofocus: true
+
+  .form-group
+    = f.label :description, class: "col-sm-2 control-label"
+    .col-sm-7
+      = f.text_area :description, class: "form-control", rows: rows
+
+  .form-group
+    = f.label :slug, class: "col-sm-2 control-label"
+    .col-sm-7
+      = f.text_field :slug, class: "form-control"
+
+  .form-group
+    .col-sm-offset-2.col-sm-7
+      = f.submit class: 'btn btn-primary'
+      = link_to "cancel", class_project_epic_path(@class_project, @epic), class: "btn btn-default"

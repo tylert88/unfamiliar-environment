@@ -1,0 +1,13 @@
+.container
+	= link_to "New Snippet", new_instructor_cohort_snippet_path(@cohort), class: "btn btn-primary"
+
+	%table.table.table-striped
+		%thead
+			%tr
+				%th Name
+				%th Date
+		%tbody
+			- @snippets.each do |snippet|
+				%tr
+					%td= link_to snippet.name, instructor_cohort_snippet_path(@cohort, snippet)
+					%td= snippet.created_at.strftime("%A, %b %d, %Y")

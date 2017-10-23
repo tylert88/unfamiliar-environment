@@ -1,0 +1,71 @@
+.form-group
+  .col-md-offset-1.col-md-10
+    = errors_for(f)
+
+- if f.object.id
+  .form-group
+    = f.label :standard_id, class: 'control-label col-md-1'
+    .col-md-9
+      = f.collection_select :standard_id, @curriculum.standards.sort_by(&:name), :id, :name, {}, class: 'form-control'
+
+.form-group
+  = f.label :name, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_field :name, class: 'form-control', autofocus: true
+    %p.help-block
+      Cannot start with unmeasurable verbs like #{Objective::UNMEASURABLE_VERBS.map{|w| "\"#{w}\"" }.to_sentence}
+
+.form-group
+  = f.label :description, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :description, class: 'form-control', rows: 3, data: {editor: 'markdown'}
+
+.form-group
+  = f.label :guiding_questions, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :guiding_questions, class: 'form-control', rows: 5, data: {editor: 'markdown'}
+
+.form-group
+  = f.label :resources, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :resources, class: 'form-control', rows: 12, data: {editor: 'markdown'}
+
+.form-group
+  = f.label :questions, class: 'control-label col-md-1'
+  .col-md-9
+    = f.fields_for :questions do |qf|
+      .question-form
+        .form-group
+          = qf.label :question, class: 'control-label col-md-1'
+          .col-md-9
+            = qf.text_field :question, class: 'form-control'
+
+        .form-group
+          = qf.label :question_type, 'Type', class: 'control-label col-md-1'
+          .col-md-9
+            = qf.select :question_type, ['text', 'textarea'], {}, class: 'form-control'
+
+        .form-group
+          = qf.label :correct_answer, 'Answer', class: 'control-label col-md-1'
+          .col-md-9
+            = qf.text_field :correct_answer, class: 'form-control'
+            %p.help-block
+              Notes for instructor grading
+.form-group
+  .col-md-9.col-md-offset-1
+    = f.button 'Add New Question', class: 'btn btn-primary add-new-question'
+
+.form-group
+  = f.label :instructor_notes, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :instructor_notes, class: 'form-control', rows: 12, data: {editor: 'markdown'}
+
+.form-group
+  .col-md-9.col-md-offset-1
+    - if params[:cohort_id]
+      = hidden_field_tag :cohort_id, params[:cohort_id]
+    = hidden_field_tag :return_to, params[:return_to]
+    = f.submit class: 'btn btn-primary'
+    - if f.object.id
+      = f.submit "Save and Next", class: 'btn btn-info'
+    = link_to "cancel", standard_path(@standard), class: 'btn btn-default'

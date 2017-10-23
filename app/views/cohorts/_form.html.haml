@@ -1,0 +1,106 @@
+= form_for @cohort, html: {class: "form-horizontal"} do |f|
+  .form-group
+    .col-md-offset-2.col-md-10
+      = errors_for(f)
+
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.text_field :name, class: "form-control"
+
+  .form-group
+    = f.label :campus_id, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.collection_select :campus_id, Campus.order('lower(name)'), :id, :name, {prompt: true}, class: "form-control"
+
+  .form-group
+    = f.label :curriculum_id, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.collection_select :curriculum_id, Curriculum.order('lower(name)'), :id, :name, {include_blank: true}, class: "form-control"
+
+  .form-group
+    = f.label :course_id, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.collection_select :course_id, Course.order('lower(name)'), :id, :name, {prompt: true}, class: "form-control"
+
+  .form-group
+    = f.label :label, class: 'col-sm-2 control-label'
+    .col-sm-4
+      = f.text_field :label, class: 'form-control'
+      %p.help-block Official cohort label, such as '16-01-FS-DG'
+
+  .form-group
+    = f.label :start_date, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.date_field :start_date, class: "form-control"
+
+  .form-group
+    = f.label :end_date, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.date_field :end_date, class: "form-control"
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :showcase
+          Showcase
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :show_employment_ribbon
+          Show employment ribbon
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :announced
+          Announced (shows up on preparation index)
+
+  .form-group
+    = f.label :calendar_url, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :calendar_url, class: "form-control"
+
+  .form-group
+    = f.label :prereqs, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :prereqs, rows: 20, class: "form-control"
+
+  .form-group
+    = f.label :hero, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.file_field :hero, class: "form-control"
+
+  .form-group
+    = f.label :greenhouse_job_id, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.text_field :greenhouse_job_id, class: "form-control"
+
+  .form-group
+    = f.label :daily_feedback_url, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.text_field :daily_feedback_url, class: "form-control"
+      %p.help-block We will substitute accept {date} and {month}
+
+  .form-group
+    = f.label :weekly_feedback_url, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.text_field :weekly_feedback_url, class: "form-control"
+
+  .form-group
+    = f.label :showcase_position, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.number_field :showcase_position, class: "form-control"
+
+  - if @cohort.hero.present?
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = image_tag @cohort.hero.url, class: "img-responsive"
+
+  .form-group
+    .col-md-offset-2.col-md-6
+      = f.submit "Save", class: "btn btn-primary"

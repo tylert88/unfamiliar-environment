@@ -1,0 +1,38 @@
+.page-header
+  .pull-right
+    = link_to refresh_cohort_applications_path(@cohort), class: "btn btn-primary", method: :post do
+      %i.glyphicon.glyphicon-refresh
+      Refresh
+  %h1 Greenhouse Applications for #{@cohort.name}
+  - if @applications.first
+    %p.lead
+      Last updated #{time_ago_in_words @applications.first.updated_at} ago
+
+.page-header
+  %h3= pluralize(@applications.length, 'application')
+
+- @applications.each do |application|
+  .panel.panel-default
+    .panel-heading
+      .pull-right
+        - if user = application.imported_user
+          = link_to "Already Imported", user_path(user, cohort_id: @cohort)
+        - elsif user = application.duplicate_user
+          = link_to "Duplicate User Exists", user_path(user, cohort_id: @cohort)
+        - else
+          = form_for application, url: import_cohort_application_path(@cohort, application), method: :post do |f|
+            = f.submit "Import", class: "btn btn-primary btn-xs"
+      %h3.panel-title
+        = link_to application.full_name, "https://app.greenhouse.io/people/#{application.candidate_id}"
+    .panel-body
+      %dl.dl-horizontal
+        %dt Email
+        %dd= mail_to application.email, application.email
+        %dt Phone
+        %dd= application.phone
+        %dt URLs
+        %dd
+          - if application.urls.present?
+            %ul.list-unstyled
+              - application.urls.each do |type, url|
+                %li #{type}: #{link_to url, url}

@@ -1,0 +1,27 @@
+.page-header
+  .pull-right
+    = link_to "Learning Experiences", user_learning_experiences_path(@user), class: "btn btn-default"
+    = link_to "Performances", user_performances_path(@user), class: "btn btn-default"
+    - if policy(Performance).update? && @user.current_cohort
+      = link_to "Spreadsheet", cohort_performances_path(@user.current_cohort), class: "btn btn-info"
+  %h1 #{@learning_experience.name}: #{@user.full_name}
+.row
+  .col-md-6
+    .page-header
+      %h3 Description
+    = markdownify(@learning_experience.description)
+  .col-md-6
+    .page-header
+      - if @user_zpd.nil?
+        = link_to "New ZPD Response", new_learning_experience_zpd_response_path(@learning_experience), class: "btn btn-primary pull-right"
+      - else
+        %p.pull-right
+          You rated this Learning Experience
+          %b=ZpdResponse::RESPONSES[@user_zpd.response]
+      %h3 Objectives
+
+    = react_component 'StudentPerformanceTable',
+                      spinnerPath: image_path('spinner.gif'),
+                      approveAllPath: update_all_user_performances_path(@user),
+                      performancesPath: user_learning_experience_path(@user, @learning_experience, format: :json),
+                      updatePerformancesPath: user_performances_path(@user, format: :json)

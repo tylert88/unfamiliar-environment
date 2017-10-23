@@ -1,0 +1,64 @@
+.page-header
+  .pull-right
+    = link_to 'New Topic', new_instructor_cohort_writeup_topic_path(@cohort), class: 'btn btn-info'
+  %h1 Writeup Topics for #{@cohort.name}
+
+- active, inactive = @writeup_topics.partition(&:active?)
+
+.page-header
+  %h3 Active
+- if active.present?
+  %table.table
+    %thead
+      %tr
+        %th Subject
+        %th # Completed
+        %th # Not completed
+        %th
+    %tbody
+      - active.each do |writeup_topic|
+        %tr
+          %td= link_to writeup_topic.subject, instructor_cohort_writeup_topic_path(@cohort, writeup_topic)
+          %td= writeup_topic.students_who_completed.length
+          %td= writeup_topic.students_who_did_not_complete.length
+          %td
+            .pull-right
+              = link_to 'deactivate',
+                        instructor_cohort_writeup_topic_path(@cohort, writeup_topic, writeup_topic: {active: false}),
+                        method: :patch
+              |
+              = link_to 'edit', edit_instructor_cohort_writeup_topic_path(@cohort, writeup_topic)
+              |
+              = link_to 'delete', instructor_cohort_writeup_topic_path(@cohort, writeup_topic), method: :delete, data: {confirm: "Are you sure?"}
+- else
+  .jumbotron
+    %p.lead There are no active writeup topics for this cohort yet.
+
+.page-header
+  %h3 Inactive
+- if inactive.present?
+  %table.table
+    %thead
+      %tr
+        %th Subject
+        %th # Completed
+        %th # Not completed
+        %th
+    %tbody
+      - inactive.each do |writeup_topic|
+        %tr
+          %td= link_to writeup_topic.subject, instructor_cohort_writeup_topic_path(@cohort, writeup_topic)
+          %td= writeup_topic.students_who_completed.length
+          %td= writeup_topic.students_who_did_not_complete.length
+          %td
+            .pull-right
+              = link_to 'activate',
+                        instructor_cohort_writeup_topic_path(@cohort, writeup_topic, writeup_topic: {active: true}),
+                        method: :patch
+              |
+              = link_to 'edit', edit_instructor_cohort_writeup_topic_path(@cohort, writeup_topic)
+              |
+              = link_to 'delete', instructor_cohort_writeup_topic_path(@cohort, writeup_topic), method: :delete, data: {confirm: "Are you sure?"}
+- else
+  .jumbotron
+    %p.lead There are no inactive writeup topics for this cohort yet.

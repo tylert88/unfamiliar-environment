@@ -1,0 +1,16 @@
+= errors_for(f)
+.form-group
+  = f.label :name, class: "control-label col-sm-2"
+  .col-md-6
+    = f.text_field :name, class: "form-control"
+.form-group
+  = f.label :url, class: "control-label col-sm-2"
+  .col-md-6
+    = f.text_field :url, class: "form-control"
+.form-group
+  = f.label :due_date, class: "control-label col-sm-2"
+  .col-md-3
+    = f.date_field :due_date, class: "form-control"
+.form-group
+  .col-sm-offset-2.col-sm-10
+    = f.submit class: "btn btn-primary"

@@ -1,0 +1,19 @@
+%h1.page-header
+  Zone of Proximal Development Responses
+  = link_to "Today's Response", new_cohort_zpd_response_path(@cohort), class: "btn btn-primary pull-right"
+
+.row
+  .col-md-4
+    .student-zpd-data{ value: @zpd_response_data }
+  .col-md-7.col-md-offset-1
+    %table.table.table-striped
+      %thead
+        %th Date
+        %th Response
+        %th Edit
+      %tbody
+        -@zpd_responses.each do |zpd_response|
+          %tr
+            %td= zpd_response.date
+            %td= ZpdResponse::RESPONSES[zpd_response.response]
+            %td= link_to "Edit", edit_cohort_zpd_response_path(@cohort, zpd_response)

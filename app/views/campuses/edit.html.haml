@@ -1,0 +1,9 @@
+.page-header
+  %h1 Edit #{@campus.name_was}
+
+%ol.breadcrumb
+  %li= link_to "Campuses", campuses_path
+  %li= link_to @campus.name_was, campus_path(@campus)
+  %li.active Edit
+
+= render 'form'

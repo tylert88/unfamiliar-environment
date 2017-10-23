@@ -1,0 +1,40 @@
+.page-header
+  - if policy(:user_expectation).list?
+    .pull-right
+      .btn-group
+        %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
+          Go to student...
+          %span.caret
+        %ul.dropdown-menu{:role => "menu", data: {behavior: 'stay-open-on-meta-click'}}
+          - @users.each do |user|
+            %li
+              = link_to user_expectations_path(user) do
+                = user.full_name
+
+  %h1 Expectations for #{@user.full_name}
+
+- @expectations.ordered.each do |expectation|
+  %a{name: "expectation-#{expectation.id}"}
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title= expectation.name
+    .panel-body
+      .row
+        .col-md-6
+          = markdownify expectation.description
+        .col-md-6
+          - statuses = @statuses[expectation.id]
+          - if statuses.present?
+            - statuses.each do |status|
+              = render 'expectation_statuses/expectation_status',
+                        status: status,
+                        expectation: expectation,
+                        user: @user
+          - else
+            %p.lead Your status on this expectation is unknown.
+
+          - if policy(ExpectationStatus).create?
+            = render 'expectation_statuses/form',
+                      status: ExpectationStatus.new,
+                      expectation: expectation,
+                      user: @user

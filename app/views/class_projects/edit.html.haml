@@ -1,0 +1,9 @@
+.page-header
+  %h1 Edit Class Project
+
+%ol.breadcrumb
+  %li= link_to "Class Projects", class_projects_path
+  %li= link_to @class_project.name_was, class_project_path(@class_project)
+  %li.active Edit
+
+= render 'form'

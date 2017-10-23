@@ -1,0 +1,73 @@
+.page-header
+  .pull-right
+    = link_to "Edit", edit_assessment_path(@assessment), class: "btn btn-info"
+    = link_to "Duplicate", new_assessment_path(duplicate_assessment_id: @assessment), class: "btn btn-warning"
+  %h1 Assessment: #{@assessment.name}
+
+%ol.breadcrumb
+  %li= link_to "Assessments", assessments_path
+  %li.active= @assessment.name
+
+.page-header
+  %h2 Preview
+
+.assessment-form
+  = @assessment.form_preview_markdown.html_safe
+
+- content_for :css, @assessment.css
+
+.page-header
+  %h2 Questions
+
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th Text
+      %th Answer
+  %tbody
+    - @assessment.questions.each do |question|
+      %tr
+        %td= question.id
+        %td.question-text= question.text
+        %td= question.answer
+
+.page-header
+  %h2 Give This Assessment
+
+= form_for GivenAssessment.new(given_on: Date.current), html: {class: "form-horizontal"} do |f|
+  .form-group
+    .col-sm-2.col-sm-offset-2
+      = errors_for(f)
+
+  .form-group
+    = f.label :cohort_id, class: "control-label col-sm-2"
+    .col-sm-5
+      = f.collection_select :cohort_id, Cohort.current.order(:name), :id, :name, {}, class: "form-control"
+
+  .form-group
+    = f.label :given_on, class: "control-label col-sm-2"
+    .col-sm-3
+      = f.date_field :given_on, class: "form-control", required: true
+
+  .form-group
+    .col-sm-2.col-sm-offset-2
+      = hidden_field_tag :assessment_id, @assessment.id
+      = f.submit class: "btn btn-primary"
+
+- if @assessment.given_assessments.present?
+  %table.table
+    %thead
+      %tr
+        %th Cohort
+        %th Given on
+    %tbody
+      - @assessment.given_assessments.each do |given_assessment|
+        %tr
+          %td= link_to given_assessment.cohort.name, cohort_given_assessment_path(given_assessment.cohort, given_assessment)
+          %td= given_assessment.given_on
+
+.row
+  .col-md-4.col-md-offset-4
+    .well.text-center
+      = link_to "Delete", assessment_path(@assessment), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"

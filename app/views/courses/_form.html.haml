@@ -1,0 +1,13 @@
+= form_for @course, html: {class: 'form-horizontal'} do |f|
+  .form-group
+    .col-md-offset-2.col-md-10
+      = errors_for(f)
+
+  .form-group
+    = f.label :name, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :name, class: "form-control", autofocus: true
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit class: "btn btn-primary"

@@ -1,0 +1,79 @@
+.page-header
+  - if policy(@taken_assessment).edit?
+    .pull-right
+      = link_to "Edit",
+                edit_user_taken_assessment_path(@user, @taken_assessment),
+                class: "btn btn-info",
+                data: {cancel_unload: true, cancel_tracking: true}
+
+  %h1 #{@taken_assessment.given_assessment.name} (#{@taken_assessment.status})
+
+- if current_user.instructor? && params[:cohort_id]
+  %ol.breadcrumb
+    %li= link_to "Assessments", cohort_given_assessments_path(params[:cohort_id])
+    %li
+      = link_to @taken_assessment.given_assessment.name,
+                cohort_given_assessment_path(params[:cohort_id], @taken_assessment.given_assessment)
+    %li.active= @user.full_name
+- else
+  %ol.breadcrumb
+    %li= link_to "Assessments", user_taken_assessments_path(@user)
+    %li.active= @taken_assessment.given_assessment.name
+
+- if @taken_assessment.scored?
+  %p.lead
+    Your score: #{@taken_assessment.score} /
+    #{@taken_assessment.given_assessment.potential_score}
+
+- submit_data = { cancel_unload: true, cancel_tracking: true, confirm: "Are you sure?  You will not be able to edit your answers after you submit."}
+
+- if policy(@taken_assessment).submit?
+  .row
+    .col-md-12
+      .well.text-center
+        = link_to "Submit",
+                  submit_user_taken_assessment_path(@user, @taken_assessment),
+                  method: :patch,
+                  data: submit_data,
+                  class: "btn btn-lg btn-primary"
+
+.assessment-form
+  = @taken_assessment.display_markdown.html_safe
+
+- content_for :css, @taken_assessment.given_assessment.css
+
+- if policy(@taken_assessment).submit?
+  .row
+    .col-md-12
+      .well.text-center
+        = link_to "Submit",
+                  submit_user_taken_assessment_path(@user, @taken_assessment),
+                  method: :patch,
+                  data: submit_data,
+                  class: "btn btn-lg btn-primary"
+
+- if @taken_assessment.scored? && current_user.instructor?
+  #given_assessment(style="width: 100%; height: 500px;")
+
+  - content_for :javascripts do
+    :javascript
+      $(function(){
+        drawChart('Responses', #{given_assessment_json(@taken_assessment.given_assessment)}, 'given_assessment', '#5C3292');
+      });
+
+- if @taken_assessment.focus_history
+  .page-header
+    %h3 Focus History
+
+    %ul
+      - @taken_assessment.focus_history.each do |entry|
+        %li
+          = entry['event'].humanize
+          = Time.zone.parse(entry['created_at']).strftime('%l:%M%P')
+
+  - if current_user.user? && @taken_assessment.in_progress?
+    - content_for :javascripts do
+      :javascript
+        window.Assessment.initialize({
+          trackingUrl: '#{j track_user_taken_assessment_path(@user, @taken_assessment)}'
+        });

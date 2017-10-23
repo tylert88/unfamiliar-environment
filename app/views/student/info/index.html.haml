@@ -1,0 +1,49 @@
+.page-header
+  %h1 Info
+
+.row
+  .col-md-12
+    %h2 Class location
+
+    %iframe#google_map_location{src: @cohort.campus.google_maps_location, width:"100%", height:"450", frameborder:"0", style:"border:0"}
+
+    = markdownify @cohort.campus.directions
+
+    %h2 Daily Schedule
+    %p
+      Core hours will be from 9am-5pm, Monday-Friday. Lunch will be from noon-1pm.
+      Students are encouraged to take some time away from their computer during
+      the lunch hour to allow their brains to relax.
+
+    %p
+      Students are expected to be ready to go at 9am sharp.
+      Instructors will be available during core hours to
+      answer any questions that students may have.
+
+    %h2 Helpful Links
+    %ul
+      - if @cohort.calendar_url?
+        %li= link_to  'Class Calendar', @cohort.calendar_url
+      %li= link_to 'Preparation Material', preparation_path(@cohort)
+      %li= link_to 'Regulatory Information / Guides', "http://www.galvanize.com/regulatory-information/#.VjmUj66rRE5"
+
+    %h2 Instructors
+
+    %p
+      Please use #{mail_to("fs.all@galvanize.com")} for any questions you have. This will make sure
+      that all instructors get your email. If you need to get in touch with an instructor individually
+      please use the information below.
+
+    - @cohort.staffings.active.each do |staffing|
+      - instructor = staffing.user
+      .panel.panel-info
+        .panel-heading
+          %h2.panel-title= instructor.full_name
+        .panel-body
+          %ul
+            %li
+              %i.glyphicon.glyphicon-envelope
+              = mail_to instructor.email, instructor.email
+            %li
+              %i.glyphicon.glyphicon-phone
+              = instructor.phone

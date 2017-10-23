@@ -1,0 +1,26 @@
+.page-header
+  .pull-right
+    = link_to 'New Staffing', new_cohort_staffing_path, class: 'btn btn-info'
+  %h1 Staffings for #{@cohort.name}
+
+%table.table
+  %thead
+    %tr
+      %th User
+      %th Status
+      %th
+      %th
+      %th
+  %tbody
+    - @staffings.each do |staffing|
+      %tr
+        %td= link_to staffing.user.full_name, user_path(staffing.user)
+        %td= staffing.status
+        %td= link_to 'edit', edit_cohort_staffing_path(@cohort, staffing)
+        %td= link_to 'delete', cohort_staffing_path(@cohort, staffing), method: :delete, data: {confirm: 'Are you sure?'}
+        %td.text-right
+          = link_to 'Add as tracker owner',
+                    add_as_owner_cohort_staffing_path(@cohort, staffing),
+                    method: :post,
+                    data: {confirm: "This will add #{staffing.user.email} as an owner of all student tracker projects for this cohort.  Are you sure?"},
+                    class: "btn btn-xs btn-primary"

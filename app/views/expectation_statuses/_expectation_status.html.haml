@@ -1,0 +1,36 @@
+.panel{class: expectation_status_class(status)}
+  .panel-heading
+    .pull-right.link-bars
+      - if policy(status).publish?
+        = link_to 'publish',
+                  publish_user_expectation_expectation_status_path(user, expectation, status),
+                  method: :post,
+                  data: {confirm: "Are you sure? #{user.full_name} will see this."}
+      - if policy(status).mark_as_read?
+        = link_to 'Mark as Read',
+                  mark_as_read_user_expectation_expectation_status_path(user, expectation, status),
+                  method: :post
+      - if policy(status).edit?
+        = link_to 'edit',
+                  edit_user_expectation_expectation_status_path(user, expectation, status)
+      - if policy(status).destroy?
+        = link_to 'delete',
+                  user_expectation_expectation_status_path(user, expectation, status),
+                  method: :delete,
+                  data: {confirm: 'Are you sure?'}
+
+    %h3.panel-title
+      = status.author.full_name
+      (#{status.created_at.strftime('%-m/%-d/%Y')})
+      %small (#{status.status})
+  .panel-body
+    - if status.on_track
+      %p.text-success
+        %i.glyphicon.glyphicon-ok
+        On track
+    - else
+      %p.text-danger
+        %i.glyphicon.glyphicon-remove
+        %strong NOT
+        on track
+    = markdownify status.notes

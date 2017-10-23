@@ -1,0 +1,72 @@
+.page-header
+  %h1 Edit Employment Profile for #{@user.full_name}
+
+- if current_user.instructor?
+  %ol.breadcrumb
+    %li= link_to @user.full_name, user_path(@user, cohort_id: @cohort)
+    %li= link_to "Employment Profile", user_employment_profile_path(@user, cohort_id: @cohort)
+    %li.active Edit
+- else
+  %ol.breadcrumb
+    %li= link_to 'Home', get_home_path
+    %li= link_to "Employment Profile", user_employment_profile_path(@user)
+    %li.active Edit
+
+%p.alert.alert-warning For your profile to appear on public facing homepage, fill out the "Bio", "Headline", and "Looking for" sections.
+
+= form_for [@user, @employment_profile], url: user_employment_profile_path(@user), html: {class: "form-horizontal"} do |f|
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = errors_for(f)
+
+  .form-group
+    = f.label :status, class: "control-label col-md-2"
+    .col-md-2
+      = f.collection_select :status, EmploymentProfile.statuses, :first, :first, {}, class: "form-control"
+
+  .form-group
+    = f.label :headline, class: "control-label col-md-2"
+    .col-md-6
+      = f.text_area :headline, class: "form-control", rows: 6, placeholder: 'Brief description of what you are looking for, ie: "Junior Developer interested in Pair Programming", "UX Designer Turned Developer", "Code Slinger | Beer Enthusiast | Diehard Rspec Fan". Not markdown...'
+
+  .form-group
+    = f.label :strengths, class: "control-label col-md-2"
+    .col-md-6
+      = f.text_area :strengths, class: "form-control", rows: 6, placeholder: '1 per line, not markdown...'
+
+  .form-group
+    = f.label :preferred_locations, class: "control-label col-md-2"
+    .col-md-6
+      = f.text_area :preferred_locations, class: "form-control", rows: 6, placeholder: '1 per line, not markdown... Please format as city, state: ie `Boulder, CO`'
+
+  .form-group
+    = f.label :looking_for, class: "control-label col-md-2"
+    .col-md-6
+      = f.text_area :looking_for, class: "form-control", rows: 6, placeholder: 'Accepts markdown...'
+
+  .form-group
+    = f.label :bio, class: "control-label col-md-2"
+    .col-md-6
+      = f.text_area :bio, class: "form-control", rows: 6, placeholder: 'Accepts markdown...'
+
+  .form-group
+    .col-md-6.col-md-offset-2
+      .checkbox
+        %label
+          = f.check_box :remote_work
+          I'm open to remote work
+
+  .form-group
+    .col-md-6.col-md-offset-2
+      .checkbox
+        %label
+          = f.check_box :show_email
+          Show my email on my public profile
+
+  .form-group
+    .col-md-offset-2.col-md-6
+      - if @cohort
+        = hidden_field_tag :cohort_id, @cohort.id
+      = f.submit 'Save Profile', class: "btn btn-primary"
+      = link_to 'Cancel', get_home_path, class: 'btn btn-default'

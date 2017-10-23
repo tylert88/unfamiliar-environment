@@ -1,0 +1,19 @@
+.page-header
+  %h2 Edit Objective
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to @standard.name, standard_path(@standard)
+  %li= link_to @objective.name_was, standard_path(@objective)
+  %li.active Edit
+
+= form_for @objective, html: {class: 'form-horizontal'} do |f|
+  = render 'form', f: f
+
+.row
+  .col-md-11.col-md-offset-1
+    %h2 Standard Resources
+    %pre= @objective.standard.resources
+    .well.text-center
+      = link_to "Delete Objective", delete_objective_path(@objective), class: "btn btn-danger"

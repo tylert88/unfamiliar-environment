@@ -1,0 +1,10 @@
+.page-header
+  %h1 New Job Activity for #{@user.full_name}
+
+%ol.breadcrumb
+  - if current_user.instructor?
+    %li= link_to @user.full_name, user_path(@user)
+  %li= link_to "Job Activities", user_job_activities_path(@user)
+  %li.active New
+
+= render 'form'

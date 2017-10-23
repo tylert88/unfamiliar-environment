@@ -1,0 +1,21 @@
+.page-header
+  %h1 #{@taken_assessment.given_assessment.name}
+
+%ol.breadcrumb
+  %li= link_to "Assessments", user_taken_assessments_path(@user)
+  %li= link_to @taken_assessment.given_assessment.name, user_taken_assessment_path(@user, @taken_assessment), data: {cancel_tracking: true}
+  %li.active In Progress
+
+= form_for [@user, @taken_assessment] do |f|
+  .assessment-form
+    = @taken_assessment.form_markdown.html_safe
+  - content_for :css, @taken_assessment.given_assessment.css
+  %hr
+  = f.submit "Save (you can still edit)", class: "btn btn-primary", data: {cancel_unload: true, cancel_tracking: true}
+
+- if current_user.user?
+  - content_for :javascripts do
+    :javascript
+      window.Assessment.initialize({
+        trackingUrl: '#{j track_user_taken_assessment_path(@user, @taken_assessment)}'
+      });

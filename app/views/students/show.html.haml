@@ -1,0 +1,22 @@
+- content_for(:outside_main) do
+  .hero{:style => "background-image: url(#{@student.avatar_url(:hero)}), linear-gradient(10deg, #844507, #d37b05), none;"}
+    .hero-inner
+      .profile
+        = image_tag @student.avatar_url(:card)
+      .hero-subtitle
+        %h1
+          = @student.full_name
+        %h3
+          = @student.employments.active.first.try(:company_name)
+
+.student-information
+  %aside
+    .links
+      - if @student.linkedin?
+        = link_to image_tag("linked_in.png"), @student.linkedin
+      - if @student.github_url
+        = link_to image_tag("GitHub-Mark-120px-plus.png"), @student.github_url
+      - if @student.twitter?
+        = link_to image_tag("Twitter_logo_blue.png"), @student.twitter_url
+
+  .portfolio

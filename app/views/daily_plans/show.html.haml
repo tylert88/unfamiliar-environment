@@ -1,0 +1,60 @@
+.page-header
+  - if policy(@daily_plan).edit?
+    .pull-right
+      - if @daily_plan.next
+        = link_to cohort_daily_plan_path(@cohort, @daily_plan.next), class: 'btn' do
+          Next
+    - if @daily_plan.persisted?
+      .pull-right
+        = link_to edit_cohort_daily_plan_path(@cohort, @daily_plan), class: "btn btn-info" do
+          %i.glyphicon.glyphicon-pencil
+          Edit
+    - else
+      .pull-right
+        = link_to new_cohort_daily_plan_path(@cohort, date: @daily_plan), class: "btn btn-info" do
+          %i.glyphicon.glyphicon-plus
+          Create One
+    .pull-right
+      - if @daily_plan.prev
+        = link_to cohort_daily_plan_path(@cohort, @daily_plan.prev), class: 'btn' do
+          Previous
+
+  %h1 Daily Plan for #{@daily_plan.date.strftime("%A, %-m/%-d/%Y")}
+
+%ol.breadcrumb
+  - if policy(@cohort).show?
+    %li= link_to @cohort.name, cohort_path(@cohort)
+  %li= link_to "Daily Plans", cohort_daily_plans_path(@cohort)
+  %li.active= @daily_plan.date.strftime("%A, %-m/%-d/%Y")
+
+- if @partner
+  .page-header
+    %h3
+      Your pair for today is
+      - if @partner.id
+        = link_to @partner.full_name, cohort_student_path(@cohort, @partner)
+      - else
+        = @partner.full_name
+
+- if @cohort.daily_feedback_url?
+  - if current_user.cohorts.include?(@cohort) # user is a student (not a mentor)
+    - link = @cohort.daily_feedback_url
+    - month = @daily_plan.date.strftime("%m")
+    - day = @daily_plan.date.strftime("%d")
+    = link_to "Let us know how today is going!", link.sub('{month}', month).sub('{day}', day)
+    %br
+
+- if @daily_plan.new_record?
+  .jumbotron
+    %p.lead There's no plan for this day yet.
+- else
+  - daily_plan_renderer = new_daily_plan_renderer(@daily_plan)
+  .row
+    .col-md-9
+      .github-content
+        = daily_plan_renderer.content
+    .col-md-3
+      %ul.nav
+        %li
+          - daily_plan_renderer.nav_links.each do |link|
+            %li= link_to link[:text], anchor: link[:name]

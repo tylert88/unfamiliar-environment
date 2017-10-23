@@ -1,0 +1,51 @@
+= render "dashboard_nav"
+.tab-content
+  - if params['view'] == 'daily' || params['view'].nil?
+    .row
+      .col-md-8
+        %h3.page-title Daily Plans
+        - daily_plan_renderer = new_daily_plan_renderer(@daily_plan)
+        %ul.list-group
+          %li.list-group-item.active.overflow
+            .pull-left
+              - if @daily_plan.new_record?
+                %h5.pull-left There is no plan for this day yet.
+              - else
+                = link_to "View Full Plan", cohort_daily_plan_path(@cohort, @daily_plan), class: "btn btn-primary btn-sm pull-left"
+            .pull-right
+              = link_to "All Plans", cohort_daily_plans_path(@cohort), class: "btn btn-secondary btn-sm"
+              = link_to "View Recent Plans", "#", class: 'btn btn-sm btn-secondary previous-plans'
+          %span{id: "todays-plan"}
+            - daily_plan_renderer.nav_links.each do |nav_link|
+              %li.list-group-item
+                = nav_link[:text]
+          %span{id: "previous-plans", style: "display: none"}
+
+            - @daily_plans.each do |daily_plan|
+              %li.list-group-item= link_to daily_plan.date.strftime("%A, %b %d - %Y"), cohort_daily_plan_path(@cohort, daily_plan)
+
+      .col-md-4
+        %h4.page-header
+          = link_to "View All", cohort_zpd_responses_path, class: 'btn btn-xs btn-primary pull-right'
+          ZPD Responses
+        .row
+          .col-md-12
+            -if !@todays_zpd_response
+              .alert.alert-danger.text-center
+                = link_to "Please fill out a ZPD Response for today.", new_cohort_zpd_response_path(@cohort)
+        .row
+          .col-md-12
+            .student-zpd-data.dashboard{ value: @zpd_response_data }
+        .row
+          .col-md-12
+            %table.table.table-striped
+              %thead
+                %th Date
+                %th Response
+                %th Edit
+              %tbody
+                -@zpd_responses.each do |zpd_response|
+                  %tr
+                    %td= zpd_response.date
+                    %td= ZpdResponse::RESPONSES[zpd_response.response]
+                    %td= link_to "Edit", edit_cohort_zpd_response_path(@cohort, zpd_response), class: 'btn btn-black btn-xs'

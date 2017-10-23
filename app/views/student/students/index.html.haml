@@ -1,0 +1,41 @@
+.page-header
+  %h2 Other Students
+
+.row
+  .col-md-12
+    = link_to cohort_students_path(@cohort) do
+      %i.glyphicon.glyphicon-th-list
+    = link_to cohort_students_path(@cohort, layout: :grid) do
+      %i.glyphicon.glyphicon-th
+
+&nbsp;
+
+- if params[:layout] == 'grid'
+  - @students.in_groups_of(6, false) do |students|
+    .row
+      - students.each do |student|
+        .col-md-2
+          %a.thumbnail{href: cohort_student_path(@cohort, student)}
+            = image_tag student.avatar.url(:card)
+            .caption
+              .text-center= student.full_name
+
+- else
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th Phone
+        %th Email
+        %th GitHub
+
+    %tbody
+      - @students.each do |user|
+        %tr
+          %td= link_to user.full_name, cohort_student_path(user.current_cohort, user)
+          %td= user.phone
+          %td= mail_to user.email, user.email
+          - if user.github_username?
+            %td= link_to user.github_username, "https://github.com/#{user.github_username}"
+          - else
+            %td

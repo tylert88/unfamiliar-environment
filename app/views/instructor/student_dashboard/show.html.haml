@@ -1,0 +1,32 @@
+.page-header
+  %h1
+    = @user.full_name
+    Dashboard
+.row
+  .col-md-4
+    .student-zpd-data{ value: @zpd_response_data }
+  .col-md-7.col-md-offset-1
+    %table.table.table-striped
+      %thead
+        %th Date
+        %th Response
+      %tbody
+        -@zpd_responses.each do |zpd_response|
+          %tr
+            %td= zpd_response.date
+            %td= ZpdResponse::RESPONSES[zpd_response.response]
+.row
+  .col-md-12
+    %h3.page-header Javascript Challenges
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Directory Name
+          %th Challenge
+          %th Percent Complete
+      %tbody
+        - @challenge_student_challenges_presenter.challenges.each_with_index do |challenge_hash, index|
+          %tr
+            %td= challenge_hash[:directory_name]
+            %td= link_to challenge_hash[:github_url], challenge_hash[:github_url]
+            %td= format_progress_bar(challenge_hash[:percent_passing])

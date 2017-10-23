@@ -1,0 +1,68 @@
+= form_for [@curriculum, @learning_experience] do |f|
+  .row
+    .col-md-6
+      - if f.object.errors.present?
+        .form-group
+          = errors_for(f)
+
+      .form-group
+        = f.label :subject_id
+        = f.collection_select :subject_id, Subject.where(curriculum_id: @curriculum), :id, :name, {include_blank: true}, class: 'form-control'
+
+      .form-group
+        = f.label :section
+        = f.text_field :section, class: 'form-control'
+
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: "form-control", autofocus: true
+
+      .form-group
+        = f.label :suggested_days
+        .row
+          .col-md-2
+            = f.number_field :suggested_days, class: "form-control", step: "any"
+          .col-md-10
+            .help-block
+              (used as a suggestion, and to calculate coverage)
+
+      .form-group
+        .checkbox
+          %label
+            = f.check_box :mainline
+            Mainline
+
+      .form-group
+        = f.label :github_link do
+          Github Link (not enabled yet)
+        = f.text_field :github_repo, class: 'form-control'
+
+      .form-group
+        = f.label :description
+        = f.text_area :description, class: "form-control", rows: 12, style: 'resize: vertical;', data: {editor: 'markdown'}
+        %p.text-right.help-block Students will see this
+
+      .form-group
+        = f.label :instructor_notes
+        = f.text_area :instructor_notes, class: "form-control", rows: 16, style: 'resize: vertical;', data: {editor: 'markdown'}
+        %p.text-right.help-block Only instructors will see this
+
+      .form-group
+        = f.submit class: 'btn btn-primary'
+        = link_to "cancel", curriculum_learning_experiences_path(@curriculum), class: 'btn btn-default'
+
+      - if f.object.persisted?
+        .form-group
+          .well.text-center
+            = link_to "Delete",
+                      curriculum_learning_experience_path(@curriculum, @learning_experience),
+                      class: "btn btn-danger",
+                      method: :delete,
+                      data: {confirm: 'Are you sure?'}
+
+    .col-md-6
+      = react_component 'LearningExperienceForm'
+
+- content_for :javascripts do
+  :javascript
+    window.standards = #{@standards_json.to_json.html_safe}

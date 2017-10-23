@@ -1,0 +1,9 @@
+<p>
+  <%= @comment.user.full_name %> wrote:
+</p>
+
+<%= markdownify @comment.body %>
+
+<p>
+  <%= link_to "Click here", @writeup_url %> to reply.
+</p>

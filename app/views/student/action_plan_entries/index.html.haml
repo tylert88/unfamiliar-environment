@@ -1,0 +1,14 @@
+.page-header
+  %h1 #{current_user.full_name}: Action Plan Entries
+
+- if @entries.present?
+  - @entries.each do |entry|
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          = entry.created_at.to_s(:long)
+      .panel-body
+        = markdownify(entry.description)
+- else
+  .jumbotron
+    %h2 There are no entries yet

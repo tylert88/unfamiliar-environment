@@ -1,0 +1,26 @@
+.page-header
+  .pull-right
+    = link_to "Reorder", reorder_curriculum_learning_experiences_path(@curriculum), :class => "btn btn-default"
+    = link_to "Assign", assign_curriculum_learning_experiences_path(@curriculum), :class => "btn btn-default"
+    = link_to "New Learning Experience", new_curriculum_learning_experience_path(@curriculum), :class => "btn btn-info"
+  %h1 Reorder Learning Experiences
+
+= render '/instructor/curriculums/nav', tab: :learning_experiences
+%ul.breadcrumb
+  %li= link_to 'Curriculums', curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to 'Learning Experiences', curriculum_learning_experiences_path(@curriculum)
+  %li.active Reorder
+
+%table.table.table-striped{data: {behavior: :tablednd, reorder_url: reorder_curriculum_learning_experiences_path(@curriculum)}}
+  %thead
+    %tr
+      %th Experience
+      %th Subject
+      %th Section
+  %tbody
+    - @learning_experiences.each do |experience|
+      %tr{id: experience.id}
+        %td= link_to experience.name, curriculum_learning_experience_path(@curriculum, experience)
+        %td= experience.subject.try(:name)
+        %td= experience.section

@@ -1,0 +1,12 @@
+.page-header
+  %h2= "New ZPD Response for #{@learning_experience.name}"
+= form_for([@learning_experience, @zpd_response], url: learning_experience_zpd_responses_path(@learning_experience)) do |f|
+  = errors_for(f)
+  .form-group
+    = f.label :response
+    = f.collection_select(:response, ZpdResponse::RESPONSES, :first, :last, {}, class: "form-control")
+  .form-group
+    = f.label :date
+    = f.date_field :date, class: 'form-control', value: Date.current
+  .form-group
+    = f.submit "Submit", class: "btn btn-primary"

@@ -1,0 +1,29 @@
+.page-header
+  .pull-right
+    = link_to new_class_project_epic_path(@class_project), class: "btn btn-info" do
+      %i.glyphicon.glyphicon-plus
+      New Epic
+
+  %h2 #{@class_project.name} Epics
+
+%ol.breadcrumb
+  %li= link_to "Class Projects", class_projects_path
+  %li.active= "#{@class_project.name} Epics"
+
+.row
+  .col-md-12
+    %table.table{data: {behavior: :tablednd, reorder_url: reorder_class_project_epics_path(@class_project)}}
+      %thead
+        %th Name
+        %th Category
+        %th Label
+        %th
+      %tbody
+        - @epics.each do |epic|
+          %tr{id: epic.id}
+            %td= link_to epic.name, class_project_epic_path(@class_project, epic)
+            %td= epic.category
+            %td= epic.label
+            %td
+              .pull-right
+                = link_to 'edit', edit_class_project_epic_path(@class_project, epic)

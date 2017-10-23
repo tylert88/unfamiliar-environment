@@ -1,0 +1,14 @@
+- content_for :title, "Preparing for Galvanize"
+
+%h1 Preparing for Galvanize
+
+- cohorts = @cohorts.select(&:prereqs?)
+- if cohorts.present?
+  %p Please choose the cohort you are planning to attend:
+
+  - cohorts.each do |cohort|
+    %div
+      = link_to cohort.name, preparation_path(cohort)
+- else
+  %p The prerequesites for upcoming cohorts have not yet been published.
+  %p Please check back again soon!

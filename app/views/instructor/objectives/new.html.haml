@@ -1,0 +1,11 @@
+.page-header
+  %h2 New Objective
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to @standard.name, standard_path(@standard)
+  %li.active New Objective
+
+= form_for [@standard, @objective], html: {class: 'form-horizontal'} do |f|
+  = render 'form', f: f

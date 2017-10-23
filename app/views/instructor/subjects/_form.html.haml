@@ -1,0 +1,30 @@
+= form_for [@curriculum, @subject] do |f|
+  .row
+    .col-md-6
+      - if f.object.errors.present?
+        .form-group
+          = errors_for(f)
+
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: "form-control", autofocus: true
+
+      .form-group
+        = f.submit class: 'btn btn-primary'
+        = link_to "cancel", curriculum_subjects_path(@curriculum), class: 'btn btn-default'
+
+      - if f.object.persisted?
+        .form-group
+          .well.text-center
+            = link_to "Delete",
+                      curriculum_subject_path(@curriculum, @subject),
+                      class: "btn btn-danger",
+                      method: :delete,
+                      data: {confirm: 'Are you sure?'}
+
+    .col-md-6
+      = react_component 'SubjectForm'
+
+- content_for :javascripts do
+  :javascript
+    window.learning_experiences = #{@learning_experiences_json.to_json.html_safe}

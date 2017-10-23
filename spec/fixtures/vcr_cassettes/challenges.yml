@@ -1,0 +1,36 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://galvanize-student-challenges.herokuapp.com/challenges.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Connection:
+      - keep-alive
+      Date:
+      - Tue, 18 Aug 2015 00:30:10 GMT
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: UTF-8
+      string: '{"challenges":[{"_id":"55a04e30e061dc030083a4f8","directory_name":"00_functions","github_url":"https://github.com/gSchool/javascript-challenges","__v":0},{"_id":"55a04e36e061dc030083a4f9","directory_name":"01_equality","github_url":"https://github.com/gSchool/javascript-challenges","__v":0},{"_id":"55a483d2e4b0e8a160f9ba58","directory_name":"02_convert_ruby","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a48413e4b0e8a160f9ba59","directory_name":"03_arrays","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a48423e4b0e8a160f9ba5a","directory_name":"05_fix_broken_code","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a4842fe4b0e8a160f9ba5b","directory_name":"06_join_for_loop","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a4843be4b0e8a160f9ba5c","directory_name":"07_peaks_and_valleys","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a48455e4b0e8a160f9ba5d","directory_name":"04_objects","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a48488e4b0e8a160f9ba60","directory_name":"08_higher_order_functions","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a48496e4b0e8a160f9ba66","directory_name":"09_recursion","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a4849ee4b0e8a160f9ba68","directory_name":"10_maths","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a484a5e4b0e8a160f9ba69","directory_name":"11_matrices","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a484afe4b0e8a160f9ba6a","directory_name":"12_chaining","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a484b9e4b0e8a160f9ba6b","directory_name":"50_multiplication_tables","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a484c6e4b0e8a160f9ba6c","directory_name":"56_trees_and_recursion","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55a484cfe4b0e8a160f9ba6d","directory_name":"80_round_robin","github_url":"https://github.com/gSchool/javascript-challenges"},{"_id":"55b690dde4b068317b871119","directory_name":"js-conditional-and-loop-fundamentals","github_url":"https://github.com/gSchool/js-conditional-and-loop-fundamentals"}]}'
+    http_version: 
+  recorded_at: Tue, 18 Aug 2015 00:30:09 GMT
+recorded_with: VCR 2.9.3

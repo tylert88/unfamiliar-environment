@@ -1,0 +1,23 @@
+.page-header
+  %h1 #{@cohort.name} Personal Projects
+
+%table.table
+  %thead
+    %th User
+    %th Project
+    %th
+  %tbody
+    - @projects.each do |project|
+      %tr
+        %td= link_to project.user.full_name, user_path(project.user)
+        %td= project.name
+        %td
+          - links = []
+          - if project.production_url?
+            - links << link_to( "Production", project.production_url)
+          - if project.github_url?
+            - links << link_to( "Github", project.github_url)
+          - if project.tracker_url?
+            - links << link_to( "Tracker", project.tracker_url)
+          .pull-right
+            = links.join(" | ".html_safe).html_safe

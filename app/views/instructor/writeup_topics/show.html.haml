@@ -1,0 +1,51 @@
+.page-header
+  .pull-right
+    = link_to 'Edit',
+              edit_instructor_cohort_writeup_topic_path(@cohort, @writeup_topic),
+              class: 'btn btn-info'
+  %h1 #{truncate(@writeup_topic.subject, length: 60)}
+
+%ol.breadcrumb
+  %li= link_to "Writeup Topics", instructor_cohort_writeup_topics_path(@cohort)
+  %li.active= @writeup_topic.subject
+
+- if @students_who_did_not_complete.present?
+  .page-header
+    %h3 The following students have not completed the writeup
+  %ul.students-who-did-not-complete
+    - @students_who_did_not_complete.each do |student|
+      %li= link_to student.full_name, user_path(student)
+
+- if @writeup_topic.description?
+  .page-header
+    %h3 Description
+  %blockquote= markdownify(@writeup_topic.description)
+
+- if @writeup_topic.writeups.present?
+  .page-header
+    %h3 Submitted Writeups
+  - @writeup_topic.writeups.sort_by{|writeup| writeup.user.full_name.strip.downcase }.each do |writeup|
+    - class_name = {nil => 'panel-default', 1 => 'panel-warning', 2 => 'panel-warning'}.fetch(writeup.score, 'panel-success')
+    .panel{class: class_name}
+      .panel-heading
+        .pull-right
+          = form_for writeup, url: instructor_cohort_writeup_topic_writeup_path(@cohort, @writeup_topic, writeup), remote: true, html: {id: nil, data: {behavior: 'score-form'}} do |f|
+            - [1,2,3,4].each do |num|
+              %label.label-score
+                = f.radio_button(:score, num, id: nil)
+                = num
+        %h3.panel-title
+          = writeup.user.full_name
+          (#{writeup.created_at.to_s(:long)})
+      .panel-body
+        = markdownify(writeup.response)
+        = render 'writeup_comments/section', writeup: writeup
+- else
+  .jumbotron
+    %h2 There are no writeups yet
+
+- content_for :javascripts do
+  :javascript
+    $(function () {
+      WriteupComment.initialize()
+    });

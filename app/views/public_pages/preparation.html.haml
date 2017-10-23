@@ -1,0 +1,14 @@
+- content_for :title, "Preparing for Galvanize"
+
+- if @cohort
+  - if @cohort.prereqs?
+    .preparation
+      = markdownify @cohort.prereqs
+  - else
+    %h1 Too soon!
+
+    %p We haven't posted the pre-reqs for this cohort yet.
+- else
+  %h1 We're sorry
+
+  %p The page you were looking for cannot be found.

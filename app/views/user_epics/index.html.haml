@@ -1,0 +1,18 @@
+.page-header
+  %h1 Stories for #{@user.full_name}
+
+- if @epics.present?
+  - @epics.each do |class_project, epics|
+    .page-header
+      %h2= class_project.name
+    %table.table
+      %thead
+        %tr
+          %th Name
+      %tbody
+        - epics.sort_by(&:position).each do |epic|
+          %tr
+            %td= link_to epic.name, user_epic_path(@user, epic)
+- else
+  .jumbotron
+    %h2 No stories have been assigned yet

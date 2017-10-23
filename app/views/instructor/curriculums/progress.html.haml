@@ -1,0 +1,59 @@
+.page-header
+  .pull-right
+    - if policy(@curriculum).update?
+      = link_to "Progress",
+                progress_curriculum_path(@curriculum),
+                class: "btn btn-default"
+    - if policy(@curriculum).update?
+      = link_to "Reorder",
+                reorder_curriculum_standards_path(@curriculum),
+                class: "btn btn-default"
+    - if policy(Standard).create?
+      = link_to "New Standard",
+                new_curriculum_standard_path(@curriculum),
+                class: "btn btn-info"
+    - if policy(@curriculum).update?
+      = link_to "Edit",
+                edit_curriculum_path(@curriculum),
+                class: "btn btn-info"
+  %h1 #{@curriculum.name} Progress
+
+= render '/instructor/curriculums/nav', tab: :progress
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li.active Progress
+
+%table.table.table-progress
+  %colgroup
+    %col(style='width: 50%')
+    %col(style='width: 45%')
+  %thead
+    %tr
+      %th Standards
+      %th
+      %th
+  %tbody
+    - @standards.each do |standard|
+      %tr.tr-standard
+        %th
+          %div= link_to standard.name, standard_path(standard)
+          .standard-tags= standard.tags.join(", ")
+        %td
+          .progress
+            - standard_percentage = @standard_completions[standard.id]
+            - css_class = progress_bar_class(standard_percentage)
+            .progress-bar{class: css_class,role: "progressbar", style: "min-width: 2em; width: #{standard_percentage}%;"}
+              #{standard_percentage}%
+        %td.text-right= link_to 'edit', edit_standard_path(standard, return_to: :progress)
+      - standard.objectives.sort_by(&:position).each do |objective|
+        %tr
+          %td= link_to objective.name, objective_path(objective)
+          %td
+            .progress
+              - objective_percentage = @objective_completions[objective.id]
+              - css_class = progress_bar_class(objective_percentage)
+              .progress-bar{class: css_class, role: "progressbar", style: "min-width: 2em;width: #{objective_percentage}%;"}
+                #{objective_percentage}%
+          %td.text-right= link_to 'edit', edit_objective_path(objective, return_to: :progress)

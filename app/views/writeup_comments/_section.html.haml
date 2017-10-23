@@ -1,0 +1,18 @@
+.writeup-comments
+  - if writeup.comments.present?
+    %hr
+    - writeup.comments.sort_by(&:created_at).each do |comment|
+      .panel.panel-default
+        .panel-heading
+          = comment.user.full_name
+          .pull-right
+            #{time_ago_in_words(comment.created_at)} ago
+        .panel-body
+          = markdownify comment.body
+
+  = form_for WriteupComment.new, url: writeup_comments_path(writeup), remote: true, html: {data: {behavior: 'writeup-form'}} do |f|
+    .form-group
+      = f.text_area :body, class: "form-control", required: true
+    .form-group
+      = f.submit "Add Comment", class: "btn btn-primary"
+      %small NOTE: this will send an email to #{current_user.instructor? ? writeup.user.full_name : "all your instructors" }

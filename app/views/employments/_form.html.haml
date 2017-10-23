@@ -1,0 +1,35 @@
+= form_for [@user, @employment], html: {class: "form-horizontal"} do |f|
+  = errors_for(f)
+
+  .form-group
+    = f.label :company_name, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.text_field :company_name, class: "form-control", autofocus: true
+
+  .form-group
+    = f.label :company_url, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.text_field :company_url, class: "form-control"
+
+  .form-group
+    = f.label :city, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.text_field :city, class: "form-control"
+
+  .form-group
+    = f.label :company_type, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.text_field :company_type, class: "form-control"
+
+  .form-group
+    .col-sm-6.col-sm-offset-2
+      .checkbox
+        %label
+          = f.check_box :active
+          Active
+
+  .form-group
+    .col-sm-offset-2.col-sm-6
+      - if params[:cohort_id]
+        = hidden_field_tag :cohort_id, params[:cohort_id]
+      = f.submit class: 'btn btn-primary'

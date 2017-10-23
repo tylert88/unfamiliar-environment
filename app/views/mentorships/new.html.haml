@@ -1,0 +1,56 @@
+.page-header
+  %h1 New Mentorship for #{@user.full_name}
+
+= form_for @mentorship, url: cohort_student_mentorships_path(@cohort, @user), html: {class: "form-horizontal"} do |f|
+  = errors_for(f)
+
+  .hidden(data-container="all")
+    .form-group
+      %label.col-sm-2.control-label Search for a user
+      .col-sm-4
+        %input#mentor_search.form-control{type: 'text', autofocus: true}
+
+    %hr
+
+    .hidden(data-container="existing-only")
+      .form-group
+        = f.label :name, 'Mentor', class: "col-sm-2 control-label"
+        .col-sm-4
+          %p.form-control-static(data-placeholder="user-name")
+
+    .form-group.hidden(data-container="any")
+      = f.label :status, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.collection_select :status, Mentorship.statuses, :first, :first, {}, class: "form-control"
+
+    .hidden(data-container="new-only")
+      .form-group
+        = label :user, :first_name, class: "col-sm-2 control-label"
+        .col-sm-4
+          = text_field :user, :first_name, class: "form-control", disabled: true, required: true
+
+      .form-group
+        = label :user, :last_name, class: "col-sm-2 control-label"
+        .col-sm-4
+          = text_field :user, :last_name, class: "form-control", disabled: true, required: true
+
+      .form-group
+        = label :user, :email, class: "col-sm-2 control-label"
+        .col-sm-4
+          = email_field :user, :email, class: "form-control", disabled: true, required: true, placeholder: "Must match their GitHub email address"
+
+    .form-group.hidden(data-container="any")
+      = f.label :company_name, class: "col-sm-2 control-label"
+      .col-sm-4
+        = f.text_field :company_name, class: "form-control"
+
+    .form-group.hidden(data-container="any")
+      .col-md-offset-2.col-md-4
+        = f.submit class: 'btn btn-primary'
+        = f.hidden_field :mentor_id
+        - path = cohort_student_mentorships_path(@cohort, @user)
+        = link_to "cancel", path, class: "btn btn-default"
+
+- content_for :javascripts do
+  :javascript
+    MentorshipForm.initialize(#{all_users_typeahead_json});

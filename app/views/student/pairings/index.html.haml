@@ -1,0 +1,44 @@
+.page-header
+  %h2 Pair Bingo
+
+- if @pending_users.present?
+  - @pending_users.each_value do |student|
+    - matching_pairing = Pairing.where(user_id: student.id, pair_id: current_user.id).first
+    .panel.panel-info.pending-pairing
+      .panel-heading
+        %h3.panel-title Please fill in your pair feedback for #{student.full_name}
+      .panel-body
+        .row
+          .col-md-2.text-center
+            = image_tag user_avatar_url_or_default(student), class: "img-responsive"
+            %p
+              %strong= student.full_name
+            %p= matching_pairing.paired_on.strftime("%-m/%-d/%Y")
+          .col-md-8
+            - pairing = Pairing.new(paired_on: matching_pairing.paired_on)
+            = form_for [:cohort, pairing], html: {class: "form-horizontal"} do |f|
+              = errors_for(f)
+              = hidden_field_tag :student_id, student.id
+              = f.hidden_field :paired_on
+
+              .form-group
+                .col-sm-6
+                  = f.text_area :feedback, class: "form-control", rows: 9
+
+              .form-group
+                .col-sm-6
+                  = f.submit 'Record feedback', class: 'btn btn-primary'
+
+
+- @students.each do |group|
+  .row
+    - group.each do |student|
+      .col-md-2.text-center
+        - if @done_users[student.id]
+          = link_to new_cohort_pairing_path(@cohort, student_id: student), class: 'text-translucent' do
+            = image_tag user_avatar_url_or_default(student), class: "img-responsive"
+            = student.full_name
+        - else
+          = link_to new_cohort_pairing_path(@cohort, student_id: student) do
+            = image_tag user_avatar_url_or_default(student), class: "img-responsive"
+            = student.full_name

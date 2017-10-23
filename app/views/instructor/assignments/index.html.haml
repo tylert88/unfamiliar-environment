@@ -1,0 +1,16 @@
+= link_to "New Assignment", new_instructor_cohort_assignment_path, class: "btn btn-primary"
+%table.table.table-striped
+  %thead
+    %th Name
+    %th URL
+    %th Due Date
+    %th Actions
+  %tbody
+    - @assignments.each do |assignment|
+      %tr
+        %td= link_to assignment.name, instructor_cohort_assignment_path(@cohort, assignment)
+        %td= link_to assignment.url, assignment.url
+        %td= assignment.due_date.strftime("%m/%d/%Y")
+        %td
+          = link_to "Edit", edit_instructor_cohort_assignment_path(@cohort, assignment)
+          = link_to "Delete", instructor_cohort_assignment_path(@cohort, assignment), method: :delete, data: { confirm: "Are you sure?" }

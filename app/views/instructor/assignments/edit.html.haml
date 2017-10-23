@@ -1,0 +1,6 @@
+= link_to "Back", instructor_cohort_deadlines_path
+%h2
+  Edit
+  = @assignment.name
+= form_for @assignment, url: instructor_cohort_assignment_path(cohort_id: params[:cohort_id], id: @assignment.id), html: { class: "form-horizontal"} do |f|
+  = render "form", f: f

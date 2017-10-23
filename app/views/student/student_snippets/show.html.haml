@@ -1,0 +1,15 @@
+.container.relative
+  %h2.page-header= @student_snippet.snippet.name
+  .saved-alert.alert.alert-success Saved
+  .row
+    .col-md-7
+      .editor-container.student-editor
+        #editor{'data-cohort-id' => @cohort.id}
+      %button.save_editor.btn.btn-primary{disabled: true} Save
+      %button.execute_editor.btn.btn-primary{disabled: true} Execute
+      You can also execute the code by pressing
+      %b Command & Return
+    .col-md-5
+      #sandbox-result
+
+%iframe{:sandbox => "allow-same-origin allow-scripts", :style => "border: 0; width:0px; height:0px;", id: "sadboxed-eval", src: "/frame.html"}

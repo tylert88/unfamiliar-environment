@@ -1,0 +1,8 @@
+.page-header
+  %h2 Edit Employment for #{@user.full_name}
+
+%ol.breadcrumb
+  %li= link_to @user.full_name, user_path(@user, cohort: @cohort)
+  %li.active Edit Employment
+
+= render 'form'

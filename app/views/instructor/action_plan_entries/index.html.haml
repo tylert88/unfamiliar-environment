@@ -1,0 +1,41 @@
+.page-header
+  .pull-right
+    = link_to 'New Entry', new_instructor_cohort_student_action_plan_entry_path, class: 'btn btn-info'
+  %h1 #{@user.full_name}: Action Plan Entries
+
+- @entries.each do |entry|
+  .panel.panel-default
+    .panel-heading
+      .row
+        .col-md-10
+          %h3.panel-title
+            - if entry.learning_experience
+              = entry.learning_experience.name
+              %small
+                (#{entry.created_at.to_s(:long)})
+            - else
+              = entry.created_at.to_s(:long)
+        .col-md-2
+          %span.padded= entry.status
+    .panel-body
+      .row
+        .col-md-10
+          %dl.dl-horizontal
+            %dt Started on
+            %dd= entry.started_on.try(:to_s, :short)
+            %dt Due on
+            %dd= entry.due_on.try(:to_s, :short)
+            %dt Completed on
+            %dd= entry.completed_on.try(:to_s, :short)
+
+          = markdownify(entry.description)
+        .col-md-2
+          %ul.nav.nav-stacked
+            %li
+              = link_to "Edit",
+                         edit_instructor_cohort_student_action_plan_entry_path(@cohort, @user, entry)
+            %li
+              = link_to "Delete",
+                         instructor_cohort_student_action_plan_entry_path(@cohort, @user, entry),
+                         method: :delete,
+                         data: {confirm: "Are you sure?"}

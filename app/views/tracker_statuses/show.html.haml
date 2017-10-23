@@ -1,0 +1,203 @@
+.page-header
+  .pull-right
+    %small
+      Last updated #{time_ago_in_words @tracker_status.updated_at} ago
+  %h1 Tracker Data for #{@user.full_name}: #{@tracker_status.class_project.name}
+
+- content_for(:javascripts) do
+  :javascript
+    $(function(){
+      drawChart('# Total stories worked on', #{total_stories_json(@totals)}, 'total_stories', '#5C3292');
+      drawChart('# Stories with Rejections', #{stories_with_rejections_json(@totals)}, 'stories_with_rejections', '#1A8763');
+      drawChart('# Total rejections', #{total_rejections_json(@totals)}, 'total_rejections', '#871B47');
+      drawChart('Ratio of stories with rejections to stories without', #{with_without_rejections_json(@totals)}, 'with_without_rejections', '#5C3292');
+      drawChart('Avg Rejections / Story', #{average_rejections_per_story_json(@totals)}, 'average_rejections_per_story', '#1A8763');
+      drawChart('Total Started Stories', #{total_started_stories_json(@totals)}, 'total_started_stories', '#871B47');
+      drawChart('Total Started Bugs', #{total_started_bugs_json(@totals)}, 'total_started_bugs', '#5C3292');
+    });
+
+- if current_user.instructor?
+  - if @cohort
+    %ol.breadcrumb
+      %li= link_to "Cohorts", cohorts_path
+      %li= link_to @cohort.name, cohort_path(@cohort)
+      %li= link_to @user.full_name, user_path(@user, cohort_id: @cohort)
+      %li= link_to "Tracker Stats", user_tracker_statuses_path(@user, cohort_id: @cohort)
+      %li.active= @tracker_status.class_project.name
+  - else
+    %ol.breadcrumb
+      %li= link_to "Users", users_path
+      %li= link_to @user.full_name, user_path(@user)
+      %li= link_to "Tracker Stats", user_tracker_statuses_path(@user, cohort_id: @cohort)
+      %li.active= @tracker_status.class_project.name
+
+.row
+  .col-md-8
+    .page-header
+      %h2 Summary
+    %table.table.table-striped.table-hover.table-bordered
+      %thead
+        %tr
+          %th.text-right
+          %th.text-right You
+          %th.text-right Overall Average
+          %th.text-right Your Rank in Class
+      %tbody
+        %tr
+          %th Total Stories
+          %td.text-right= @tracker_status.total_stories
+          %td.text-right= @overall_averages.total_stories
+          %td.text-right= @ranking.total_stories
+        %tr
+          %th Stories w/ Rejections
+          %td.text-right= @tracker_status.stories_with_rejections
+          %td.text-right= @overall_averages.stories_with_rejections
+          %td.text-right= @ranking.stories_with_rejections
+        %tr
+          %th Total Rejections
+          %td.text-right= @tracker_status.total_rejections
+          %td.text-right= @overall_averages.total_rejections
+          %td.text-right= @ranking.total_rejections
+        %tr
+          %th Ratio of stories w/ rejections to stories without rejections
+          %td.text-right= @tracker_status.with_without_rejections
+          %td.text-right= @overall_averages.with_without_rejections
+          %td.text-right= @ranking.with_without_rejections
+        %tr
+          %th Average rejections / story
+          %td.text-right= @tracker_status.average_rejections_per_story
+          %td.text-right= @overall_averages.average_rejections_per_story
+          %td.text-right= @ranking.average_rejections_per_story
+        %tr
+          %th Started Stories
+          %td.text-right= @tracker_status.total_started_stories
+          %td.text-right= @overall_averages.total_started_stories
+          %td.text-right= @ranking.total_started_stories
+        %tr
+          %th Started Bugs
+          %td.text-right= @tracker_status.total_started_bugs
+          %td.text-right= @overall_averages.total_started_bugs
+          %td.text-right= @ranking.total_started_bugs
+  .col-md-4
+    .page-header
+      %h2 Current Status
+    %ul
+      %li #{@tracker_status.unstarted} unstarted in the backlog
+      %li #{@tracker_status.delivered} delivered (waiting for acceptance)
+      %li #{@tracker_status.finished} finished (waiting to be deployed)
+      %li #{@tracker_status.started} started
+      %li #{@tracker_status.rejected} rejected
+      %li #{@tracker_status.unscheduled} in the icebox
+
+
+.page-header
+  %h3 Total Stories
+%table.table
+  %thead
+    %tr
+      %th.text-right You
+      %th.text-right Overall Average
+      %th.text-right Your Rank in Class
+  %tbody
+    %tr
+      %td.text-right= @tracker_status.total_stories
+      %td.text-right= @overall_averages.total_stories
+      %td.text-right= @ranking.total_stories
+.row
+  #total_stories.col-md-12(style="height: 500px;")
+
+.page-header
+  %h3 Stories w/ Rejections
+%table.table
+  %thead
+    %tr
+      %th.text-right You
+      %th.text-right Overall Average
+      %th.text-right Your Rank in Class
+  %tbody
+    %tr
+      %td.text-right= @tracker_status.stories_with_rejections
+      %td.text-right= @overall_averages.stories_with_rejections
+      %td.text-right= @ranking.stories_with_rejections
+.row
+  #stories_with_rejections.col-md-12(style="height: 500px;")
+
+.page-header
+  %h3 Total Rejections
+%table.table
+  %thead
+    %tr
+      %th.text-right You
+      %th.text-right Overall Average
+      %th.text-right Your Rank in Class
+  %tbody
+    %tr
+      %td.text-right= @tracker_status.total_rejections
+      %td.text-right= @overall_averages.total_rejections
+      %td.text-right= @ranking.total_rejections
+.row
+  #total_rejections.col-md-12(style="height: 500px;")
+
+.page-header
+  %h3 Ratio of stories w/ rejections to stories without rejections
+%table.table
+  %thead
+    %tr
+      %th.text-right You
+      %th.text-right Overall Average
+      %th.text-right Your Rank in Class
+  %tbody
+    %tr
+      %td.text-right= @tracker_status.with_without_rejections
+      %td.text-right= @overall_averages.with_without_rejections
+      %td.text-right= @ranking.with_without_rejections
+.row
+  #with_without_rejections.col-md-12(style="height: 500px;")
+
+.page-header
+  %h3 Average rejections / story
+%table.table
+  %thead
+    %tr
+      %th.text-right You
+      %th.text-right Overall Average
+      %th.text-right Your Rank in Class
+  %tbody
+    %tr
+      %td.text-right= @tracker_status.average_rejections_per_story
+      %td.text-right= @overall_averages.average_rejections_per_story
+      %td.text-right= @ranking.average_rejections_per_story
+.row
+  #average_rejections_per_story.col-md-12(style="height: 500px;")
+
+.page-header
+  %h3 Started Stories
+%table.table
+  %thead
+    %tr
+      %th.text-right You
+      %th.text-right Overall Average
+      %th.text-right Your Rank in Class
+  %tbody
+    %tr
+      %td.text-right= @tracker_status.total_started_stories
+      %td.text-right= @overall_averages.total_started_stories
+      %td.text-right= @ranking.total_started_stories
+.row
+  #total_started_stories.col-md-12(style="height: 500px;")
+
+.page-header
+  %h3 Started Bugs
+%table.table
+  %thead
+    %tr
+      %th.text-right You
+      %th.text-right Overall Average
+      %th.text-right Your Rank in Class
+  %tbody
+    %tr
+      %td.text-right= @tracker_status.total_started_bugs
+      %td.text-right= @overall_averages.total_started_bugs
+      %td.text-right= @ranking.total_started_bugs
+.row
+  #total_started_bugs.col-md-12(style="height: 500px;")

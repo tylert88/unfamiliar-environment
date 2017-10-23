@@ -1,0 +1,9 @@
+.page-header
+  %h1 Edit #{@assessment.name_was}
+
+%ol.breadcrumb
+  %li= link_to "Assessments", assessments_path
+  %li= link_to @assessment.name, assessment_path(@assessment)
+  %li.active Edit
+
+= render 'form'

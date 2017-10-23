@@ -1,0 +1,9 @@
+.page-header
+  %h1 Edit Daily Plan
+
+%ol.breadcrumb
+  %li= link_to @cohort.name, cohort_path(@cohort)
+  %li= link_to "Daily Plans", cohort_daily_plans_path(@cohort)
+  %li.active= @daily_plan.date
+
+= render 'form'

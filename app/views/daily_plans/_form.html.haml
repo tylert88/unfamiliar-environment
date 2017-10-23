@@ -1,0 +1,18 @@
+= form_for [@cohort, @daily_plan], html: {class: "form-horizontal"} do |f|
+  = errors_for(f)
+
+  .form-group
+    = f.label :date, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.date_field :date, class: "form-control"
+
+  .form-group
+    = f.label :description, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :description, class: "form-control", rows: 20, autofocus: true, data: {editor: 'markdown'}
+
+  .form-group
+    .col-md-offset-2.col-md-4
+      = f.submit class: 'btn btn-primary'
+      - path = f.object.persisted? ? cohort_daily_plan_path(@cohort, f.object) : cohort_daily_plans_path(@cohort)
+      = link_to "cancel", path, class: "btn btn-default"

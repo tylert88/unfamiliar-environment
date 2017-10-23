@@ -1,0 +1,26 @@
+.page-header
+  %h1 Tracker Data for #{@user.full_name}
+
+- if current_user.instructor?
+  - if @cohort
+    %ol.breadcrumb
+      %li= link_to "Cohorts", cohorts_path
+      %li= link_to @cohort.name, cohort_path(@cohort)
+      %li= link_to @user.full_name, user_path(@user, cohort_id: @cohort)
+      %li.active Tracker Stats
+  - else
+    %ol.breadcrumb
+      %li= link_to "Users", users_path
+      %li= link_to @user.full_name, user_path(@user)
+      %li.active Tracker Stats
+
+%table.table
+  %thead
+    %tr
+      %th Class Project
+  %tbody
+    - @tracker_statuses.each do |tracker_status|
+      %tr
+        %td
+          = link_to tracker_status.class_project.name,
+                    user_tracker_status_path(@user, tracker_status, cohort_id: params[:cohort_id])

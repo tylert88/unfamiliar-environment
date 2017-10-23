@@ -1,0 +1,44 @@
+.page-header
+  .pull-right
+    = link_to "Back", :back, class: "btn btn-info"
+  %h1= @student.full_name
+
+.row
+  .col-md-4
+    = image_tag(@student.avatar.url(:card), class: "img-responsive")
+  .col-md-8
+    %h2 Personal Info
+    %dl.dl-horizontal
+      %dt Email:
+      %dd= mail_to @student.email, @student.email
+
+      %dt Phone:
+      %dd= @student.phone
+
+      %dt Twitter:
+      %dd
+        - if @student.twitter.present?
+          = link_to @student.twitter, @student.twitter_url
+
+      %dt Linkedin:
+      %dd
+        - if @student.linkedin.present?
+          = link_to @student.linkedin, @student.linkedin
+
+      %dt Blog:
+      %dd
+        - if @student.blog.present?
+          = link_to @student.blog, @student.blog
+
+    - StudentProject.for_user(@student).each do |project|
+      %h2= project.name
+      %dl.dl-horizontal
+        %dt Tracker URL:
+        %dd
+          - if project.tracker_url?
+            = link_to project.tracker_url, project.tracker_url
+
+        %dt Production URL:
+        %dd
+          - if project.production_url?
+            = link_to project.production_url, project.production_url

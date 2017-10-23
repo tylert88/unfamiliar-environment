@@ -1,0 +1,18 @@
+.page-header
+  .pull-right
+    = link_to "New Course", new_course_path, class: "btn btn-info"
+  %h1 Courses
+
+- @courses.each do |course|
+  .panel.panel-info
+    .panel-heading
+      .pull-right
+        = link_to "edit", edit_course_path(course)
+        |
+        = link_to "delete",
+                  course_path(course),
+                  method: :delete,
+                  data: {confirm: "Are you sure?"}
+      %h3.panel-title= link_to course.name, course_path(course)
+    .panel-body
+      &nbsp;

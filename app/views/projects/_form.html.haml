@@ -1,0 +1,69 @@
+.form-group
+  .col-sm-offset-3.col-sm-9
+    = errors_for(f)
+
+.form-group
+  = f.label :class_project_id, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.collection_select :class_project_id, ClassProject.all, :id, :name, {include_blank: true}, class: "form-control"
+
+.form-group
+  = f.label :visibility, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.collection_select :visibility, StudentProject.visibilities, :first, :first, {}, class: "form-control"
+
+.form-group
+  = f.label :name, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_field :name, class: "form-control"
+
+.form-group
+  = f.label :description, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_area :description, class: "form-control", rows: 8
+
+.form-group
+  = f.label :github_url, "GitHub URL", class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_field :github_url, class: "form-control"
+
+.form-group
+  = f.label :tracker_url, "Tracker URL", class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_field :tracker_url, class: "form-control"
+
+.form-group
+  = f.label :production_url, "Production URL", class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_field :production_url, class: "form-control", placeholder: "(i.e. Heroku)"
+
+.form-group
+  = f.label :technical_notes, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_area :technical_notes, class: "form-control", rows: 8
+
+.form-group
+  = f.label :screenshot, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.file_field :screenshot, class: "form-control"
+
+.form-group
+  = f.label :travis_badge_markdown, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_field :travis_badge_markdown, class: "form-control"
+
+.form-group
+  = f.label :code_climate_badge_markdown, class: "col-sm-3 control-label"
+  .col-sm-6
+    = f.text_field :code_climate_badge_markdown, class: "form-control"
+
+.form-group
+  = f.label :position, class: "col-sm-3 control-label"
+  .col-sm-2
+    = f.number_field :position, class: "form-control"
+
+.form-group
+  .col-sm-offset-3.col-sm-6
+    - if params[:cohort_id]
+      = hidden_field_tag :cohort_id, params[:cohort_id]
+    = f.submit "Save", class: 'btn btn-primary'

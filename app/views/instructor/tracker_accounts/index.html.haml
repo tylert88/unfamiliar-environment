@@ -1,0 +1,34 @@
+.page-header
+  .pull-right
+    = link_to "Create Accounts",
+              instructor_cohort_tracker_accounts_path,
+              class: "btn btn-primary",
+              method: :post
+
+    = link_to "Delete Accounts",
+              instructor_cohort_tracker_accounts_path,
+              class: "btn btn-danger",
+              method: :delete,
+              data: {confirm: "Are you sure?"}
+
+  %h1 Tracker Accounts for #{@cohort.name}
+
+.row
+  .col-md-12
+    %table.table
+      %thead
+        %tr
+          %th Name
+          %th Email
+          %th Status
+      %tbody
+        - @students.each do |student|
+          %tr
+            %td= student.full_name
+            %td= student.email
+            - member = @members.is_a?(Array) && @members.select{|m| m[:person]}.map{|membership| membership[:person][:email].downcase }.include?(student.email.downcase)
+            %td
+              - if member
+                %span.label.label-success Member
+              - else
+                %span.label.label-danger Not a member

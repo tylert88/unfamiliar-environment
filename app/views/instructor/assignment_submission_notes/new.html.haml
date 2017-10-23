@@ -1,0 +1,25 @@
+%h2.page-header
+  New Note for
+  = @assignment_submission.user.full_name
+
+.row
+  .col-md-8
+    = form_for @assignment_submission_note, url: instructor_cohort_assignment_submission_assignment_submission_notes_path(@cohort.id, @assignment_submission.id) do |f|
+      .form-group
+        = f.label :content
+        = f.text_area :content, class: "form-control", size: "10x10"
+
+      .form-group
+        = f.submit "Add Note", class: "btn btn-info"
+.row
+  .col-md-8
+    -if @assignment_submission_notes.present?
+      %h2.page-header Existing Notes
+    - @assignment_submission_notes.each do |assignment_submission_note|
+      .panel.panel-default
+        .panel-body
+          = assignment_submission_note.content
+          .row
+            .col-md-12
+              =link_to "Edit", edit_instructor_cohort_assignment_submission_assignment_submission_note_path(@cohort.id, @assignment_submission.id, assignment_submission_note.id)
+              =link_to "Delete", instructor_cohort_assignment_submission_assignment_submission_note_path(@cohort.id, @assignment_submission.id, assignment_submission_note.id), method: :delete

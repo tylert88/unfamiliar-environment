@@ -1,0 +1,65 @@
+.page-header
+  .pull-right
+    = link_to cohort_path(@cohort, format: :csv), class: 'btn btn-default' do
+      %i.glyphicon.glyphicon-download
+      Download as CSV
+    = link_to "Add Student", new_user_path(cohort_id: params[:id]), class: "btn btn-info"
+  %h1 #{@cohort.name} Dashboard
+
+.row
+  .col-md-6
+    = link_to cohort_path(@cohort) do
+      %i.glyphicon.glyphicon-th-list
+    = link_to cohort_path(@cohort, layout: :grid) do
+      %i.glyphicon.glyphicon-th
+  .col-md-6
+    - unless params[:layout] == 'grid'
+      %p.text-right
+        %small.text-muted Click on the table header to copy the colum
+
+&nbsp;
+
+- if params[:layout] == 'grid'
+  - @students.in_groups_of(6, false) do |students|
+    .row
+      - students.each do |student|
+        .col-md-2
+          .thumbnail
+            %a{href: user_path(student, cohort_id: @cohort)}
+              = image_tag student.avatar.url(:card)
+            .caption
+              .text-center
+                %a{href: user_path(student, cohort_id: @cohort)}= student.full_name
+                %br
+                %a{href: user_learning_experiences_path(student)} Learning Experiences
+                %br
+                %a{href: user_performances_path(student)} Performance
+
+- else
+  %table.table.table-bordered
+    %thead
+      %th
+        %a{"href" => "", "data-clipboard-text" => @students.map(&:full_name).join("\n")} Name
+      %th
+        %a{"href" => "", "data-clipboard-text" => @students.map(&:email).join(", ")} Email
+      %th
+        %a{"href" => "", "data-clipboard-text" => @students.map(&:github_url).reject(&:blank?).join("\n")} Github
+      %th Actions
+    %tbody
+      - @students.each do |student|
+        %tr
+          %td= link_to student.full_name, user_path(student, cohort_id: @cohort)
+          %td
+            %a{"href" => "#", "data-clipboard-text" => student.email}= student.email
+          %td
+            - if student.github_url
+              = link_to student.github_username, student.github_url, target: '_blank'
+          %td
+            %ul.nav.nav-pills
+              %li.dropdown{:role => "presentation"}
+                %a.list-dropdown.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                  Links
+                  %span.caret
+                %ul.dropdown-menu{:role => "menu"}
+                  - user_links(student).each do |link|
+                    %li= link_to link.text, link.url

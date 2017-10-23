@@ -1,0 +1,49 @@
+.form-group
+  .col-md-6.col-md-offset-2
+    = errors_for(f)
+
+- if @learning_experiences
+  .form-group
+    = f.label :learning_experience_id, class: 'control-label col-md-2'
+    .col-md-6
+      = f.collection_select :learning_experience_id,
+                            @learning_experiences,
+                            :id,
+                            :name_with_duration,
+                            {include_blank: true},
+                            class: "form-control", autofocus: true
+
+.form-group
+  = f.label :status, class: 'control-label col-md-2'
+  .col-md-6
+    = f.collection_select :status,
+                          ActionPlanEntry.statuses.keys,
+                          :to_s,
+                          :humanize,
+                          {},
+                          class: "form-control"
+
+.form-group
+  = f.label :started_on, class: 'control-label col-md-2'
+  .col-md-6
+    = f.date_field :started_on, class: "form-control"
+
+.form-group
+  = f.label :due_on, class: 'control-label col-md-2'
+  .col-md-6
+    = f.date_field :due_on, class: "form-control"
+
+.form-group
+  = f.label :completed_on, class: 'control-label col-md-2'
+  .col-md-6
+    = f.date_field :completed_on, class: "form-control"
+
+.form-group
+  = f.label :description, class: 'control-label col-md-2'
+  .col-md-10
+    = f.text_area :description, class: "form-control", rows: 10
+
+.form-group
+  .col-md-10.col-md-offset-2
+    .alert.alert-warning NOTE: this will send an email to the student with the contents of the plan
+    = f.submit class: 'btn btn-primary'

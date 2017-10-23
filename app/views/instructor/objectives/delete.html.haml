@@ -1,0 +1,30 @@
+.page-header
+  .pull-right
+  %h1 Delete Objective
+
+%br
+- curriculum = @objective.standard.curriculum
+%ol.breadcrumb
+  %li= link_to_if policy(curriculum).create?, "Curriculums", curriculums_path
+  %li
+    - if policy(curriculum).edit?
+      = link_to curriculum.name, curriculum_path(curriculum)
+    - else
+      = link_to curriculum.name, user_performances_path(current_user)
+  %li= link_to @objective.standard.name, standard_path(@objective.standard)
+  %li= link_to @objective.name, objective_path(@objective)
+  %li.active Delete
+
+.jumbotron
+  %h3
+    There are #{pluralize @performances.length, "performance"}.
+
+  %p
+    Are you sure you want to delete "#{@objective.name}"?
+
+  %p
+    You cannot undo this action.
+
+  = form_for @objective, method: :delete do |f|
+    %p.text-center
+      = f.submit "Yes, Delete", class: "btn btn-lg btn-danger", data: {confirm: "Are you sure?"}

@@ -1,0 +1,111 @@
+- profile = EmploymentProfile.find_by(user_id: @user)
+
+.row
+  %ul.nav.nav-pills
+    %li= link_to "All Students", root_path, class: "list-group-item all-students"
+.row.students-wrapper
+  .col-md-4
+    %div
+      .thumbnail
+        = image_tag @user.avatar_url(:card), class: "img-rounded"
+    .student-interests
+      .row
+        .col-md-12
+          %ul.list-unstyled.bullets.well.well-sm
+            %li.list-header Preferred Locations
+            - profile.preferred_locations.split("\n").each do |line|
+              %li= line
+      .row
+        .col-md-12
+          %ul.list-unstyled.bullets.well.well-sm
+            %li.list-header Interests
+            - profile.looking_for.split("\n").each do |line|
+              %li= line
+      .row
+        .col-md-12
+          %ul.list-unstyled.bullets.well.well-sm
+            %li.list-header Strengths
+            - profile.strengths.split("\n").each do |line|
+              %li= line
+  .col-md-8
+    .page-header
+      - if current_user && current_user.instructor?
+        .pull-right
+          = link_to "Edit", user_path(@user)
+      .inline-social-links.pull-right
+        - if @user.github_url
+          %span.fa-stack.fa-lg
+            = link_to @user.github_url do
+              %i.fa.fa-github.fa-stack-2x
+        - if @user.twitter
+          %span.fa-stack.fa-lg
+            = link_to @user.twitter_url do
+              %i.fa.fa-twitter.fa-stack-2x
+        - if @user.linkedin
+          %span.fa-stack.fa-lg
+            = link_to @user.linkedin do
+              %i.fa.fa-linkedin.fa-stack-2x
+        - if @user.blog?
+          %span.fa-stack.fa-lg
+            = link_to @user.blog do
+              %i.fa.fa-rss.fa-stack-2x
+      %h1= @user.full_name
+      %h4= @user.employment_profile.headline
+      - if @employment
+        .bg-info= markdownify @employment.display_string
+    .row
+      .col-md-12
+        - if !profile.bio && !@projects
+          - @students.in_groups_of(3, false).each do |students|
+            .row
+              - students.each do |student|
+                .col-md-4
+                  = link_to public_student_path(student) do
+                    .thumbnail
+                      .caption.text-center= student.full_name
+                      = image_tag student.avatar_url(:card), class: "img-rounded"
+        - if profile && profile.bio
+          = markdownify profile.bio
+        - else
+          Bio for #{@user.full_name} coming soon!
+    %hr
+    - if @projects.present?
+      .page-header
+        %h2 Projects
+        - @projects.each do |project|
+          .row
+            .col-md-12
+              %h3.headline-link
+                = link_to_if project.production_url?, project.name, project.production_url
+          .row
+            .col-md-4
+              - if project.screenshot?
+                .thumbnail
+                  - if project.production_url?
+                    = link_to project.production_url do
+                      = image_tag project.screenshot.url(:thumb), class: "img-rounded"
+                  - else
+                    = image_tag project.screenshot.url(:thumb), class: "img-rounded"
+              %ul.bullets
+              - if project.github_url?
+                %li
+                  = link_to "View on Github", project.github_url
+              - if project.production_url?
+                %li
+                  = link_to "View Live Site", project.production_url
+              - if project.tracker_url?
+                %li
+                  = link_to "View on Pivotal Tracker", project.tracker_url
+            .col-md-8
+              - if project.travis_badge_markdown?
+                = markdownify project.travis_badge_markdown
+              - if project.code_climate_badge_markdown?
+                = markdownify project.code_climate_badge_markdown
+              - if project.description?
+                %p.lead Product Description
+                = markdownify project.description
+              - if project.technical_notes?
+                %p.lead Technical Notes
+                = markdownify project.technical_notes
+    - else
+      Projects for #{@user.full_name} coming soon!

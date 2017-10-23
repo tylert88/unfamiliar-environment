@@ -1,0 +1,8 @@
+.page-header
+  %h1 New Exercise
+
+%ol.breadcrumb
+  %li= link_to "Exercises", curriculum_exercises_path(@curriculum)
+  %li.active New
+
+= render partial: "form", locals: {submit_text: "Add Exercise"}

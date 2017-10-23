@@ -1,0 +1,23 @@
+.page-header
+  %h1 #{@cohort.name} Social Links
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Twitter
+      %th Blog
+      %th LinkedIn
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to user.full_name, user_path(user)
+        %td
+          - if user.twitter?
+            = link_to('Twitter', user.twitter_url)
+        %td
+          - if user.blog?
+            = link_to('Blog', user.blog)
+        %td
+          - if user.linkedin?
+            = link_to('LinkedIn', user.linkedin)

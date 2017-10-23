@@ -1,0 +1,23 @@
+.page-header
+  %h1 Import Standards / Objectives
+
+= render '/instructor/curriculums/nav', tab: :import
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li.active New Curriculum
+
+= form_for :import, url: import_curriculum_path(@curriculum), html: {class: 'form-horizontal'} do |f|
+  .form-group
+    = f.label :tags, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :tags, class: "form-control", autofocus: true, value: @tags
+
+  .form-group
+    = f.label :data, class: "control-label col-md-2"
+    .col-md-10
+      = f.text_area :data, class: "form-control", value: @data, rows: 20
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit class: "btn btn-primary"

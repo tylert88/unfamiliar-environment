@@ -1,0 +1,15 @@
+.page-header
+  %h2= "ZPD Responses for #{@learning_experience.name}"
+.row
+  .col-md-6
+    .student-zpd-data{ value: @zpd_response_data }
+  .col-md-6
+    %table.table.table-striped
+      %thead
+        %th Date
+        %th Repsonse
+      %tbody
+        - @zpd_responses.each do |zpd_response|
+          %tr
+            %td= zpd_response.created_at.strftime("%m-%d-%Y")
+            %td= ZpdResponse::RESPONSES[zpd_response.response]

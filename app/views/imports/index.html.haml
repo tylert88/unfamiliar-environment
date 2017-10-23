@@ -1,0 +1,65 @@
+.page-header
+  %h2 Import students into #{@cohort.name}
+
+= form_tag cohort_imports_path(@cohort) do
+  - if @saved.present?
+    .form-group
+      .col-md-12
+        .alert.alert-success
+          %p
+            %strong #{pluralize(@saved.length, "student")} were imported successfully!
+
+  - if @failed
+    .form-group
+      .col-md-12
+        .alert.alert-danger
+          %p
+            %strong Could not import #{pluralize(@failed.length, "student")}!
+          %ul
+            - @failed.each do |line_number, data|
+              - user = data[:user]
+              - row = data[:row]
+              %li On line #{line_number}: #{user.errors.full_messages.join(",")}
+          %p
+            The failed rows appear in the text area below.
+
+  .form-group
+    .col-md-12
+      %p Available fields are:
+      %table.table.table-bordered
+        %thead
+          %tr
+            - header_fields.each do |field|
+              %th= field
+
+  .form-group
+    .col-md-12
+      %p
+        = text_area_tag :student_csv, @text, class: "col-md-12 form-control", rows: 30, placeholder: "Paste your csv text here..."
+
+  .form-group
+    .col-md-12
+      %p
+        %label{for: 'invitation_type', class: 'control-label'}
+          What type of invitation would you like to send?
+
+  .form-group
+    .col-md-6
+      %p
+        = select_tag :invitation_type,
+                     options_for_select([['GitHub', 'github'], ['Password', 'password']], selected: params[:invitation_type]),
+                     include_blank: "I don't want to send an invitation.",
+                     class: 'form-control'
+
+  .form-group
+    .col-md-12
+      .alert.alert-warning#email-alert
+        NOTE:  This will send emails to every student inviting them to #{ENV['HOST']}.
+
+  .form-group
+    .col-md-12
+      = submit_tag "Import Students", class: 'btn btn-primary'
+
+- content_for :javascripts do
+  :javascript
+    Imports.emailAlert();

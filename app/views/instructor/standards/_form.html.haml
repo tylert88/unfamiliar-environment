@@ -1,0 +1,57 @@
+.form-group
+  .col-md-offset-1.col-md-10
+    = errors_for(f)
+
+.form-group
+  = f.label :subject_id, class: 'control-label col-md-1'
+  .col-md-10
+    = f.collection_select :subject_id, Subject.where(curriculum_id: @curriculum), :id, :name, {include_blank: true}, class: 'form-control'
+
+- if f.object.persisted?
+  .form-group
+    = f.label :curriculum_id, class: 'control-label col-md-1'
+    .col-md-10
+      = f.collection_select :curriculum_id, Curriculum.all, :id, :name, {}, class: 'form-control'
+
+.form-group
+  = f.label :name, class: 'control-label col-md-1'
+  .col-md-10
+    = f.text_field :name, class: 'form-control', autofocus: true
+
+.form-group
+  = f.label :description, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :description, class: 'form-control', rows: 3, data: {editor: 'markdown'}
+
+.form-group
+  = f.label :guiding_questions, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :guiding_questions, class: 'form-control', rows: 5, data: {editor: 'markdown'}
+
+.form-group
+  = f.label :resources, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :resources, class: 'form-control', rows: 12, data: {editor: 'markdown'}
+
+.form-group
+  = f.label :instructor_notes, class: 'control-label col-md-1'
+  .col-md-9
+    = f.text_area :instructor_notes, class: 'form-control', rows: 12, data: {editor: 'markdown'}
+
+.form-group
+  = f.label :tags, class: 'control-label col-md-1'
+  .col-md-10
+    = f.text_field :tags,
+                   class: 'form-control',
+                   value: Array(f.object.tags).reject(&:blank?).join(","),
+                   placeholder: 'comma-separated list'
+
+.form-group
+  .col-md-4.col-md-offset-1
+    - if params[:cohort_id]
+      = hidden_field_tag :cohort_id, params[:cohort_id]
+    = hidden_field_tag :return_to, params[:return_to]
+    = f.submit class: 'btn btn-primary'
+    - if f.object.id
+      = f.submit 'Save and Next', class: 'btn btn-info'
+    = link_to "cancel", curriculum_path(@standard.curriculum), class: 'btn btn-default'

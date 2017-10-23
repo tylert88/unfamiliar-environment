@@ -1,0 +1,28 @@
+= form_for @assessment, html: {class: 'form-horizontal'} do |f|
+  .form-group
+    .col-md-offset-2.col-md-10
+      = errors_for(f)
+
+  .form-group
+    = f.label :name, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :name, class: "form-control"
+
+  .form-group
+    = f.label :time_allowed_in_minutes, 'Time Allowed', class: "control-label col-md-2"
+    .col-md-4
+      = f.number_field :time_allowed_in_minutes, class: "form-control", placeholder: 'in minutes'
+
+  .form-group
+    = f.label :markdown, class: "control-label col-md-2"
+    .col-md-10
+      = f.text_area :markdown, class: "form-control", rows: 20, data: {tabby: true}
+
+  .form-group
+    = f.label :css, class: "control-label col-md-2"
+    .col-md-10
+      = f.text_area :css, class: "form-control", rows: 20, data: {tabby: true}
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit class: "btn btn-primary"

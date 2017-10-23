@@ -1,0 +1,82 @@
+.page-header
+  .pull-right
+    - if policy(@objective).edit?
+      = link_to "Edit Objective", edit_objective_path(@objective), class: "btn btn-info"
+  %h1 Objective
+
+%br
+- curriculum = @objective.standard.curriculum
+%ol.breadcrumb
+  %li= link_to_if policy(curriculum).create?, "Curriculums", curriculums_path
+  %li
+    - if policy(curriculum).edit?
+      = link_to curriculum.name, curriculum_path(curriculum)
+    - else
+      = link_to curriculum.name, user_performances_path(current_user)
+  %li= link_to @objective.standard.name, standard_path(@objective.standard)
+  %li.active Objective
+
+.row
+  .col-md-6
+    %h2
+      Objective
+      - if policy(@objective).edit?
+        %small
+          = link_to "(edit)", edit_objective_path(@objective)
+
+    %p= @objective.name
+    - if @objective.description?
+      %blockquote= markdownify @objective.description
+
+    - if @objective.guiding_questions?
+      %h3 Guiding Questions
+      = markdownify(@objective.guiding_questions)
+
+    - if @objective.resources?
+      %h3 Resources
+      = markdownify(@objective.resources)
+
+    - if policy(@objective).edit? && @objective.instructor_notes?
+      %h3 Instructor Notes
+      = markdownify(@objective.instructor_notes)
+
+  .col-md-6
+    %h2
+      Standard
+      - if policy(@objective.standard).edit?
+        %small
+          = link_to "(edit)", edit_standard_path(@objective.standard)
+
+    %p= link_to @objective.standard.name, standard_path(@objective.standard)
+    - if @objective.standard.description?
+      %blockquote= markdownify @objective.standard.description
+
+    - if @objective.standard.guiding_questions?
+      %h3 Guiding Questions
+      = markdownify(@objective.standard.guiding_questions)
+
+    - if @objective.standard.resources
+      %h3 Resources
+      = markdownify(@objective.standard.resources)
+
+    - if policy(@objective.standard).edit? && @objective.standard.instructor_notes?
+      %h3 Instructor Notes
+      = markdownify(@objective.standard.instructor_notes)
+
+- if @learning_experiences.present?
+  .page-header
+    %h1 Learning Experiences
+  - @learning_experiences.each do |experience|
+    .panel.panel-default
+      .panel-heading
+        - if policy(experience).update?
+          .pull-right
+            = link_to "edit", edit_curriculum_learning_experience_path(@curriculum, experience)
+        %h3.panel-title
+          - if policy(experience).update?
+            = link_to experience.name, edit_curriculum_learning_experience_path(@curriculum, experience)
+          - else
+            = link_to experience.name, user_learning_experience_path(current_user, experience)
+      - if experience.description?
+        .panel-body
+          %blockquote= markdownify experience.description

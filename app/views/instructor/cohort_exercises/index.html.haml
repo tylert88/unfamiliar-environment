@@ -1,0 +1,23 @@
+.page-header
+  .pull-right
+    = link_to "Assign Exercise", new_instructor_cohort_cohort_exercise_path, class: "btn btn-info"
+  %h1= @cohort.name
+
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th Exercise Name
+      %th # of Students Submitted
+      %th Actions
+  %tbody
+    - @cohort_exercises.each do |cohort_exercise|
+      - count = cohort_exercise.submissions.count
+      %tr
+        %td= cohort_exercise.id
+        %td= link_to cohort_exercise.name, cohort_exercise.exercise.github_repo_url
+        %td.submission_count= link_to(count, instructor_cohort_cohort_exercise_path(@cohort, cohort_exercise))
+        %td
+          - if count == 0
+            = link_to(instructor_cohort_cohort_exercise_path(@cohort, cohort_exercise), method: :delete, data: {confirm: "Are you sure?"}, class: 'remove-exercise-action') do
+              %i.glyphicon.glyphicon-trash

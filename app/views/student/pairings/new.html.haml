@@ -1,0 +1,25 @@
+.page-header
+  .pull-right
+    = link_to "Back", cohort_pairings_path(@cohort), class: "btn btn-info"
+  %h1
+    New Pairing with
+    = @pair.full_name
+
+= form_for [:cohort, @pairing], html: {class: "form-horizontal"} do |f|
+  = errors_for(f)
+
+  = hidden_field_tag :student_id, params[:student_id]
+
+  .form-group
+    = f.label :paired_on, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.date_field :paired_on, class: "form-control"
+
+  .form-group
+    = f.label :feedback, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.text_area :feedback, class: "form-control", rows: 12
+
+  .form-group
+    .col-sm-offset-2.col-sm-6
+      = f.submit class: 'btn btn-primary'

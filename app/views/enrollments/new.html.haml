@@ -1,0 +1,14 @@
+.page-header
+  %h2 New Enrollment
+
+- if @cohort
+  %ol.breadcrumb
+    %li= link_to "Cohorts", cohorts_path
+    %li= link_to @cohort.name, cohort_path(@cohort)
+    %li.active Add Enrollment
+- else
+  %ol.breadcrumb
+    %li= link_to "Enrollments", enrollments_path
+    %li.active Add Enrollment
+
+= render 'form'

@@ -1,0 +1,48 @@
+.page-header
+  .pull-right
+    = link_to "New Project", new_user_project_path(@user, cohort_id: params[:cohort_id]), :class => "btn btn-info"
+  %h1 Projects for #{@user.full_name}
+
+- if current_user.instructor?
+  %ol.breadcrumb
+    %li= link_to "Users", users_path
+    %li= link_to @user.full_name, user_path(@user)
+    %li.active Projects
+
+- if @projects.present?
+  - @projects.each do |project|
+    .panel{class: project.visible? ? 'panel-primary' : 'panel-default'}
+      .panel-heading
+        .pull-right
+          = link_to "Edit", edit_user_project_path(@user, project, cohort_id: params[:cohort_id]), class: project.visible? && 'text-white'
+          |
+          = link_to "Delete", user_project_path(@user, project, cohort_id: params[:cohort_id]), method: :delete, data: {confirm: "Are you sure?"}, class: project.visible? && 'text-white'
+        %h3.panel-title
+          = project.name
+          (#{project.visibility} on public site)
+      .panel-body
+        = markdownify project.description
+
+        - if project.technical_notes?
+          %p= markdownify project.technical_notes
+
+        - if project.travis_badge_markdown?
+          = markdownify project.travis_badge_markdown
+
+        - if project.code_climate_badge_markdown?
+          = markdownify project.code_climate_badge_markdown
+
+        - if project.screenshot?
+          %p= image_tag project.screenshot.url(:thumb)
+
+        - if project.github_url?
+          %p= link_to project.github_url, project.github_url
+
+        - if project.tracker_url?
+          %p= link_to project.tracker_url, project.tracker_url
+
+        - if project.production_url?
+          %p= link_to project.production_url, project.production_url
+- else
+  .jumbotron
+    %p.lead You don't have any projects yet

@@ -1,0 +1,47 @@
+{
+  "PreCourse": {
+    "tags": [
+
+    ],
+    "standards": [
+      {
+        "name": "Programming",
+        "objectives": [
+          "Have a GitHub account",
+          "Setup development enivornment",
+          "Perform basic github operations (e.g., fork, clone, commit, pull request, ... )",
+          "Slice elements from a list",
+          "Write list comprehension without conditionals",
+          "Write list comprehension with conditionals",
+          "Refactor list comprehension into map",
+          "Chain commands into effective one-liners (e.g., str.strip().split(\" \"))",
+          "Write a function using combinations and permutations",
+          "Pythonically read files from disk (i.e., use context managers)",
+          "Use the join function",
+          "Create nested dictionaries",
+          "Apply defaultdicts"
+        ]
+      },
+      {
+        "name": "Math",
+        "objectives": [
+          "Create vectors and matrices in NumPy (containing constants, random, and sequences)",
+          "Slice vectors and matrices in NumPy",
+          "Perform scalar arithmetic in NumPy",
+          "Perform vector and matrix arthmetic in NumPy",
+          "Calculate marginal descriptive statistics of a matrix in NumPy"
+        ]
+      },
+      {
+        "name": "Probability",
+        "objectives": [
+          "Calculate probabilities of discrete combinations",
+          "Calculate conditional probablities",
+          "Calculate a probability mass function",
+          "Calculate expected value of a random variable",
+          "Calculate probabilities from common distrubutions (e.g., Poisson, Binomial, Exponential and Gaussian)"
+        ]
+      }
+    ]
+  }
+}

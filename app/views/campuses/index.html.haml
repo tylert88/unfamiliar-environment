@@ -1,0 +1,20 @@
+.page-header
+  .pull-right
+    = link_to "New Campus", new_campus_path, class: "btn btn-info"
+  %h1 Campuses
+
+- @campuses.each do |campus|
+  .panel.panel-info
+    .panel-heading
+      .pull-right
+        = link_to "edit", edit_campus_path(campus)
+        |
+        = link_to "delete",
+                  campus_path(campus),
+                  method: :delete,
+                  data: {confirm: "Are you sure?"}
+      %h3.panel-title= campus.name
+    .panel-body
+      %iframe#google_map_location{src: campus.google_maps_location, width:"100%", height:"300", frameborder:"0", style:"border:0"}
+      %blockquote
+        = markdownify campus.directions

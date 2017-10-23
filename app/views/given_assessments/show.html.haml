@@ -1,0 +1,105 @@
+- first_question = @given_assessment.first_question
+
+.page-header
+  .pull-right
+    = link_to 'Pull Changes',
+              pull_changes_cohort_given_assessment_path(@cohort, @given_assessment),
+              class: "btn btn-warning",
+              method: :post,
+              data: {confirm: "Are you sure?  This could really mess shit up."}
+    = link_to 'Score', cohort_given_assessment_score_path(@cohort, @given_assessment, first_question.id), class: "btn btn-primary"
+  %h1 #{@cohort.name}: #{@given_assessment.name} Assessment
+
+%ol.breadcrumb
+  %li= link_to "Assessments given to #{@cohort.name}", cohort_given_assessments_path(@cohort)
+  %li.active= @given_assessment.name
+
+.page-header
+  %h2 Score Questions
+
+  %p.lead Percent Complete: #{@given_assessment.score_info}
+
+  .progress
+    - percent = @given_assessment.score_info
+    .progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => percent.to_i, :role => "progressbar", :style => "width: #{percent.to_i}%;"}
+      %span.sr-only #{percent.to_i}% Complete
+
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Question
+        %th % Incorrect
+    %tbody
+      - @given_assessment.questions.each do |question|
+        %tr
+          %td= link_to question.text, cohort_given_assessment_score_path(@cohort, @given_assessment, question.id)
+          %td.text-right
+            - question_info = @given_assessment.question_info(question)
+            - if question_info[:scored] == 0
+              n/a
+            - else
+              #{(question_info[:incorrect].to_f / question_info[:taken] * 100).to_i}%
+
+.page-header
+  %h3 Students
+
+%table.table.table-striped.table-hover
+  %thead
+    %tr
+      %th Student
+      %th Started
+      %th Status
+      %th Elapsed Time
+      %th Score
+  %tbody
+    - @users.each do |user|
+      - taken_assessment = @taken_assessments_index[user.id]
+      %tr
+        %td= link_to user.full_name, user_path(user, cohort_id: @cohort.id)
+        %td
+          - if taken_assessment
+            = taken_assessment.created_at.strftime('%l:%M%P')
+        %td
+          - if taken_assessment
+            - if taken_assessment.in_progress?
+              .text-info= link_to "In Progress", user_taken_assessment_path(user, taken_assessment, cohort_id: @cohort)
+            - elsif taken_assessment.finished?
+              .text-primary= link_to "Finished at #{taken_assessment.ended_at.strftime('%l:%M%P')}", user_taken_assessment_path(user, taken_assessment, cohort_id: @cohort)
+            - elsif taken_assessment.scored?
+              .text-success= link_to "Scored", user_taken_assessment_path(user, taken_assessment, cohort_id: @cohort)
+            - else
+              .text-danger= link_to taken_assessment.status.humanize, user_taken_assessment_path(user, taken_assessment, cohort_id: @cohort)
+          - else
+            .text-muted Unsubmitted
+        %td
+          - if taken_assessment
+            = pluralize taken_assessment.elapsed_time, "minute"
+        %td
+          - if taken_assessment
+            = taken_assessment.score
+            \/
+            = @given_assessment.potential_score
+          - else
+            .text-muted
+              n/a
+.page-header
+  %h3 Preview
+
+.assessment-form
+  = @given_assessment.form_preview_markdown.html_safe
+- content_for :css, @given_assessment.css
+
+%hr
+
+.row
+  .col-md-4.col-md-offset-4
+    .well.text-center
+      = link_to "Delete", cohort_given_assessment_path(@cohort, @given_assessment), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"
+
+#given_assessment(style="width: 100%; height: 500px;")
+
+- content_for :javascripts do
+  :javascript
+    $(function(){
+      drawChart('Responses', #{given_assessment_json(@given_assessment)}, 'given_assessment', '#5C3292');
+    });

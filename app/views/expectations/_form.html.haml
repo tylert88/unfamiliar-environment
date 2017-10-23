@@ -1,0 +1,19 @@
+= form_for [@course, @expectation], html: {class: 'form-horizontal'} do |f|
+  .form-group
+    .col-md-offset-2.col-md-10
+      = errors_for(f)
+
+  .form-group
+    = f.label :name, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :name, class: "form-control", autofocus: true
+
+  .form-group
+    = f.label :description, class: "control-label col-md-2"
+    .col-md-10
+      = f.text_area :description, class: "form-control", rows: 12
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit class: "btn btn-primary"
+      = link_to "cancel", course_path(@course), class: "btn btn-default"

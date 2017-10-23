@@ -1,0 +1,18 @@
+.page-header
+  %h1 #{@curriculum.name} Progress
+
+= render '/instructor/curriculums/nav', tab: :activity
+
+%table.table.table-progress
+  %thead
+    %tr
+      %th Date
+      %th Description
+  %tbody
+    - @curriculum_notifications.each do |curriculum_notification|
+      %tr
+        %td= curriculum_notification.created_at.strftime("%m-%d-%Y")
+        %td= link_to "#{curriculum_notification.user.try(:full_name)} #{curriculum_notification.status} the #{curriculum_notification.resource_type}: #{curriculum_notification.resource_name}.", resource_link(curriculum_notification)
+.row
+  .pagination
+    = paginate(@curriculum_notifications)

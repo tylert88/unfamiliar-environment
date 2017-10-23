@@ -1,0 +1,6 @@
+%h2.page-header Student Dashboard
+%ul.nav.nav-tabs.student-dashboard{:role => "tablist"}
+  %li{:role => "presentation", class: action_name == 'index' ? 'active' : ''}
+    = link_to "Daily Information", get_home_path
+  %li{:role => "presentation", class: action_name == 'js_challenges' ? 'active' : ''}
+    = link_to "Javascript Challenges", js_challenges_cohort_student_dashboard_path(@cohort)

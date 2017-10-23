@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: students_galvanize_com_development
+  pool: 5
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: students_galvanize_com_test
+  pool: 5

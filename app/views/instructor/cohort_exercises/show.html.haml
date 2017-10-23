@@ -1,0 +1,33 @@
+.page-header
+  %h1= @exercise.name
+
+%ul.breadcrumb
+  %li= link_to "Cohort Exercises", instructor_cohort_cohort_exercises_path(@cohort)
+  %li= @exercise.name
+
+%section
+  %h2 Completed Submissions
+
+  %table.table
+    %thead
+      %tr
+        %th Student
+        %th Github
+        %th Tracker
+    %tbody
+      - @submissions.each do |submission|
+        %tr
+          %td= link_to submission.user_name, user_path(submission.user)
+          %td
+            - if submission.github_repo_url
+              = link_to submission.github_repo_url, submission.github_repo_url
+          %td
+            - if submission.tracker_project_url.present?
+              = link_to "Tracker Project", submission.tracker_project_url
+
+%section
+  %h2 Students Without Submissions
+  %ul
+    - @students_missing_submission.each do |student|
+      %li
+        = link_to student.full_name, user_path(student)

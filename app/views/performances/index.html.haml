@@ -1,0 +1,11 @@
+.page-header
+  %h1 #{@cohort.name} Performances
+
+.hidden-print
+  :markdown
+    Navigate with Vim (`h`, `j`, `k`, `l`) or Emacs (`ctrl+b`, `ctrl+n`, `ctrl+p`, `ctrl+f`) commands.
+    Assign values by typing `0`, `1`, `2`, `3`, `4`.
+
+= react_component 'PerformanceTable',
+                  performancesUrl: data_cohort_performances_path(@cohort),
+                  spinnerPath: image_path('spinner.gif')

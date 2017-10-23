@@ -1,0 +1,15 @@
+.page-header
+  .pull-right
+    = link_to "Performances", user_performances_path(@user), class: "btn btn-default"
+    - if policy(Performance).update?
+      = link_to "Spreadsheet", cohort_performances_path(@user.current_cohort), class: "btn btn-info"
+
+  %h1 #{@user.full_name} Learning Experiences
+
+%table.table.table-striped.table-bordered
+  %thead
+    %th Name
+  %tbody
+    - @learning_experiences.each do |learning_experience|
+      %tr
+        %td= link_to learning_experience.name, user_learning_experience_path(@user, learning_experience)

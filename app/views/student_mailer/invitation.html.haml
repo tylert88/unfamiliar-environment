@@ -1,0 +1,21 @@
+%p
+  You have just been added to the Galvanize student portal!
+
+- if @invitation_type == "password"
+  %p
+    In preparation for your upcoming class, please go to
+    = link_to set_password_url(@verifier), set_password_url(@verifier)
+    and sign in.
+- else
+  %p
+    In preparation for your upcoming session, please go to
+    %a{href: "https://#{ENV['HOST']}/"} https://#{ENV['HOST']}/
+    and sign in using your Github account.
+
+  %p
+    NOTE: If this address (#{@user.email}) is
+    %strong not
+    the email address you use to login to Github, please send us the email that you use with Github.
+
+%p
+  If you have any questions, please email us at #{mail_to 'fs.all@galvanize.com'}.

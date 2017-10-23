@@ -1,0 +1,54 @@
+.page-header
+  .pull-right
+    = link_to "New Rotation", new_cohort_pair_rotation_path(@cohort), class: "btn btn-info"
+    = link_to "Generate", generate_cohort_pair_rotations_path(@cohort), method: :post, class: "btn btn-primary"
+  %h1 Pair Rotations
+
+- if @todays_rotation
+  .page-header
+    .pull-right
+      = link_to "Unassign", unassign_cohort_pair_rotation_path(@cohort, @todays_rotation), class: "btn btn-info", method: :post
+
+    %h2
+      Today's Pairs
+      (rotation #{link_to "##{@todays_rotation.position}", cohort_pair_rotation_path(@cohort, @todays_rotation)})
+
+  %table.table
+    %thead
+      %tr
+        %th A
+        %th B
+    %tbody
+      - @todays_rotation.pairs.each do |pair|
+        %tr
+          - a, b = @users[pair.first], @users[pair.last]
+          %td= a ? a.full_name : 'Instructor'
+          %td= b ? b.full_name : 'Instructor'
+
+%h2 Available
+
+%table.table
+  %thead
+    %tr
+      %th Position
+      %th
+  %tbody
+    - @available.each do |rotation|
+      %tr
+        %td= link_to rotation.position, cohort_pair_rotation_path(@cohort, rotation)
+        %td.text-right
+          - if rotation == @available.first
+            = link_to 'Assign', assign_cohort_pair_rotation_path(@cohort, rotation), method: :post, class: "btn btn-primary btn-sm"
+
+%h2 Previously Assigned
+
+%table.table
+  %thead
+    %tr
+      %th Position
+      %th Happened on
+  %tbody
+    - @assigned.each do |rotation|
+      %tr
+        %td= link_to rotation.position, cohort_pair_rotation_path(@cohort, rotation)
+        %td= rotation.happened_on.strftime('%-m/%-d/%Y')

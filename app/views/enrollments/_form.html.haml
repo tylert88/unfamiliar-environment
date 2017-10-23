@@ -1,0 +1,30 @@
+= form_for @enrollment, html: {class: "form-horizontal"} do |f|
+  .form-group
+    .col-sm-6.col-sm-offset-2
+      = errors_for(f)
+
+  .form-group
+    = f.label :user_id, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.collection_select :user_id, User.ordered, :id, :full_name, {}, class: "form-control"
+
+  .form-group
+    = f.label :cohort_id, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.collection_select :cohort_id, Cohort.order('start_date desc'), :id, :name, {}, class: "form-control"
+
+  .form-group
+    = f.label :status, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.collection_select :status, Enrollment.statuses, :first, :first, {}, class: "form-control"
+
+  .form-group
+    = f.label :role, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.collection_select :role, Enrollment.roles, :first, :first, {}, class: "form-control"
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: 'btn btn-primary'
+      - if @cohort
+        = hidden_field_tag :cohort_id, @cohort.id

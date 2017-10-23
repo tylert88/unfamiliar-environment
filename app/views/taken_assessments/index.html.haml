@@ -1,0 +1,26 @@
+.page-header
+  %h1 Assessments
+
+- if @in_progress_assessments.present?
+  %h3 In Progress
+  %ul
+    - @in_progress_assessments.each do |taken_assessment|
+      %li= link_to "Continue #{taken_assessment.given_assessment.name}", edit_user_taken_assessment_path(@user, taken_assessment)
+
+- if @assessments_to_take.present?
+  %h3 Assessments to take
+  %ul
+    - @assessments_to_take.each do |given_assessment|
+      %li= link_to "Start #{given_assessment.name}", new_user_taken_assessment_path(@user, given_assessment_id: given_assessment)
+
+- if @finished_assessments.present?
+  %h3 Finished Assessments
+  %ul
+    - @finished_assessments.each do |taken_assessment|
+      %li= link_to "View #{taken_assessment.given_assessment.name}", user_taken_assessment_path(@user, taken_assessment)
+
+- if @scored_assessments.present?
+  %h3 Scored Assessments
+  %ul
+    - @scored_assessments.each do |taken_assessment|
+      %li= link_to "View #{taken_assessment.given_assessment.name}", user_taken_assessment_path(@user, taken_assessment)

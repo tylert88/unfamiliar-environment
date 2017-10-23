@@ -1,0 +1,1477 @@
+{
+  "command-line": {
+    "tags": [
+      "command line"
+    ],
+    "standards": [
+      {
+        "name": "Explain how UNIX commands work.",
+        "objectives": [
+          "Identify the parts of a UNIX command and explain the purpose of each. (command <optional flag(s)> <optional operand(s)>)",
+          "Discuss the UNIX philosophy (small programs that do one thing well, can be chained together).",
+          "Describe how to stop a running process with CTL+C or CTL+D",
+          "Describe how to quickly get help on a command without leaving the comfort of the terminal - COMMAND --help or COMMAND -h"
+        ]
+      },
+      {
+        "name": "Navigate the file system using the command line.",
+        "objectives": [
+          "Explain how the mac file system is set up like a tree, with `/` at the root.",
+          "Use `pwd` to print your working directory.",
+          "Use `cd` to change your working directory.",
+          "Explain the difference between absolute and relative paths.",
+          "Explain `.` and `..`",
+          "Navigate to a specific location using both absolute and relative file paths.",
+          "Discuss what types of files are in the home and root directories. (your files vs. system files)",
+          "Use `cd ~` to jump home.",
+          "Use TAB to autocomplete paths",
+          "Use up arrow to view previous commands"
+        ]
+      },
+      {
+        "name": "Manage files using the command line.",
+        "objectives": [
+          "Move files with `mv`.",
+          "Rename files with `mv`.",
+          "Copy files with `cp`.",
+          "Create files with `touch`.",
+          "Remove files with `rm`.",
+          "Use the recursive flag appropriately"
+        ]
+      },
+      {
+        "name": "Chain and Pipe commands to work more efficiently.",
+        "objectives": [
+          "Use `&&` to chain multiple commands.",
+          "Use `|` to ‘pipe’ the results of one command into another. (eg. ps aux | grep ruby)"
+        ]
+      }
+    ]
+  },
+  "git-and-github": {
+    "tags": [
+      "command line",
+      "git",
+      "version control"
+    ],
+    "standards": [
+      {
+        "name": "Use a basic Git workflow to track project changes over time.",
+        "objectives": [
+          "Discuss what a version control system (VCS) is and why it’s useful.",
+          "Initialize a local Git repository with `git init` and describe  what changed to make it a Git repo.",
+          "Use `git add` to stage changes and `git commit` to record those changes. Explain what happened at each step.",
+          "Use `git checkout` to check out previous commits.",
+          "Describe the purpose of the working directory, the staging area, and the repository."
+        ]
+      },
+      {
+        "name": "Use a branch-based Git workflow to manage feature development.",
+        "objectives": [
+          "Create branches and diagram how the Git graph changes when you make commits to those branches.",
+          "Use `git checkout` to move between branches.",
+          "Explain what `git merge` does and diagram it.",
+          "Build a new feature in a feature branch and then merge it into master.",
+          "Create some merge conflicts and explain what causes them.",
+          "Solve merge conflicts."
+        ]
+      },
+      {
+        "name": "Publish code to GitHub and sync between the local and remote repos.",
+        "objectives": [
+          "Explain what a remote repository is.",
+          "Discuss why web developers use GitHub as a remote repository service.",
+          "Initialize a remote repo on Github.",
+          "Push to a remote repository and explain + diagram what happened.",
+          "Pull from a remote repository and explain + diagram what happened"
+        ]
+      },
+      {
+        "name": "Collaborate on project using clone-based workflow.",
+        "objectives": [
+          "Clone from a remote repo to your local environment and explain + diagram what happened.",
+          "Create a feature branch, make changes, and push the feature branch up to the remote.",
+          "Explain what a pull-request is.",
+          "Use a pull-request to merge code from the feature branch into master."
+        ]
+      },
+      {
+        "name": "Collaborate on a project using a fork-based workflow.",
+        "objectives": [
+          "Fork a repo on GitHub and explain + diagram what happened.",
+          "Use a pull-request to merge code from the fork to the upstream.",
+          "Set an upstream remote and pull changes from upstream to keep the project up to date."
+        ]
+      }
+    ]
+  },
+  "how-the-web-works": {
+    "tags": [
+      "http",
+      "html"
+    ],
+    "standards": [
+      {
+        "name": "Dissect URLs - Explain their parts and purpose.",
+        "objectives": [
+          "Identify the parts of a url, including: protocol, the subdomains, domain and TLD, the port, the path, the query string (optionally the basic authentication username / password)",
+          "Explain the basic purpose of the parts of a url. (at a high level)"
+        ]
+      },
+      {
+        "name": "Explain the function and purpose of protocols - HTTP and HTTPS.",
+        "objectives": [
+          "Define “Protocol” and give examples of common protocols.",
+          "Explain that HTTP is a protocol that enables browsers to communicate over a network.",
+          "Explain that if you leave off the protocol, such as `//some-cdn.com` it will get filled in with whatever the current page’s protocol is",
+          "Explain that if you leave off the protocol and domain, the browser will use the current page’s protocol and domain",
+          "describe that HTTPS requests are encrypted with an SSL certificate and served from port 443 by default",
+          "describe that HTTP requests are not encrypted and are served from port 80 by default",
+          "describe what url encoding means and provide examples of paths that would need to be url encoded"
+        ]
+      },
+      {
+        "name": "Explain the function and purpose of HTTP Requests.",
+        "objectives": [
+          "explain that HTTP requests are strings sent across a network, which one might liken to a file being sent to a server",
+          "list and explain the purpose of HTTP verbs GET, POST, PATCH/PUT, DELETE",
+          "describe what a path is and how one would extract it from the request string",
+          "describe the 3 parts of an HTTP request - request line, the headers, the body",
+          "describe how to send query parameters in a URL (?foo=bar&baz=foo)",
+          "describe how to send url-encoded parameters in the request body",
+          "describe how to send raw JSON in the request body",
+          "describe how a client asks for a specific return mime-type with the Accept header",
+          "describe how a client specifies the mime-type of the body with the content-type header"
+        ]
+      },
+      {
+        "name": "Explain the function and purpose of  HTTP Responses.",
+        "objectives": [
+          "describe that HTTP responses are strings sent across a network, which one might liken to a file being sent back from a server to a client",
+          "list and explain the various common HTTP status codes such as 200, 404, 500 etc…",
+          "describe the structure of the HTTP response, including the: response line, the headers, the response body",
+          "explain how the content-type headers instruct the client how to render the response body",
+          "explain how there are some responses, such as responses to HEAD requests, that may not return bodies"
+        ]
+      },
+      {
+        "name": "Explain the lifecycle/flow of HTTP requests and responses.",
+        "objectives": [
+          "explain the role that DNS plays when requesting a web page, including resolving the domain name into an IP address",
+          "define and describe DNS and IP address",
+          "draw a sequence diagram of a redirect that shows two separate requests / responses",
+          "use the Chrome web inspector to gather evidence about requests and responses, including what form data was posted, what query params were sent, what headers were sent and received and what response bodies were returned",
+          "describe that even in a redirect, given that most sites are load-balanced, the server that serves the initial request may be different than the server that serves the second request, and as such the server cannot store any information in memory about the previous request and expect it to be read on subsequent requests"
+        ]
+      },
+      {
+        "name": "Explain the function and purpose of Cookies.",
+        "objectives": [
+          "describe that cookies are just properly formatted strings that are sent with each request and response",
+          "describe how browsers effectively “save” the cookies from each response, and send those same cookies back with each request, thus allowing servers to control what data is saved in the browser",
+          "describe that cookies can be session cookies which expire when the browser is closed",
+          "describe that cookies can specify that they will only be sent over HTTPS",
+          "describe that cookies can have specific subdomains associated with them so that they can be shared across sites like www.example.com and app.example.com",
+          "describe that browsers will only send cookies back to the domains allowed in the cookie definition",
+          "describe that cookies have expiration dates, and that browsers respect these",
+          "give an overview of the stateless nature of HTTP, and describe that cookies typically contain small numbers or strings that servers can use to match with a record in a database on the server",
+          "describe that cookies play in integral role in most authentication systems"
+        ]
+      }
+    ]
+  },
+  "html-css": {
+    "tags": [
+      "html",
+      "css"
+    ],
+    "standards": [
+      {
+        "name": "Write valid and semantic HTML5 documents.",
+        "objectives": [
+          "Write syntactically valid boolean attributes",
+          "Add multiple classes to an element",
+          "Write comments in HTML",
+          "Write syntactically valid, structurally valid documents including doctype, html, head, title, and body",
+          "Describe what the title element is used for (tab / window names, bookmarks, SEO)",
+          "Write folder and file names in lowercase with either dashes or underscores instead of spaces",
+          "Explain that attributes can appear in any order",
+          "Write self-closing tags without the trailing forward slash",
+          "Validate HTML with the W3C validator",
+          "Check links with the W3C link checker",
+          "Write properly indented and organized HTML",
+          "Explain that ids are used for",
+          "Connecting labels to form controls",
+          "Allowing anchor tags to jump to the location on a page",
+          "Explain that ids should be avoided except for connecting labels or serving as anchors",
+          "Explain that ids must be unique, and should not start with numbers",
+          "Explain that classes do not have to be unique on the page",
+          "Write all tags, attributes, class names and ids in lowercase",
+          "Explain why writing semantic HTML is important - relate to SEO and Accessibility",
+          "Identify and describe new HTML5 tags that can be used to create semantic markup.",
+          "Convert an un-semantic HTML page to an semantic page."
+        ]
+      },
+      {
+        "name": "Link to external resources in HTML",
+        "objectives": [
+          "include external javascript files",
+          "include inline javascript",
+          "describe the benefits of including javascript files near the end of the body",
+          "include external stylesheets",
+          "include inline CSS",
+          "render images",
+          "correctly form relative paths (foo/bar and ../foo/bar) and rooted paths (/foo/bar)",
+          "correctly include urls that can match the protocol by excluding “http” / “https”",
+          "describe why rooted paths will not work when running sites with the `file://` protocol",
+          "define and describe CDN",
+          "explain that CDNs can improve page load times for browsers because browsers can parallelize the downloads"
+        ]
+      },
+      {
+        "name": "Write HTML forms and controls",
+        "objectives": [
+          "Write syntactically valid forms",
+          "Explain the function and purpose of  the action attribute",
+          "Explain the function and purpose of the method attribute",
+          "Describe how forms and controls interact (that submitting a form serializes the controls associated with it)",
+          "Associate labels with controls by the “for” attribute",
+          "Associate labels with controls by wrapping the control",
+          "Write fieldsets with legends",
+          "Write syntactically valid boolean attributes (checked, selected, disabled)",
+          "Write syntactically valid select / option controls",
+          "Write syntactically valid radio buttons (same name, different values)",
+          "Write syntactically valid textareas (setting contents instead of value attribute)",
+          "Describe that the name attribute forms the key in the params when sent to the server",
+          "Describe the the value of inputs, and contents of textareas, for the value of the params sent to the server",
+          "Describe that unchecked checkboxes and radio buttons do not get sent to the server",
+          "Write syntactically valid input elements"
+        ]
+      },
+      {
+        "name": "Explain what CSS is and why it exists.",
+        "objectives": [
+          "Describe what CSS stands for.",
+          "Add style to HTML in three different ways. (Inline, External Style Sheet, Style Tag)",
+          "Explain why it is useful to separate CSS from HTML (external style sheet)"
+        ]
+      },
+      {
+        "name": "Target HTML elements with CSS selectors.",
+        "objectives": [
+          "write selectors that target attributes `[name=”foo”]`",
+          "write selectors that target elements that have both attributes - `.foo.bar`",
+          "write selectors that target elements that have either - `.foo, .bar`",
+          "write selectors that target elements - `body, html`",
+          "write selectors that target IDs",
+          "write selectors that target single classes",
+          "write selectors that targets descendents - `.foo .bar`",
+          "write selectors that target direct descendents - `.foo > .bar`",
+          "describe that certain selectors are more specific than others, and that specificity affects which styles get applied",
+          "Describe how CSS calculates and “decides” which styles to apply",
+          "describe that cascading means that parent styles can cascade down and more specific styles can override",
+          "write syntactically valid :after and :before selectors",
+          "write selectors that target siblings - `+`",
+          "write selectors that target the nth-child and nth-of-type",
+          "describe the difference between nth-child and nth-of-type",
+          "write selectors that target elements in a particular state such as hover, active using pseudo-selectors",
+          "use chrome web inspector to alter the state of an element in order to preview the CSS"
+        ]
+      },
+      {
+        "name": "Use CSS properties to style HTML elements.",
+        "objectives": [
+          "write syntactically correct CSS blocks (key-value pairs, semi-colons etc…)",
+          "write well-indented and organized CSS",
+          "write comments in CSS",
+          "define what rem, em, % and pixel units do",
+          "describe appropriate uses for the various units",
+          "describe the two box-sizing properties",
+          "correctly calculate the width and height of boxes with various box-sizing properties",
+          "describe the box model including border, margin, padding, content",
+          "list and describe the characteristics of the different positions - absolute, static etc…",
+          "list and describe the characteristics of floats",
+          "list and describe the various display properties - none, block, inline-block etc…",
+          "describe the difference between inline and block elements",
+          "correctly identify which common HTML elements are inline, which are block",
+          "position a ul with li’s horizontally",
+          "write all common CSS properties"
+        ]
+      },
+      {
+        "name": "Quickly style a page with CSS frameworks.",
+        "objectives": [
+          "Explain what CSS frameworks are and why they’re useful.",
+          "List and describe at least 3 modern, common css frameworks",
+          "Install a css framework 2 ways: CDN, and copying code locally to the project without a package manager.",
+          "Describe that CSS frameworks provide pre-defined classes and selectors, and that you must write markup that matches the framework’s expectations.",
+          "Describe the difference between reset.css and normalize.css and list the pros and cons of each.",
+          "Style a web page using Bootstrap.",
+          "Style a web page using a framework other than Bootstrap."
+        ]
+      },
+      {
+        "name": "Describe CSS systems",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Use good design practices to create a user-friendly and accessible page. (UX Intro)/UX stuff",
+        "objectives": [
+
+        ]
+      }
+    ]
+  },
+  "javascript-and-dom": {
+    "tags": [
+      "javascript",
+      "html"
+    ],
+    "standards": [
+      {
+        "name": "Explain the DOM.",
+        "objectives": [
+          "define what DOM stands for - describe that DOM is an in-memory representation of web page elements",
+          "describe that DOM is a tree made up of other JS objects",
+          "describe the browser’s role in creating the DOM (reading HTML, creating DOM, rendering graphically)",
+          "describe javascript’s role in manipulating the DOM",
+          "explain that HTML attributes are default (initial) values for DOM properties",
+          "explain that DOM properties can be altered after initial page load",
+          "explain that the DOM provides a way for programs to change the structure, style, and content on a page dynamically",
+          "explain the difference between a text node and an element"
+        ]
+      },
+      {
+        "name": "Find and manipulate DOM elements with raw Javascript.",
+        "objectives": [
+          "find an element by id, tagname, classname, and more advanced CSS selectors",
+          "set an element’s innerHTML and text",
+          "construct and add simple elements to the DOM",
+          "remove elements from the dom",
+          "detach and reattach DOM elements",
+          "access properties of DOM elements such as text, html, value",
+          "create and access data-attributes on elements",
+          "add, update, and remove attributes on elements",
+          "extract values from HTML forms including text inputs and select boxes",
+          "traverse the DOM downwards recursively using depth-first-search and childNodes",
+          "traverse the DOM upwards with iteration and parentNode",
+          "write a limited version of jQuery(gQuery) covering element CRUD, prepend, etc.",
+          "AJAX w/o jQuery",
+          "simple animations w/o jQuery",
+          "write a limitewd version of jQuery(gQuery) covering element CRUD, prepend, etc."
+        ]
+      },
+      {
+        "name": "Work effectively with data attributes",
+        "objectives": [
+          "Write syntactically valid data attributes",
+          "Describe that data attributes solve the problem of needing to extend HTML / DOM while maintaining standards and keeping things future-proof",
+          "Describe that `data-` and any valid identifier is valid and will pass HTML validation",
+          "Describe scenarios in which data attributes might be appropriate, such as:",
+          "adding urls or other data that JavaScript may use",
+          "defining placeholders so JavaScript does not have to rely on classes or ids",
+          "to group elements so that JavaScript can act on them as a group"
+        ]
+      },
+      {
+        "name": "Handle events with raw JavaScript.",
+        "objectives": [
+          "Explain what the event loop is. How does it work? How does it relate to asynchronous programming?",
+          "describe that the DOMContentLoaded event fires when the DOM is complete enough to start taking event listeners",
+          "add syntactically valid event listeners using named and anonymous functions",
+          "use the event object to access information about the event",
+          "describe event bubbling and event capturing",
+          "describe the value of `this` inside an event handler function",
+          "describe default actions on links and forms",
+          "prevent default actions and bubbling from occurring in event listeners",
+          "describe event delegation - in what cases you would attach an event to a parent element instead of directly to an element",
+          "use the passed in event.target to determine which dom node originated an event",
+          "write valid click, keypress, and form submission event listeners",
+          "Drag and Drop?"
+        ]
+      },
+      {
+        "name": "Explain the basic function and purpose of jQuery.jQuery Basics",
+        "objectives": [
+          "describe the difference between javascript and jQuery",
+          "include jquery from Bower or by another source local to the project",
+          "include jQuery from a CDN",
+          "describe that $ is a function that returns a jQuery object",
+          "describe that a jQuery object is a javascript object that contains an array of dom elements and also has utility methods that can act on those elements",
+          "describe why jQuery exists, including normalizing browser inconsistencies / saving developers time",
+          "describe the arguments for and against using jQuery on a project",
+          "wrap a DOM element in jQuery",
+          "describe the difference between a raw DOM element and a jQuery-wrapped element",
+          "unwrap a jQuery object with `.get()` and `[]`",
+          "write syntactically valid document ready statements",
+          "explain what $(fn) / $(document).ready(fn) does and why it’s useful",
+          "describe that jQuery is an expensive function call, and that care should be taken to minimize how many times you “re-jQueryify” the same element"
+        ]
+      },
+      {
+        "name": "Handle and respond to DOM events with jQuery.",
+        "objectives": [
+          "describe the advantages that jQuery events have over raw DOM event handlers",
+          "write syntactically valid event handlers directly on jQuery objects $(..).click(fn)",
+          "write syntactically valid event handlers using “on” - $(...).on(‘click’, fn)",
+          "write syntactically valid delegated event handlers using “on” on parent elements - $(...).on(‘click’, ‘child selector, fn)",
+          "describe what `this` is set to inside a jQuery event handler",
+          "write code that wraps `e.target` in a jQuery object",
+          "Explain what bubbling is and identify cases when it occurs.",
+          "Write code that prevents bubbling and defaults with `return false` in the handler."
+        ]
+      },
+      {
+        "name": "Select elements and traverse the DOM using jQuery.",
+        "objectives": [
+          "select elements by CSS selector",
+          "use jQuery’s each method to iterate over a selection",
+          "describe jQuery’s implicit iteration and the equivalent vanilla JS code.  For example: $( 'div' ).html( 'New Stuff' );",
+          "find child elements of a jQuery object with $(...).find(‘child selector’)",
+          "find all form controls using pseudo-selectors such as :text, :input, :checkbox etc…",
+          "describe that jQuery adds pseudo-selectors that CSS3 does not contain",
+          "find elements that are not a given selector with :not(...)",
+          "find the closest matching element with `$(...).closest(‘tr’)`",
+          "determine whether a given jQuery object matches a selector with `is` - is(‘:checked’)",
+          "determine whether a given jQuery object’s elements have a certain class with `hasClass`",
+          "explain that parent / child / sibling traversal can be brittle, and that combinations of `closest` and `find` can be more robust",
+          "write jQuery selectors that target multiple different selectors with $(.., …) using a comma",
+          "write chained jQuery methods",
+          "filter jQuery objects with `filter`"
+        ]
+      },
+      {
+        "name": "Create, read and alter DOM w/ jQuery",
+        "objectives": [
+          "create in-memory DOM elements from strings with `$(‘<div class=”foo”>’)`",
+          "append jQuery objects, strings and raw DOM elements to the DOM with `append`, `appendTo`, `insertAfter`, `after`, `before` etc…",
+          "remove elements with `remove()`",
+          "add, remove and toggle classes",
+          "set properties such as checked, style with `prop`",
+          "get the value of properties with `prop`",
+          "manipulate css with the `.css` method",
+          "get attributes with `attr`",
+          "set attributes with `attr`",
+          "use .val() to access input values",
+          "copy an element with `clone()`",
+          "describe that `prop` is appropriate for boolean attributes, whereas `attr` is appropriate for everything else",
+          "use the data method to access attributes set with HTML data attributes in two ways - $(...).data(‘some-thing’) / $(...).data().someThing;",
+          "describe why using data is preferable to `attr(‘data-behavior’)` for brevity and type coercion",
+          "replace elements using `replaceWith`",
+          "return the element’s `html()` and `text()`",
+          "set an element’s `html(...)` and `text(...)`",
+          "describe how many jQuery methods like `html()` and `text()` function as getters and setters",
+          "pull template text from a script tag with a type of text/x-template",
+          "use `show()` and `hide()` to...show and hide elements",
+          "use `fadeIn` and `fadeOut`, as well as other built-in effects like `slideUp()`",
+          "create custom effects with `animate()`"
+        ]
+      },
+      {
+        "name": "Use jQuery AJAX methods to perform asynchronous HTTP requests and interact with APIs.",
+        "objectives": [
+          "explain what AJAX stands for",
+          "write code that gets JSON and does something on success",
+          "write syntactically valid ajax calls using `$.ajax ` as well as the shortcut `get()` and `post()`",
+          "describe what is happening when $.ajax is invoked: that it takes an object as an argument, that it makes an HTTP request, that the `then` functions fire on a 200 response, that the error functions fire on non-2xx responses",
+          "use the `context` option to set the value of `this` in callbacks",
+          "write ajax calls that send form parameters from an object",
+          "write ajax calls that send the request body as JSON",
+          "describe common Single Page App patterns",
+          "write ajax calls that set the accept header and content types such as: send url-encoded data, get JSON back, send JSON, get JSON back, send JSON, get HTML back",
+          "Explain the purpose and value of promises in the context of AJAX.",
+          "Use promises to handle successful and unsuccessful AJAX requests.",
+          "Explain the XMLHTTPRequest same domain policy",
+          "Define API",
+          "Discuss how APIs are used to connect services across the web.",
+          "Define and describe JSON.",
+          "Explain the formatting rules for JSON. (strings, no trailing commas)",
+          "Use JSON.parse() to turn JSON into a javascript object.",
+          "Use jQuery AJAX methods to hit an api and use the returned JSON to populate information on an web page.",
+          "Bonus: explain the JSONP workaround to the same domain policy",
+          "Bonus: specify a jsonp callback parameter in an ajax request"
+        ]
+      },
+      {
+        "name": "Store and retrieve data in the browser using local storage.Work effectively with browser storage",
+        "objectives": [
+          "write code that gets and sets an items from localStorage",
+          "Articulate key / value string storage (what other data structure is similar? How is it different?)",
+          "Use JSON.stringify and JSON.parse to store nested objects in localStorage",
+          "Prove that localStorage persists between tabs and sessions",
+          "write code that sets an item in localStorage",
+          "write code that gets and sets items from sessionStorage",
+          "write code that sets an item in sessionStorage",
+          "Prove that localStorage persists after browsers are closed.",
+          "describe that sessionStorage is only visible to the _tab_ that set it, and expires when the tab is closed",
+          "set and clear local and session storage values from the Chrome web inspector"
+        ]
+      },
+      {
+        "name": "Work effectively with React",
+        "objectives": [
+          "write script tags with the proper type such that JSX can be loaded in the browser",
+          "write a basic component",
+          "render a component to the page",
+          "render a component from within another component",
+          "use JSX to add divs with className",
+          "explain that JSX sets properties, not attributes, which is why you need className instead of class",
+          "use write components that render form controls with defaultValue",
+          "explain that one of either defaultValue or (value + onChange) must be used otherwise fields will be readonly",
+          "describe the difference between `state` and `props`",
+          "write a component that handles a click event",
+          "write a component that handles an `input` or `change` event",
+          "explain the concept of the virtual DOM and that it exists to strike a balance between: surgical DOM changes (fast, but hard for humans to maintain) / large DOM changes (slow, but easy for humans to maintain) / virtual DOM (fast, easy for humans to maintain)",
+          "write a component that renders an array of other components using `map`",
+          "write a component that calls another component and sends in properties",
+          "write a component that calls another component and passes callbacks as properties (so the child can call the parent’s event handlers without being tightly coupled)",
+          "explain the common react architecture where a few components maintain state, and pass the relevant bits from state down to child components as props",
+          "explain how JSX works (that it is not valid JavaScript, but instead compiled to JavaScript)",
+          "write a component tree that handles ajax calls and has data-altering events occur in multiple subcomponents"
+        ]
+      }
+    ]
+  },
+  "javascript": {
+    "tags": [
+      "javascript",
+      "programming"
+    ],
+    "standards": [
+      {
+        "name": "Write and evaluate grammatical JS statements featuring variables, data types, operators, and values.",
+        "objectives": [
+          "Write single and multi-line comments in JS (//, /**/)",
+          "List and describe each of the primitive data types (number, string, boolean, null, undefined, symbols (es6)).",
+          "Declare variables and assign them values. Explain what’s happening.",
+          "Write syntactically valid `var` declarations and identify identifiers that would not be valid. Explain why you must use `var`. Show what happens when you don’t. (scope/hoisting!)",
+          "Explain what a variable is and how it works using the terms: “keyword, identifier, value, assign”",
+          "Explain that when you assign a variable to another variable, it gets assigned to the value of the variable (and not the variable itself)",
+          "Mentally evaluate primitive variable expressions",
+          "Write code that concatenates two strings together",
+          "Describe why `foo + bar` is different from `foo += bar` (that strings are immutable)",
+          "Write syntactically valid strings that contain newline characters, escaped quotes etc...",
+          "write syntactically valid multiline strings with slashes",
+          "Define ‘expression’. Give examples.",
+          "Define ‘statement’. Give examples.",
+          "Mentally evaluate statements that contain variables and primitive data types",
+          "List and describe the special values Infinity, -Infinity, NaN, Undefined, null. Write and evaluate code that produces each one.",
+          "Explain the difference between null and undefined.",
+          "Define ‘type coercion’ and write code that demonstrates the cases in which it occurs.",
+          "Write and evaluate expressions using the arithmetic operators: +, -, *, /, %",
+          "Determine how a computer processes compound expressions (operator precedence).",
+          "Identify all of the truthy and falsy values in JS and explain what it means to be “truthy” and “falsy”.",
+          "Write and evaluate expressions with logical operators (&&, ||, <, >, <=, >=, ===).",
+          "Explain the difference between == and ===. Give examples.",
+          "Explain what “short-circuit evaluation” is and what the return values from such statements are.",
+          "Explain the difference between and give examples of Unary and Binary Operators"
+        ]
+      },
+      {
+        "name": "Use conditionals and loops to write simple programs.",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Write and invoke basic functions and explain how they work.",
+        "objectives": [
+          "Define what a function is. (loosely: “a function is a set of instructions that can take 0 or more inputs, perform calculations and either return values or cause changes to occur”)",
+          "Explain what a function is and how it works using analogies . (comparing it to a machine, black box, factory, etc.)",
+          "Define functions using declarations and expressions, and explain the difference between them.",
+          "Articulate the difference between defining and invoking a function.",
+          "Describe how data flows into a function (by passing in arguments).",
+          "Describe how data flows out of functions (by using the `return` keyword).",
+          "Describe the difference between function expressions, named and anonymous functions.",
+          "Write named functions and anonymous functions that take 0, 1 and many arguments.",
+          "Explain how functions handle arguments",
+          "can access all arguments using array-like `arguments` object",
+          "can take more arguments than specified in the parameters",
+          "parameters that aren’t specified when the function is invoked are set to ‘undefined’",
+          "Explain that functions are values and that they can be stored in variables just like any other value",
+          "Call functions from above, below and in separate files from function definition",
+          "Write functions that return values.",
+          "Write functions that have side effects, such as manipulating dom.",
+          "Explain what recursion is and write a functions that call themselves recursively."
+        ]
+      },
+      {
+        "name": "Explain the relationship between functions and scope.",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Write and invoke functions as methods on objects.",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Use built-in Javascript methods to perform common tasks on objects.",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Demonstrate how higher order functions work and explain why they’re useful.",
+        "objectives": [
+          "Define a higher order function as a function that takes at least one function as an argument and/or returns a function.",
+          "Distinguish between examples of first-order and higher-order functions.",
+          "Use the built in arr.forEach() method to execute a function once per element in an array. Explain how this works and how it is an example of a higher order function.",
+          "Write common higher order functions from scratch. (javascript warmups is great for this!)",
+          "effectively use map, reduce, filter, every, none, some",
+          "invoke functions that are passed as a function, passing arguments",
+          "define functions that take multiple other functions",
+          "invoke functions, passing them multiple functions",
+          "inline and extract / go between anonymous functions and named / function variables",
+          "Use functions that return functions to another function as an argument"
+        ]
+      },
+      {
+        "name": "Explain/demonstrate how asynchronous programming works and why it’s useful.",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Distinguish between ES5 and ES6 features.",
+        "objectives": [
+          "Use arrow syntax to declare functions",
+          "Demonstrate how let provides block scope",
+          "Describe how class is just syntax sugar for prototypal inheritance",
+          "Identify the key value pairs used when object property shorthand is resolved",
+          "Use template strings for string interpolation",
+          "Describe how template strings may use newlines and whitespace",
+          "Use promises to write async code",
+          "Mentally evaluate the results from deconstruction",
+          "Set default arguments in function definition"
+        ]
+      },
+      {
+        "name": "Objected Oriented Programming in JavaScript",
+        "objectives": [
+          "Summarize the three core OO principles in your own words:",
+          "Define “Object Oriented Programming” and compare and contrast it with functional programming.",
+          "Explain what constructor functions are and why they help prevent redundancy when creating objects",
+          "Examine JavaScript’s global objects like Array, Object etc and differentiate between instance methods like .push()/.pop() and global object methods like .isArray().",
+          "Explain what the keyword ‘this’ refers to when writing constructor functions and prototype methods.",
+          "Distinguish between class methods and instance methods",
+          "Articulate the difference and benefits to adding methods to the prototype vs. the constructor",
+          "Explain the difference between setting properties in a constructor function vs. the prototype",
+          "Use ‘call’ or ‘apply’ to mimic the functionality of ‘super’ when creating other constructor functions",
+          "Contrast call and apply and how the arguments array-like object can be used"
+        ]
+      },
+      {
+        "name": "Implement Prototypal Inheritance in JavaScript",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Test JavaScript using Jasmine",
+        "objectives": [
+
+        ]
+      }
+    ]
+  },
+  "markdown": {
+    "tags": [
+      "markdown",
+      "git"
+    ],
+    "standards": [
+      {
+        "name": "Write readmes and other document with markdown syntax",
+        "objectives": [
+          "Explain how Markdown is a markup language designed to be converted to HTML(and other formats)",
+          "Discuss why markdown is a popular format for writing on the web.",
+          "'Convert' markdown to the equivalent HTML tags for each of the following:",
+          "Use '#'s to create page headers",
+          "Create blockquotes using '>'",
+          "Write unordered lists using '*' or '-'",
+          "Write ordered lists using numbers followed by periods: '1.'",
+          "Write inline code segments using single backticks",
+          "Write code blocks using three backticks: ```",
+          "Add links using [link](url)",
+          "Add images using ![alt text](url)",
+          "Use single asterisks to italicize text",
+          "Use double asterisks to bold text",
+          "Write thorough and well-structured markdown readme files for all projects on Github"
+        ]
+      }
+    ]
+  },
+  "node": {
+    "tags": [
+      "javascript",
+      "node"
+    ],
+    "standards": [
+      {
+        "name": "Explain the basic function and purpose of node.",
+        "objectives": [
+          "Discuss the history of node. (How did it come to be? Why are devs excited about it?)",
+          "Explain how node provides a JS runtime outside of the browser using the V8 engine.",
+          "Compare/contrast which basic objects are available in node vs. the browser. (window, process.",
+          "Discuss some of the most common uses of node.",
+          "Install Node.js and NPM.",
+          "Describe how to initialize a node project and what the package.json file is.",
+          "Install modules using npm and understand what the --save, --save-dev and -g flags do",
+          "Explain how the event loop plays a key role in the way Node.js works",
+          "Differentiate between Node and other backend technologies like Ruby.",
+          "Explain the difference between synchronous and asynchronous programs and how JavaScript uses callbacks to handle async code.",
+          "Explain what “callback hell” is and what other technologies we have to avoid this.",
+          "Explain how require works in the context of Node and the difference between. require(“http”) and require(“./http”).",
+          "Discuss when to use a technology like Node.js and its benefits and drawbacks"
+        ]
+      },
+      {
+        "name": "Run scripts with `node` and evaluate JS in the command line using the node REPL",
+        "objectives": [
+          "Run a javascript file with node",
+          "console.log output to the screen",
+          "Use the `jasmine` command to run specs",
+          "Use `node` to execute code in the REPL",
+          "Define R.E.P.L. and what it’s used for",
+          "Quit the node REPL with CTL+D",
+          "Use fs to parse files and understand more about file I/O"
+        ]
+      },
+      {
+        "name": "Handle errors in node.",
+        "objectives": [
+          "describe the 3 most common error-handling patterns in node:",
+          "event emitters",
+          "throwing",
+          "passing errors to callbacks",
+          "describe the difference between programmer error and transactional errors",
+          "describe how to pair node’s 3 error-handling techniques to handle either programmer errors or transactional errors",
+          "write syntactically correct calls to async functions that invoke callbacks with `err` as the first argument"
+        ]
+      },
+      {
+        "name": "Define and require modules",
+        "objectives": [
+          "write syntactically correct `module.exports` to export a function",
+          "write syntactically correct `module.exports` to export an object",
+          "write syntactically correct require statement that requires a function",
+          "write a syntactically correct require statement that requires an object",
+          "explain that the variable used when requiring does not have to match either the filename being required or any variable within the required module",
+          "explain that no functions or variables from the module will be available to the caller unless explicitly exported",
+          "write valid require statements for relative paths",
+          "write valid require statements for npm modules / builtin modules",
+          "explain the idiosyncrasies of `exports` and `module.exports` (??)"
+        ]
+      },
+      {
+        "name": "Use the URL module to resolve and parse urls.",
+        "objectives": [
+          "Parse a url with url.parse() and access the various properties on the url"
+        ]
+      },
+      {
+        "name": "Use the http Module (http) to interact with the Web using the http protocol.",
+        "objectives": [
+          "Start a simple server using the http module."
+        ]
+      },
+      {
+        "name": "Use the File System Module (fs) to interact with the file system.",
+        "objectives": [
+
+        ]
+      },
+      {
+        "name": "Use NPM to install and manage packages",
+        "objectives": [
+          "Discuss what NPM is and what it is used for.",
+          "Use NPM to install, uninstall, manage versions, and other tasks r"
+        ]
+      }
+    ]
+  },
+  "rails": {
+    "tags": [
+      "web frameworks",
+      "rails",
+      "ruby"
+    ],
+    "standards": [
+      {
+        "name": "Explain the basic principles of Rails and MVC",
+        "objectives": [
+          "Explain what Rails is.  What assumptions does it make?",
+          "Explain what it means that “Rails is opinionated software”",
+          "Describe what Rails is good at and what it struggles with.",
+          "Explain convention over configuration",
+          "Explain the MVC pattern",
+          "Explain REST",
+          "Explain the role inheritance/OOP plays in Rails.",
+          "Describe all the directories and files in a Rails app. What do they each do?",
+          "Describe the 7 RESTful routes.  What do they each do?  What type of requests are they?"
+        ]
+      },
+      {
+        "name": "Explain, interpret, and define routes",
+        "objectives": [
+          "Explain the role of routes: the rails router recognizes URLs and dispatches them to a specific controller’s action.",
+          "Set the root route using the `root to:` and `root` syntax",
+          "List existing routes using `rake routes`",
+          "Write routes with dynamic segments",
+          "Write the 7 standard RESTful routes from scratch for a single controller, using the `verb ‘/path’, to: ‘controller#action’‘ syntax",
+          "Add a name to a route using the `as` option",
+          "Use resources to quickly declare the standard routes for a given controller",
+          "Explain the 7(8ish) routes generated by `resources`.  List the HTTP verb, path, controller, and action for each.",
+          "Use the generated path helpers to quickly reference controller actions (comments_path, new_comment_path, edit_comment_path(:id), etc.)",
+          "Organize groups of controller using `namespace`",
+          "Generate nested routes for multiple controllers",
+          "Explain that routes should never be nested more than 1 level deep",
+          "Write shallow nested routes using  the `only` option",
+          "Write shallow nested routes using the `shallow:true` option"
+        ]
+      },
+      {
+        "name": "Explain how controllers work and how they fit into the request cycle",
+        "objectives": [
+          "Explain the role of Controllers in the MVC pattern. The common pattern: receive request, fetch/save data from a model, and use a view to generate output.",
+          "Explain the flow of a request through a controller",
+          "Explain the role of Rack in Rails",
+          "Explain the role of ApplicationController and ActionController::Base",
+          "Explain the role of cookies and sessions in storing data",
+          "Access and store values in the session",
+          "Use proper naming conventions for controllers: pluralize the last word in the controller’s name",
+          "Create a controller from scratch",
+          "Create a controller using a generator",
+          "Implement actions for all 7 RESTful routes",
+          "Explain the data sources that the params hash is constructed from: query string parameters, POST parameters, and path variables",
+          "Explain what causes a mass assignment error and how to fix it",
+          "Use strong parameters to permit attributes, including nested parameters",
+          "Explain that the flash hash is a special part of the session which is cleared on each request",
+          "Add values to the flash",
+          "Display messages stored in the flash",
+          "Explain cross-site request forgery",
+          "Explain the measures rails takes to avoid CSRF attacks",
+          "Explain the role of the CSRF token added to each request"
+        ]
+      },
+      {
+        "name": "Filters",
+        "objectives": [
+          "Explain that filters are methods that run before or after a controller action.  Give an example of a use case for filters",
+          "Explain that filters are inherited; a filter on ApplicationController will run on every controller in the app",
+          "Add a “before” filter using `before_action`",
+          "Use the `only` option to specify which actions should be filtered"
+        ]
+      },
+      {
+        "name": "Use Active Record models to represent and manipulate data stored in a relational database",
+        "objectives": [
+          "Describe what Object Relational Mapping is",
+          "Explain where Active Record fits into the MVC pattern",
+          "Use proper model naming conventions for models, schemas, and migrations",
+          "Explain that active record models are just regular ruby objects",
+          "create active record models from scratch",
+          "create active record models using a generator",
+          "translate simple active record queries to the underlying sql queries",
+          "explain the difference between create and new",
+          "explain the difference between `create` and `create!`, `save` and `save!`, etc.",
+          "access data using `all`, `first`, and `last`",
+          "use `find` to locate specific records",
+          "use `find_by` to locate specific records",
+          "use `where` to locate specific records",
+          "use destroy to remove a record from the database",
+          "Queries",
+          "Limit",
+          "Order",
+          "Select",
+          "Where (With a pure string condition, With a hash condition, With a range condition)"
+        ]
+      },
+      {
+        "name": "Represent associations between models",
+        "objectives": [
+          "Explain why we need associations between models.  Give an example of what our code/database would look like without any associations",
+          "Explain the different types of Active Record associations",
+          "Explain the difference between a primary key and foreign key",
+          "Use the belongs_to association",
+          "Give an example of a belongs_to relationship",
+          "Use the has_one association",
+          "Give an example of a has_one relationship",
+          "Use the has_many association",
+          "Give an example of a has_many relationship",
+          "Use the has_many :through association",
+          "Give an example of a has_many :through relationship",
+          "Use the has_and_belongs_to_many association",
+          "Give an example of a has_and_belongs_to_many relationship",
+          "Use the methods added to models by creating associations",
+          "Explain when to use associations",
+          "Explain and implement simple polymorphic associations like nested comments on posts and other comments"
+        ]
+      },
+      {
+        "name": "Validate models before they get persisted to the database",
+        "objectives": [
+          "Explain the purpose of validations.  Give examples of situations where you would want validations.",
+          "Explain that Active Record can validate the state of a model before it is written to the DB",
+          "Explain the role of `new` and `save` with respect to validations",
+          "Use `valid?` to verify whether an object is valid",
+          "After validations have been run, access error messages added to the `errors` collection",
+          "Add custom error messages to the `errors` collection",
+          "use `errors.any?` in a view to display validation errors",
+          "Use built-in validation helpers (presence, absence, length, uniqueness)",
+          "Write custom validations and call them with `validates_with`",
+          "use the `:on` option to specify when a validation should take place"
+        ]
+      },
+      {
+        "name": "Perform database operations in an object-oriented fashion using migrations",
+        "objectives": [
+          "Explain why we alter the database using migrations.  What are the advantages?",
+          "Explain the difference between writing a migration and running the migration",
+          "Explain how rails keeps track of which migrations have already been run",
+          "Explain the importance of the migration naming convention(YYMMDDHHMMSS_migration_name.rb)",
+          "Use `rails generate migration MigrationName` to create an empty migration",
+          "Explain the special case when you generate a migration with the format “AddXToY” or “RemoveXFromY”",
+          "Explain the special case when you generate a migration with the format “CreateXXX”",
+          "Generate a model and corresponding migration using `rails generate model ModelName column:type`",
+          "Write a migration to create a table with `create_table`",
+          "Write a migration to change a table using `change_table`",
+          "Write a migration to alter a column’s type using `change_column`",
+          "Write a migration to add a column using `add_column`",
+          "Write a migration to drop a table using `drop_table`",
+          "Use column modifiers like `limit`, `default` and `index` in a migration",
+          "Explain the role of indexes",
+          "Use all the common migration datatypes including `:datetime`, `float`, `integer`, `references`, `string`, `text`, and `timestamp`",
+          "Use the PostgreSQL special datatypes including `json` and `array`",
+          "Run all previously un-run migrations using `rake db:migrate`",
+          "Run a specific migration using `rake db:migrate`",
+          "Rollback the last migration using `rake db:rollback`",
+          "Reset the database using `rake db:reset`",
+          "Explain why editing migrations is a bad idea",
+          "Explain the role of the schema file and that it should never be directly edited",
+          "Follow proper naming conventions for model/class names and table/schema names",
+          "Follow naming conventions for foreign keys (`singularized_table_name_id`)"
+        ]
+      },
+      {
+        "name": "Create templates and use the various rendering methods built into rails",
+        "objectives": [
+          "Explain the interaction between the Controller and the View in the MVC convention",
+          "Explain the role of views in the MVC pattern",
+          "Render a particular view",
+          "Render an action’s view from another controller",
+          "Render JSON",
+          "Render nothing",
+          "Specify the status code in a render call, both with numeric status codes and their corresponding symbols",
+          "Use redirect_to",
+          "Explain the difference between rendering and redirecting",
+          "Send header-only responses using `head`",
+          "Describe when to use templates vs. partials",
+          "Write dynamic templates using ERB syntax",
+          "Explain the difference between `<% %>` and `<%= %>`",
+          "Explain the role of the default layout file",
+          "Explain the role of `<% yield %>` tags",
+          "Extract duplicated markup into a partial named with the correct `_` prefixed convention",
+          "Use partials to simplify complex views",
+          "Render a partial using `render` inside a template",
+          "Pass data to a partial in the `render` call",
+          "Use the `as` option to specify a name for a local variable in a partial",
+          "Render a partial with a collection of data using `collection: @dogs` and the shortcut `render @dogs`",
+          "Explain the purpose of the `javascript_include_tag` and `stylesheet_link_tag`",
+          "content_for"
+        ]
+      },
+      {
+        "name": "Create forms that are not tied to a specific model using `form_tag`",
+        "objectives": [
+          "Create a simple search form using form_tag",
+          "Explain the inputs of the form_tag and the resulting HTML it generates",
+          "explain the form_tag arguments (Set the path in a form_tag / Specify a controller and action explicitly in a form_tag",
+          "Pass an options hash to a form_tag, including",
+          "Add a text field to a form_tag using text_field_tag",
+          "Add a label to an input in a form tag using label_tag",
+          "Add a submit_tag to a form_tag",
+          "Add a hidden_field_tag to a form_tag",
+          "Use a checkbox_tag in a form_tag",
+          "Use a radio_button_tag in a form_tag",
+          "Use other helpers like password_field, date_field, email_field, and color_field tags"
+        ]
+      },
+      {
+        "name": "Create model-centric forms for creating/editing database records using `form_for`",
+        "objectives": [
+          "Explain the difference between a form_tag and a form_for",
+          "Explain the arguments",
+          "Write a form_for to create a model",
+          "Write a form_for to edit a model",
+          "Make use of the various form control helpers",
+          "Write a form_for to handle nested attributes",
+          "Write a form-for to work with the various model associations including has_many and has_many_through",
+          "Build complex forms with multiple models, nested attributes, or dynamic fields",
+          "Select tags"
+        ]
+      },
+      {
+        "name": "Use the asset pipeline to organize your application assets",
+        "objectives": [
+          "Explain what the asset pipeline is a framework for asset organization",
+          "Explain the asset pipeline’s asset concatenation and why it’s beneficial",
+          "Explain the asset pipeline’s asset minification and why it’s beneficial",
+          "Explain the asset pipeline’s asset fingerprinting and the reasoning behind it",
+          "Explain the differences in asset compilation between development and production modes",
+          "Explain the role of the asset pipeline in simplifying asset management, compression, and fingerprinting",
+          "Explain the role of the `application.js` and `application.css` files",
+          "Include external images and other assets",
+          "Explain which assets go in `app/assets`, `lib/assets`, and `vendor/assets`",
+          "use `image_path` to access images in the assets directory",
+          "Add a pre-processor to the pipeline",
+          "Use sprockets to require a file or library from a manifest file",
+          "Explain the role of the `require tree .` in manifest files",
+          "Use the built-in rake task to precompile assets"
+        ]
+      },
+      {
+        "name": "Use built-in Rails command line utilities",
+        "objectives": [
+          "Open and interact with the rails console",
+          "Start the rails server with `rails server`",
+          "Specify the port for the rails server using the `-p` option",
+          "Specify an environment using the `-e` option",
+          "Create a new app using `rails new`",
+          "Create an app using the `--database` option",
+          "Generate controllers using `rails generate`",
+          "Generate models using `rails generate`",
+          "Generate resources using `rails generate`",
+          "Generate scaffolds using `rails generate`",
+          "Explain what `Rake` is",
+          "Access a list of available rake tasks using `rake --tasks`",
+          "Use `rake assets:precompile` and `rake assets:clean`",
+          "Use `rake db:migrate` and all the others I’ll fill in later!",
+          "Use `rake routes` to view all defined routes"
+        ]
+      },
+      {
+        "name": "Add and use gems in a rails app",
+        "objectives": [
+          "Explain the purpose of the gemfile",
+          "Explain the purpose of bundler",
+          "Explain the difference between the gemfile and gemfile.lock",
+          "Add gems to the gemfile",
+          "Use version specifiers like `>=` and `~>`",
+          "Add gems to groups",
+          "Use gems to implement user auth",
+          "Use gems to implement 3rd party user auth",
+          "Use gems to implement image/file upload",
+          "Use gems to test rails apps"
+        ]
+      }
+    ]
+  },
+  "ruby": {
+    "tags": [
+      "ruby",
+      "programming"
+    ],
+    "standards": [
+      {
+        "name": "Using Ruby and running Ruby programs",
+        "objectives": [
+          "Compare Ruby to JS and explain why you would use one over the other",
+          "DiscussExplain the history of Ruby",
+          "Install Ruby using RVM",
+          "Install Gems",
+          "List and change gemsets",
+          "Run a file using `ruby filename`",
+          "Use `pry` to debug ruby scripts",
+          "Require gems using `require`",
+          "Require gems using a gemfile",
+          "File I/O - Open, read, and write to files using Ruby"
+        ]
+      },
+      {
+        "name": "Ruby Basics and Values",
+        "objectives": [
+          "Write single line and block comments",
+          "Work with the basic data types: strings, numbers, symbols, and booleans",
+          "Explain the difference between Floats and Integers",
+          "Explain the difference between FixNum and BigNum",
+          "Do simple math with operators like `+`, `-`, `%`, etc.",
+          "Use conversion methods like `.to_f`, `to_i`, and `to_s`",
+          "Define variables",
+          "Explain that variables refer to objects",
+          "Use string interpolation and concatenation",
+          "Use string methods like upcase, downcase, reverse, length, and split",
+          "Use escape characters like `\\n`,  `\\”` and `\\\\`",
+          "Access individual characters in a string using `[]` syntax",
+          "Get simple input using `gets`",
+          "Explain the difference between `=` and `==` in Ruby",
+          "Explain the difference between strings and symbols",
+          "Explain what it means that strings are mutable",
+          "Explain the difference between methods like `upcase` and `upcase!`",
+          "Explain the difference between nil, blank, and empty",
+          "Use `puts`, `p`, and `print` and describe the differences between them",
+          "Use `inspect`",
+          "Create ranges"
+        ]
+      },
+      {
+        "name": "Ruby arrays and use common methods",
+        "objectives": [
+          "Highlight the main differences between JS arrays and Ruby arrays",
+          "Initialize an empty array",
+          "Populate an array at creation: `arr = [1,2,3’]`",
+          "Populate an array using indexes: `arr[3] = 4`",
+          "Access elements in an array by index",
+          "Use negative indices to access an array from the end",
+          "Create and manipulate multidimensional arrays",
+          "Access the length property of an array",
+          "Explain that the length property always returns 1 more than the largest index",
+          "Explain that an array is an ordered set of values accessed by index",
+          "Use common array methods like `reverse`, `length`, `sort`, and `join`",
+          "Add and remove from an array using `push` and `pop`",
+          "Add and remove from an array using `unshift` and `shift`",
+          "Explain and use the shovel operator",
+          "Delete an item from an array"
+        ]
+      },
+      {
+        "name": "Ruby hashes and use common methods",
+        "objectives": [
+          "Highlight the main differences between JS objects and Ruby hashes",
+          "Define 3 ways to create a hash",
+          "Create an empty hash",
+          "Create a hash initialized with values",
+          "Explain the role of the hash rocket in hash assignment",
+          "Define key-value pairs using hash rocket syntax and the symbol shortcut syntax",
+          "Access data in a hash using  `[]` syntax",
+          "Update values in a hash",
+          "Remove items from a hash",
+          "Explain that hashes do not maintain any sort of order pre ruby 1.9"
+        ]
+      },
+      {
+        "name": "Control Flow",
+        "objectives": [
+          "Highlight the main differences in conditionals and boolean logic between JS and Ruby",
+          "Write boolean expressions using simple operators like ==, !=, <, >, &&, ||,  etc.",
+          "Identify truthy and falsey values",
+          "Define simple conditionals with a single `if`",
+          "Define conditionals the using `if`, `else` syntax",
+          "Define conditionals using `if`, `elseif`, and `else`",
+          "Write single line, yoda-syntax if statements like `x += 2 if x < 0`",
+          "Write case statements",
+          "Write `unless` statements",
+          "Use the ternary operator"
+        ]
+      },
+      {
+        "name": "Loops/Enumerables",
+        "objectives": [
+          "Highlight the key differences between loops in JS and loops in Ruby",
+          "Use a while loop to execute code while a condition is true",
+          "Use an until loop to execute code while a conditional is false",
+          "Use a while loop to iterate over an array",
+          "Use a for statement using a range, like `for i in 1..9`",
+          "Use the built-in `times`, `upto`, and `downto` methods",
+          "Use an each loop to iterate over a range",
+          "Use each to iterate over a hash",
+          "Use an each loop to iterate over an array",
+          "Use each_with_index to iterate over an array",
+          "Use Array.new with a block to instantiate arrays that are pre-filled",
+          "Use enumerators to traverse, sort, and manipulate collections (map, select, inject)"
+        ]
+      },
+      {
+        "name": "Ruby methods",
+        "objectives": [
+          "Methods",
+          "Highlight the key differences between functions in JS and methods in Ruby",
+          "Explain explicit vs. implicit returns",
+          "Define simple methods using the `def` keyword",
+          "Define methods that take arguments and return values",
+          "Write methods with optional arguments",
+          "Write methods with default argument values",
+          "Scope"
+        ]
+      },
+      {
+        "name": "OOP in Ruby",
+        "objectives": [
+          "OOP in Ruby",
+          "Explain what is meant by “Everything in Ruby is an object”",
+          "Use `.class` to find the class of a given object",
+          "Explain the difference between classes and objects/instances",
+          "Explain the difference between a class and a module",
+          "Define a class",
+          "attr_reader, writer, and accessor",
+          "Define a class using inheritance",
+          "Create instance methods",
+          "Create class methods",
+          "Explain the difference between instance and class methods",
+          "Explain the difference in calling instance and class methods",
+          "Explain the difference between getter and setter methods",
+          "Explain the role of the `initialize` method",
+          "Explain the difference between private and protected methods",
+          "Explain class-based inheritance",
+          "Discuss differences between prototypal and classical inheritance",
+          "Use the keyword `self`",
+          "Use the keyword `super`"
+        ]
+      },
+      {
+        "name": "Blocks and Procs",
+        "objectives": [
+          "Blocks and Procs",
+          "Explain the similarities and differences between blocks and functions",
+          "Compare Javascript functions and Ruby blocks",
+          "Declare a block",
+          "Explain why you would use a block rather than creating a method",
+          "Return data from a block",
+          "Explain the use of procs"
+        ]
+      },
+      {
+        "name": "Translate easily between JS and Ruby",
+        "objectives": [
+          "Style - Use snake_case for method and variable names",
+          "Style - Use CamelCase for classes and modules",
+          "Style - Use snake_case for naming files and directories",
+          "Write self-documenting code and comment when necessary"
+        ]
+      }
+    ]
+  },
+  "server-side-js-with-express": {
+    "tags": [
+      "node",
+      "web frameworks",
+      "javascript"
+    ],
+    "standards": [
+      {
+        "name": "Create a basic CRUD app in Express",
+        "objectives": [
+          "Students can generate apps with the express generator",
+          "Students can run apps",
+          "Students can define routes that render templates",
+          "Students can install custom template languages like Handlebars",
+          "Students can define routes that redirect",
+          "Students can write valid template syntax including nesting, loops and conditionals",
+          "Students can explain jade layouts",
+          "Students can render pre-populated form controls with jade",
+          "Students can explain how data flows from a form to an express route",
+          "Students can access data from dynamic route segments, querystrings and bodies",
+          "Students can describe all 7 routes, their verbs, paths etc...",
+          "Students can install, configure and use a library to connect to Mongo"
+        ]
+      },
+      {
+        "name": "Deploy a CRUD app",
+        "objectives": [
+          "Students can effectively use environment variables",
+          "Students can deploy to Heroku",
+          "Students can deploy to Bluemix or a CloudFoundry-based platform"
+        ]
+      },
+      {
+        "name": "Validate user input",
+        "objectives": [
+          "Students can re-render templates w/ error messages if input is invalid server-side",
+          "Students can use HTML5 attributes to validate user input client-side",
+          "Students can render jade partials"
+        ]
+      },
+      {
+        "name": "Implement Authentication bcrypt and Express session",
+        "objectives": [
+          "Explain cookies, dates, session cookies",
+          "View and delete cookies in Chrome",
+          "Set and read cookies in Express",
+          "Explain why storing a password in plain text is never acceptable and highly dangerous",
+          "What hashing and salting are",
+          "Explain how salting protects from lookup/dictionary table attacks",
+          "Store passwords securely using the bcrypt module",
+          "Explain how sessions and cookies work, where they are stored and how they are secured",
+          "Write a signin / signout flow using only signed cookies",
+          "Use express session to maintain state in an application",
+          "Explain what the session secret is and what the difference between a signed and unsigned cookie is"
+        ]
+      },
+      {
+        "name": "Implement OAuth-based authentication with Passport",
+        "objectives": [
+          "Define and describe OAuth",
+          "Write apps using OAuth through Passport"
+        ]
+      },
+      {
+        "name": "Implement authorization",
+        "objectives": [
+          "Student can use app.use + session to ensure users are logged in",
+          "Student can describe how authorization differs from authentication",
+          "Student can implement post-login redirects using cookies / session"
+        ]
+      },
+      {
+        "name": "Serve RESTFUL JSON APIs",
+        "objectives": [
+          "Students can explain what an API is an how to construct one",
+          "Students can render JSON from RESTful routes"
+        ]
+      },
+      {
+        "name": "Interact with APIs server-side",
+        "objectives": [
+          "Student can make simple requests using node’s http.get",
+          "Student can make complex requests using node’s http.request and async accumulator",
+          "Student can display results from apps that require app-wide keys (like Tracker)",
+          "Student can display results from apps that require per-user keys (OAuth-style)"
+        ]
+      },
+      {
+        "name": "Write client-side code in express apps",
+        "objectives": [
+          "Students can include script tags in jade layouts",
+          "Students can explain the difference between client-side and server-side code",
+          "Students can make AJAX calls to local API endpoints and modify DOM"
+        ]
+      }
+    ]
+  },
+  "student-onboarding": {
+    "tags": [
+      "learn-to-learn"
+    ],
+    "standards": [
+      {
+        "name": "Get to know your instructors.",
+        "objectives": [
+          "Recite instructor names.",
+          "Discuss instructor backgrounds, interests, etc."
+        ]
+      },
+      {
+        "name": "Get to know your classmates.",
+        "objectives": [
+          "Recite every students’ name.",
+          "Discuss student backgrounds, interests, etc. Talk to every other student at least once."
+        ]
+      },
+      {
+        "name": "Develop metacognition about learning and teaching",
+        "objectives": [
+          "Describe zone of proximal development",
+          "Describe bloom’s taxonomy and the concepts of shallow / deep learning",
+          "Describe the intention of assessments, whiteboard exercises, cold-calling",
+          "Describe Galvanize’s approach to differentiation, stretch goals",
+          "Describe a three stage process for improving your ability to learn. (slides)",
+          "Identify personal mindset strengths and areas of weakness.",
+          "Discuss how the “learner mindset” leads to success at Galvanize.",
+          "Explain how Galvanize is a “trial by fire” designed to push students further than they think they can go. (It will be hard. That’s okay.)"
+        ]
+      },
+      {
+        "name": "Agree to classroom norms.",
+        "objectives": [
+          "Discuss the importance of cultivating a safe, positive learning environment.",
+          "Sign the code of conduct and discuss its importance."
+        ]
+      },
+      {
+        "name": "Describe what it takes to be a kind, courteous Galvanize member.",
+        "objectives": [
+          "Describe the etiquette surrounding the following things: dishes, beer, refrigerator, ping-pong, hallways, phone booths, thermostats."
+        ]
+      },
+      {
+        "name": "Acknowledge graduation criteria.",
+        "objectives": [
+          "Explain what it means to graduate from Galvanize Full Stack.",
+          "List the criteria for graduation and explain why each is important for becoming a full-stack developer.",
+          "Verify that each student has read and understands the criteria for graduation."
+        ]
+      },
+      {
+        "name": "Setup hardware.",
+        "objectives": [
+          "Install pending OS updates.",
+          "Configure and test screen share.",
+          "Configure and test airplay/screencasting (display screen on classroom tv).",
+          "Map the Caps Lock key to Control."
+        ]
+      },
+      {
+        "name": "Take a headshot.",
+        "objectives": [
+          "Get photo taken for use in social media and students.galvanize"
+        ]
+      },
+      {
+        "name": "Get financials in order.",
+        "objectives": [
+          "Meet with admissions team member to verify that financials are in order.",
+          "Take steps to rectify situation if needed."
+        ]
+      },
+      {
+        "name": "Setup dev environment.",
+        "objectives": [
+          "Install homebrew.",
+          "Install latest version of git. and override mac version.",
+          "Install node.",
+          "Install Atom/Sublime.",
+          "Install Screenhero for remote pair programming.",
+          "Install window management software (eg Moom ($), Spectacle (free))",
+          "Quickly change programs and manage windows using keyboard shortcuts."
+        ]
+      }
+    ]
+  },
+  "technical-interview-prep": {
+    "tags": [
+      "learn-to-learn",
+      "algorithms",
+      "programming"
+    ],
+    "standards": [
+      {
+        "name": "Basic algorithms",
+        "objectives": [
+          "Asymptotic Notation",
+          "Sorting Algorithms",
+          "Recursion",
+          "Binary Search",
+          "Linked Lists",
+          "Trees",
+          "Graphs"
+        ]
+      },
+      {
+        "name": "Whiteboard interviews",
+        "objectives": [
+          "5 steps to solving technical questions",
+          "5 Algorithm Approaches"
+        ]
+      },
+      {
+        "name": "Leveraging Polya’s Method",
+        "objectives": [
+          "4 simple steps for problem solving",
+          "Using Polya’s method for all problems, simple and complex, small and large",
+          "Developing solutions to coding problems with paper and pencil before typing"
+        ]
+      },
+      {
+        "name": "Phone interviews",
+        "objectives": [
+          "3 steps for fielding tech questions you don’t understand"
+        ]
+      }
+    ]
+  }
+}

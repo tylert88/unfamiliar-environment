@@ -1,0 +1,22 @@
+.page-header
+  %h2 Edit Enrollment
+
+- if @cohort
+  %ol.breadcrumb
+    %li= link_to "Cohorts", cohorts_path
+    %li= link_to @cohort.name, cohort_path(@cohort)
+    %li= link_to 'Enrollments', enrollments_path(cohort_id: @cohort)
+    %li.active Edit
+- else
+  %ol.breadcrumb
+    %li= link_to "Enrollments", enrollments_path
+    %li.active Edit
+
+= render 'form'
+
+.row.gutter-top
+  .col-md-10.col-md-offset-2
+    .well
+      = link_to @enrollment, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger" do
+        %i.glyphicon.glyphicon-trash
+        Delete Enrollment

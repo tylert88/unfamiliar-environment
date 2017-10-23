@@ -1,0 +1,51 @@
+.page-header
+  .pull-right
+    = link_to "Edit", edit_user_employment_profile_path(@user, cohort_id: @cohort), class: "btn btn-info"
+  %h1 Employment Profile for #{@user.full_name}
+
+- if current_user.instructor?
+  %ol.breadcrumb
+    %li= link_to @user.full_name, user_path(@user, cohort_id: @cohort)
+    %li.active Employment Profile
+- else
+  %ol.breadcrumb
+    %li= link_to 'Home', get_home_path
+    %li.active Employment Profile
+
+.row
+  .col-md-12
+    %dl.dl-horizontal
+      %dt Status
+      %dd= @employment_profile.status
+    %hr
+    %dl.dl-horizontal
+      %dt Open to remote work
+      %dd= @employment_profile.remote_work
+    %hr
+    %dl.dl-horizontal
+      %dt Show my email
+      %dd= @employment_profile.show_email
+    %hr
+    %dl.dl-horizontal
+      %dt Strengths
+      %dd
+        %ul.list-unstyled
+          - @employment_profile.strengths.to_s.split("\n").each do |strength|
+            %li= strength
+    %hr
+    %dl.dl-horizontal
+      %dt Looking for
+      %dd
+        = markdownify @employment_profile.looking_for
+    %hr
+    %dl.dl-horizontal
+      %dt Bio
+      %dd
+        = markdownify @employment_profile.bio
+    %hr
+    %dl.dl-horizontal
+      %dt Preferred Locations
+      %dd
+        %ul.list-unstyled
+          - @employment_profile.preferred_locations.to_s.split("\n").each do |location|
+            %li= location

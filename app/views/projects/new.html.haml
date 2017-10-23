@@ -1,0 +1,12 @@
+.page-header
+  %h1 New Project for #{@user.full_name}
+
+- if current_user.instructor?
+  %ol.breadcrumb
+    %li= link_to "Users", users_path
+    %li= link_to @user.full_name, user_path(@user)
+    %li= link_to 'Projects', user_projects_path(@user)
+    %li.active New
+
+= form_for [@user, @project], url: user_projects_path(@user), html: {class: "form-horizontal"} do |f|
+  = render 'form', f: f

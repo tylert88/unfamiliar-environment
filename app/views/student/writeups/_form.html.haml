@@ -1,0 +1,13 @@
+.panel.panel-info
+  .panel-heading
+    %h3.panel-title
+      = writeup_topic.subject
+  .panel-body
+    - if writeup_topic.description?
+      %blockquote= markdownify(writeup_topic.description)
+    = form_for([@cohort, writeup_topic, writeup]) do |f|
+      = errors_for(f)
+      .form-group
+        = f.text_area :response, class: "form-control", rows: 10, data: {editor: 'markdown'}
+      .form-group
+        = f.submit class: "btn btn-primary"

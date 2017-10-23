@@ -1,0 +1,277 @@
+{
+  "DSCI6007": {
+    "tags": [
+
+    ],
+    "standards": [
+      {
+        "name": "Write complex SQL queries",
+        "objectives": [
+          "Formulate a SELECT statement",
+          "Filter results with a WHERE clause",
+          "Aggregate values and GROUP BY",
+          "ORDER BY columns",
+          "Distinguish INNER and OUTER JOIN",
+          "Formulate a subquery"
+        ]
+      },
+      {
+        "name": "Define a normalized relational data model",
+        "objectives": [
+          "Identify candidate keys in a relation",
+          "Use Visio or Gliffy to design ER-model",
+          "CREATE TABLE from ER-diagram",
+          "Identify violations of 1NF, 2NF, 3NF and correct them",
+          "Design a relational data model"
+        ]
+      },
+      {
+        "name": "Process data on EC2",
+        "objectives": [
+          "Set up AWS account",
+          "Set up keypair",
+          "Install and configure boto",
+          "Provision EC2 instance",
+          "Use an AMI to start an EC2 instance",
+          "Load data from S3 and process it"
+        ]
+      },
+      {
+        "name": "Use Docker to configure and start a VM",
+        "objectives": [
+          "Use & describe basic docker commands",
+          "Start custom docker container using Dockerfile",
+          "Verify docker container is running",
+          "Modify Dockerfile to customize container"
+        ]
+      },
+      {
+        "name": "Use Ansible to setup environment",
+        "objectives": [
+          "Configure local Docker container with Ansible",
+          "Provision EC2 machines with Ansible",
+          "Install Oracle Java with Ansible",
+          "Configure Ansible to switch between targets"
+        ]
+      },
+      {
+        "name": "Use bash to search logs",
+        "objectives": [
+          "ssh into a remote Linux server",
+          "Examine log files using head and vi",
+          "Pipe interprocess communication",
+          "Find patterns using grep",
+          "cut out selected portions of each line of a file",
+          "sort lines of text files",
+          "filter out repeated lines in a file using uniq"
+        ]
+      },
+      {
+        "name": "Setup and move data in and out of HDFS",
+        "objectives": [
+          "Explain difference btw. datanode + namenode",
+          "Explain how HDFS protects against failure",
+          "Explain the small-files problem",
+          "Identify the HDFS daemons and their roles",
+          "Install HDFS (format namenode, etc.)",
+          "Find and edit configuration parameters",
+          "Use basic HDFS command line tools"
+        ]
+      },
+      {
+        "name": "Evaluate when to apply Lambda Architecture",
+        "objectives": [
+          "Explain components of λ architecture",
+          "Name (8) desired properties of big data sys",
+          "Discuss adv & disad of λ Arch v trad db"
+        ]
+      },
+      {
+        "name": "Define a fact-based graph schema",
+        "objectives": [
+          "Explain benefits + limitations of serialization",
+          "Use Avro to define schema",
+          "Serialize and deserialize data using Avro",
+          "Extend schema to include new features",
+          "Visualize nodes, edges and properties"
+        ]
+      },
+      {
+        "name": "Process TBs using Hadoop MapReduce",
+        "objectives": [
+          "Sselect appropriate key for shuffle/sort",
+          "Write mapper function",
+          "Compose map-only job",
+          "Use counters",
+          "Write reducer function",
+          "Write combiner function",
+          "Deploy to mrjob to the cloud (i.e. AWS)"
+        ]
+      },
+      {
+        "name": "Inspect Hadoop config w/ Ambari",
+        "objectives": [
+          "Configure Ambari for Hadoop, Ganglia, etc.",
+          "Use Ambari to analyze & manage Hadoop",
+          "Examine queues to explain resource allocation"
+        ]
+      },
+      {
+        "name": "Use Spark to ingest, transform & write data",
+        "objectives": [
+          "Create RDDs using parallelize, textFile",
+          "Save RDDs to file using saveAsTextFile",
+          "Explain the benefits of RDDs",
+          "Use common RDD transformations",
+          "Use common RDD actions",
+          "Use Double RDD actions",
+          "Name the processes that enable Spark"
+        ]
+      },
+      {
+        "name": "Use Spark to aggregate & process key-value pair",
+        "objectives": [
+          "Explain how Pair RDDs differ from regular RDDs",
+          "Use Pair RDD transformations",
+          "Use cache, persist to save data in RDDs",
+          "Rebalance data between tasks",
+          "Setup and tear down tasks using mapPartitions",
+          "Send data back from executors to the driver",
+          "Send data from drivers to executors using closures"
+        ]
+      },
+      {
+        "name": "Develop file schema & stage data for batch process",
+        "objectives": [
+          "Define vertical partitions in HDFS",
+          "Write script to load and partition data",
+          "Dedupe data in HDFS",
+          "Horizontally scale ETL using Hadoop/Spark"
+        ]
+      },
+      {
+        "name": "Use Hive for ETL",
+        "objectives": [
+          "Identify use cases for Hive",
+          "Explain how Hive differs from RDBMS",
+          "Install Hive using Ambari",
+          "Create Hive Tables",
+          "Query Hive using CLI"
+        ]
+      },
+      {
+        "name": "Employ MLlib to predict user behavior",
+        "objectives": [
+          "Make movie recommendations with MLlib",
+          "Explain how ALS differs from SVD",
+          "Explain how ALS is done in Spark w/ MLlib",
+          "Use cross-validation on a parameter grid"
+        ]
+      },
+      {
+        "name": "Develop a DAG for batch processing",
+        "objectives": [
+          "Compare recomputation & incremental algorithms",
+          "Construct a batch layer to produce aggregate tables",
+          "Isolate batch jobs to maximize flexibility",
+          "Pick appropriate keys for batch views"
+        ]
+      },
+      {
+        "name": "Generalize batch layer method to new problem",
+        "objectives": [
+          "Define a fact-based data model",
+          "Implement model in a serialization framework",
+          "Implement & justify vertical partitioning scheme",
+          "Generate batch views from these data"
+        ]
+      },
+      {
+        "name": "Serve queries to batch layer using Hive",
+        "objectives": [
+          "Use partitions and buckets to optimize Hive",
+          "Rewrite suboptimal query to improve response time",
+          "Implement & justify vertical partitioning scheme"
+        ]
+      },
+      {
+        "name": "Deploy MPP RDBMS for Serving Layer",
+        "objectives": [
+          "Pick appropriate cluster size given demands",
+          "Start and configure cluster",
+          "Connect to cluster using SQL client",
+          "Connect to cluster using API",
+          "Create Tables for Serving Layer",
+          "Load data from S3 or EMR"
+        ]
+      },
+      {
+        "name": "Use SparkSQL to query batch views",
+        "objectives": [
+          "Create DataFrame from JSON array",
+          "Explain DataFrame/SchemaRDD",
+          "Read and write DataFrames as Parquet",
+          "Convert DataFrame to Pandas RDDs",
+          "Use SQL to query data in DataFrames",
+          "Use DataFrame transforms: select, filter",
+          "Aggregate key values using: groupBy, etc.",
+          "Describe schema using printSchema, etc.",
+          "Programmatically add schema to unstructured data"
+        ]
+      },
+      {
+        "name": "Generalize serving layer to new problem",
+        "objectives": [
+          "Provide SparkSQL interface to batch layer"
+        ]
+      },
+      {
+        "name": "Build queueing, streaming sys w/ Kafka",
+        "objectives": [
+          "Install and run Kafka",
+          "Review Kafka and Zookeeper configs",
+          "Create Kafka Topics",
+          "Write Kafka Producers",
+          "Write a Consumer that outputs to HDFS",
+          "Add topics for new kinds of sensor data"
+        ]
+      },
+      {
+        "name": "Deploy micro-batch stream proc for speed layer",
+        "objectives": [
+          "Pipe data from Kafka queue into Spark Streaming",
+          "Compute speed layer views for real-time querying",
+          "Store speed layer views in HDFS"
+        ]
+      },
+      {
+        "name": "Configure HBase to store realtime views",
+        "objectives": [
+          "Identify use cases for HBase",
+          "Install HBase",
+          "Setup a HBase client on a edge node",
+          "Store Spark Streaming data in HBase",
+          "Query HBase using the shell",
+          "Query HBase using Hive"
+        ]
+      },
+      {
+        "name": "Develop speed layer for realtime pageviews",
+        "objectives": [
+          "Enqueue page-views in Kafka",
+          "Dedupe and normalize using Spark Streaming",
+          "Store Pageviews over time in HBase",
+          "Expire data in HBase as appropriate"
+        ]
+      },
+      {
+        "name": "Generalize speed layer to new problem",
+        "objectives": [
+          "Enable multi-consumer queues using Kafka",
+          "Achieve exactly-one semantics in streaming",
+          "Store realtime views in HBase"
+        ]
+      }
+    ]
+  }
+}

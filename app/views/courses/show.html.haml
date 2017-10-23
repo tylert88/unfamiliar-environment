@@ -1,0 +1,31 @@
+.page-header
+  .pull-right
+    = link_to "New Expectation",
+              new_course_expectation_path(@course),
+              class: "btn btn-info"
+    = link_to "Clone",
+              clone_course_path(@course),
+              class: "btn btn-warning",
+              method: :post
+  %h1 #{@course.name}
+
+%ol.breadcrumb
+  %li= link_to "Courses", courses_path
+  %li.active= @course.name
+
+.page-header
+  %h3 Expectations
+
+- @course.expectations.ordered.each do |requirement|
+  .panel.panel-default
+    .panel-heading
+      .pull-right
+        = link_to "edit", edit_course_expectation_path(@course, requirement)
+        |
+        = link_to "delete",
+                  course_expectation_path(@course, requirement),
+                  method: :delete,
+                  data: {confirm: "Are you sure?"}
+      %h3.panel-title= requirement.name
+    .panel-body
+      = markdownify requirement.description

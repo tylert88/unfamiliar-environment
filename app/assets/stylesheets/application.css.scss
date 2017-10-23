@@ -1,0 +1,494 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require typeahead
+ *= require_self
+ *= require print
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap/theme";
+
+@import "students";
+$orange: rgba(247, 144, 30, 1);
+
+body, html {
+  font-family: "museo-sans",sans-serif;
+}
+
+.navbar-galvanize {
+  background-color: rgba(0, 0, 0, .6);
+  border-color: rgba(0, 0, 0, .2);
+}
+
+.navbar-header {
+  padding-top: 3px;
+}
+
+.galvanize-logo {
+  height: $navbar-height - 10px;
+
+  &:hover {
+    opacity: .8;
+  }
+}
+
+body {
+  padding-top: $navbar-height;
+}
+
+.logo-link {
+  padding-right: 1em;
+}
+
+footer {
+  border-top: 1px solid #ccc;
+  padding-top: 1em;
+  margin-top: 1em;
+  padding-bottom: 1em;
+}
+
+.cohort-nav {
+  margin-bottom: 1em;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.github-content {
+  img {
+    display: block;
+  }
+}
+
+pre {
+  word-break: none;
+  word-wrap: normal;
+  color: #333333;
+  background-color: #f7f7f7;
+  border: none;
+  border-radius: 0px;
+}
+
+pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+  white-space: inherit;
+}
+
+a[name] {
+  padding-top: $navbar-height + 30;
+  margin-top: ($navbar-height + 30) * -1;
+  display: inline-block; /* required for webkit browsers */
+}
+
+.text-translucent {
+  &, & img {
+    opacity: 0.3;
+  }
+}
+
+.pending-pairing {
+  margin-bottom: 1em;
+}
+
+.student-sub-nav {
+  margin-bottom: 1em;
+}
+
+.page-header {
+  .pull-right {
+    .btn {
+      margin-left: .5em;
+    }
+  }
+}
+
+.flash {
+  margin-top: 1em;
+}
+
+.question-row {
+  padding-bottom: 1em;
+}
+
+.question-label {
+  margin: .5em;
+}
+
+.draghandle {
+  cursor: move;
+}
+
+tr.is-dragging {
+  td {
+    background: #ffff99;
+  }
+}
+
+.gutter-top {
+  margin-top: 1em;
+}
+
+.assessment-form {
+  pre {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  li {
+    // background: #fafafa;
+    padding: .5em;
+    padding-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 4px;
+
+    & + li {
+      border-top: 2px solid #efefef;
+    }
+  }
+}
+
+body.public {
+  padding-top: 0;
+
+  .page-header {
+    margin-top: 0px;
+    padding-top: 0px;
+
+    h1, h2 {
+      margin-top: 0px;
+      padding-top: 0px;
+    }
+  }
+
+  .navbar-brand {
+    padding-top: 3px;
+  }
+
+  .navbar-toggle {
+    background: #efefef;
+  }
+
+  span.icon-bar {
+    background: black;
+  }
+}
+
+.text-white {
+  color: white;
+}
+
+.big-octocat {
+  &:hover {
+    text-decoration: none;
+
+    i {
+      color: inherit;
+    }
+  }
+
+  i {
+    font-size: 72px;
+    color: #333;
+    display: block;
+  }
+}
+
+.empty-message {
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.link-bars {
+  a {
+    display: inline-block;
+  }
+  a + a {
+    border-left: 1px solid #999;
+    padding-left: .3em;
+  }
+}
+
+.nav > li > a.list-dropdown.dropdown-toggle {
+  padding: 0 5px;
+}
+
+#editor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.editor-container {
+    width: 100%;
+    height: 400px;
+    margin: 25px 0;
+    position: relative;
+    border: 10px solid #222;
+}
+.editor-container-dashboard {
+    width: 100%;
+    height: 250px;
+    margin: 0 0 80px;
+    position: relative;
+    border: 10px solid #222;
+    button {
+      margin-top: 260px;
+    }
+}
+#sandbox-result {
+  border: 10px solid $orange;
+  min-height: 400px;
+  width: 100%;
+  margin: 25px 0;
+  padding: 10px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  font: 16px Courier, Times, Arial;
+}
+.saved-alert {
+  display: none;
+  position: absolute;
+  top: 40px;
+  width: 98%;
+}
+.relative {
+  position: relative;
+}
+
+.label-score {
+  padding: 0 5px;
+  font-weight: normal;
+
+  &:hover {
+    background: #ccc;
+  }
+}
+// .btn.btn-primary {
+//   background: rgba(247,144,30,1);
+//   border: 1px solid rgba(247, 144, 30, 0.5);
+// }
+.overflow {
+  overflow: hidden;
+}
+.list-group-item.active {
+  background-image: -webkit-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+  background-image: -o-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+  background-image: linear-gradient(to bottom, #3c3c3c 0%, #222222 100%);
+  background-repeat: repeat-x;
+  &:hover {
+    background-image: -webkit-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+    background-image: -o-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+    background-image: linear-gradient(to bottom, #3c3c3c 0%, #222222 100%);
+    background-repeat: repeat-x;
+  }
+}
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-image: -webkit-linear-gradient(top, #fff 0%, #eaeaea 100%);
+  background-image: -o-linear-gradient(top, #fff 0%, #eaeaea 100%);
+  background-image: linear-gradient(to bottom, #fff 0%, #eaeaea 100%);
+  background-repeat: repeat-x;
+  color: #222;
+  text-shadow: none;
+}
+.nav-tabs.student-dashboard li {
+  a {
+    color: $orange;
+  }
+}
+.btn-black,
+.btn-black:hover,
+.btn-black:focus {
+  background-image: -webkit-linear-gradient(top, #000 0%, #222 100%);
+  background-image: -o-linear-gradient(top, #000 0%, #222 100%);
+  background-image: linear-gradient(to bottom, #000 0%, #222 100%);
+  background-repeat: repeat-x;
+  color: #fff;
+  text-shadow: none;
+  border-radius: 5px;
+}
+
+.table-performance-grid {
+
+  .clear-filters {
+    vertical-align: bottom;
+  }
+
+  th.current-name {
+    vertical-align: bottom;
+    padding-bottom: 1em;
+  }
+
+  th.vertical-text {
+    height: 180px;
+    white-space: nowrap;
+    font-weight: normal;
+  }
+  th.vertical-text > div {
+    transform: translate(19px, 75px) rotate(315deg);
+    width: 30px;
+  }
+  th.vertical-text > div > span {
+    border-bottom: 1px solid #ccc;
+  }
+  .selected {
+    background: yellow;
+    font-weight: bold;
+  }
+
+  tbody {
+    tr.tr-summary {
+      th, td {
+        background: #C6D7F4;
+      }
+    }
+    th {
+      padding: 0 3px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+    }
+    td {
+      text-align: center;
+      padding: 0;
+
+      &.score-0 {
+        background: white;
+      }
+      &.score-1 {
+        background: #F4C7C3;
+      }
+      &.score-2 {
+        background: #FCE8B2;
+      }
+      &.score-3 {
+        background: #B7E1CD;
+      }
+      &.score-4 {
+        background: #93C47D;
+      }
+      &.selected {
+        box-shadow: 0 0 0 2px black inset;
+        font-weight: bold;
+      }
+
+    }
+    .tr-objective > th {
+      font-weight: normal;
+    }
+  }
+}
+
+table.table {
+  tr.tr-summary, tr.tr-standard {
+    th, td {
+      background: #C6D7F4;
+    }
+  }
+
+  td {
+    &.score-selected {
+      box-shadow: 0 0 0 2px black inset;
+    }
+    &.score-0 {
+      text-align: center;
+      vertical-align: middle;
+    }
+    &.score-1 {
+      background: #F4C7C3;
+      text-align: center;
+      vertical-align: middle;
+    }
+    &.score-2 {
+      background: #FCE8B2;
+      text-align: center;
+      vertical-align: middle;
+    }
+    &.score-3 {
+      background: #B7E1CD;
+      text-align: center;
+      vertical-align: middle;
+    }
+    &.score-4 {
+      background: #93C47D;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media print {
+  table.table-performance-grid {
+    td {
+      &.score-selected {
+        box-shadow: 0 0 0 2px black inset;
+      }
+      &.score-1, &.score-2, &.score-3, &.score-4 {
+        color: #ccc !important;
+      }
+      &.score-0 {
+        color: white !important;
+      }
+    }
+  }
+}
+
+.active-snippet {
+  background: $orange;
+  a {
+    color: #222;
+    font-weight: bold;
+  }
+}
+
+.table-progress {
+  .progress {
+    margin-bottom: 0;
+  }
+}
+
+.challenge-progress.progress-bar.progress-bar-warning {
+  background: yellow;
+}
+
+.standard-tags {
+  font-weight: normal;
+  font-size: 90%;
+}
+
+.text-white {
+  color: white;
+}
+
+.icon-queue {
+  font-size: 80%;
+}
+
+.xs-small {
+  font-size: 70%;
+}
+
+.padded {
+  display: inline-block;
+  padding-left: 15px;
+}

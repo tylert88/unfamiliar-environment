@@ -1,0 +1,57 @@
+- unless @user.pivotal_tracker_token?
+  .flash.alert.alert-warning
+    You must add your
+    #{link_to "Pivotal Tracker Token", "https://www.pivotaltracker.com/profile", target: :_blank}
+    to your #{link_to "profile", edit_user_path(@user)}
+
+- if @project.blank?
+  .flash.alert.alert-warning
+    You must #{link_to "create a project", user_projects_path(@user)} that's connected to #{@epic.class_project.name}.
+
+- if @project && !@project.tracker_url?
+  .flash.alert.alert-warning
+    You must add a Pivotal Tracker URL to your #{link_to @project.name, edit_user_project_path(@user, @project)} project
+
+.page-header
+  - if @user.pivotal_tracker_token? && @project && @project.tracker_url?
+    .pull-right
+      = link_to add_to_tracker_user_epic_path(@user, @epic), class: "btn btn-primary", method: :post do
+        %i.glyphicon.glyphicon-refresh
+        Sync with Tracker
+  %h2 #{@epic.class_project.name} #{@epic.name}
+
+%ol.breadcrumb
+  %li= link_to "All Projects", user_epics_path(@user)
+  %li.active= @epic.name
+
+%table.table
+  %thead
+    %tr
+      %th Tracker ID
+      %th Story
+      %th Description
+      %th
+  %tbody
+    - @epic.stories.ordered.each do |story|
+      %tr
+        %td
+          - if id = @student_stories[story.id].try(:pivotal_tracker_id)
+            = link_to id, "https://www.pivotaltracker.com/story/show/#{id}", target: :_blank
+        %td= story.title
+        %td= markdownify story.description
+        %td
+          - if student_story = @student_stories[story.id]
+            - if student_story.last_response_json.present?
+              = link_to "See Errors", "#", "data-target" => "#modal-#{student_story.id}", "data-toggle" => "modal", :type => "button"
+              .modal.fade{id: "modal-#{student_story.id}"}
+                .modal-dialog{style: "width: 80%;"}
+                  .modal-content
+                    .modal-header
+                      %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+                        %span{"aria-hidden" => "true"} ×
+                      %h4.modal-title Tracker Errors
+                    .modal-body
+                      %pre
+                        = JSON.pretty_generate(student_story.last_response_json)
+                    .modal-footer
+                      %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

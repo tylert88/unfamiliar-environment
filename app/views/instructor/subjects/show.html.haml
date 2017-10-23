@@ -1,0 +1,32 @@
+.page-header
+  .pull-right
+    - if policy(Subject).create?
+      = link_to "New Subject", new_curriculum_subject_path(@curriculum), class: 'btn btn-default'
+    - if policy(Subject).update?
+      = link_to "Edit Subject", edit_curriculum_subject_path(@curriculum, @subject), class: 'btn btn-info'
+  %h2= @subject.name
+
+%ol.breadcrumb
+  %li= link_to_if policy(@curriculum).create?, "Curriculums", curriculums_path
+  %li
+    - if policy(@curriculum).edit?
+      = link_to @curriculum.name, curriculum_path(@curriculum)
+  %li.active= @subject.name
+
+- if @subject.learning_experiences.present?
+  .page-header
+    %h1 Learning Experiences
+  - @subject.learning_experiences.each do |experience|
+    .panel.panel-default
+      .panel-heading
+        - if policy(experience).update?
+          .pull-right
+            = link_to "edit", edit_curriculum_learning_experience_path(@curriculum, experience)
+        %h3.panel-title
+          - if policy(experience).update?
+            = link_to experience.name, edit_curriculum_learning_experience_path(@curriculum, experience)
+          - else
+            = link_to experience.name, user_learning_experience_path(current_user, experience)
+      - if experience.description?
+        .panel-body
+          %blockquote= markdownify experience.description

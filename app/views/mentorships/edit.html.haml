@@ -1,0 +1,26 @@
+.page-header
+  %h1 Edit Mentorship for #{@mentorship.user.full_name}
+
+= form_for @mentorship, url: cohort_student_mentorship_path(@cohort, @user, @mentorship), html: {class: "form-horizontal"} do |f|
+  = errors_for(f)
+
+  .form-group
+    = f.label :name, 'Mentorship Name', class: "col-sm-2 control-label"
+    .col-sm-4
+      %p.form-control-static= @mentorship.mentor.full_name
+
+  .form-group
+    = f.label :status, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.collection_select :status, Mentorship.statuses, :first, :first, {}, class: "form-control"
+
+  .form-group
+    = f.label :company_name, class: "col-sm-2 control-label"
+    .col-sm-4
+      = f.text_field :company_name, class: "form-control"
+
+  .form-group
+    .col-md-offset-2.col-md-4
+      = f.submit class: 'btn btn-primary'
+      - path = cohort_student_mentorships_path(@cohort, @user)
+      = link_to "cancel", path, class: "btn btn-default"

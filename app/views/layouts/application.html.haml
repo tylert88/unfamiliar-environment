@@ -1,0 +1,65 @@
+!!!
+%html{:lang => "en"}
+  %head
+    = csrf_meta_tags
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    %title= content_for(:title) || "Coursework"
+    = favicon_link_tag 'favicon.ico'
+    - unless ENV['SLOW_CONNECTION']
+      %script(src="//use.typekit.net/raf1vki.js")
+      :javascript
+        try { Typekit.load(); } catch(e) {}
+      %link{:href => "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", :rel => "stylesheet"}
+    = stylesheet_link_tag 'application', media: 'all'
+    :css
+      #{content_for(:css)}
+    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    /[if lt IE 9]
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  %body{:role => "document"}
+    / Fixed navbar
+    .navbar.navbar-inverse.navbar-fixed-top.navbar-galvanize{:role => "navigation"}
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to get_home_path, class: "logo-link" do
+            = image_tag('galvanize-logo.svg', class: "galvanize-logo")
+        .navbar-collapse.collapse
+          = render 'layouts/main_nav'
+
+    .container{:role => "main"}
+      - if current_user.instructor? && @cohort && @cohort.persisted?
+        = render 'cohorts/nav', cohort: @cohort
+
+      - if current_user.user? && assessments_in_progress.present?
+        .flash.alert.alert-warning
+          %p.lead
+            You have
+            = link_to pluralize(assessments_in_progress.length, 'assessment'), user_taken_assessments_path(current_user)
+            in progress.
+
+      - if notice
+        .flash.alert.alert-success
+          %strong= notice
+      - if alert
+        .flash.alert.alert-danger
+          %strong= alert
+      = content_for(:outside_main)
+      = yield
+
+    %footer.hidden-print
+      .container
+        = link_to image_tag("GitHub-Mark-32px.png"), "https://github.com/gSchool/coursework.galvanize.com", target: "_blank", class: "pull-right"
+
+    %script(type="text/javascript" src="https://www.google.com/jsapi")
+    = javascript_include_tag 'application'
+    = content_for(:javascripts)

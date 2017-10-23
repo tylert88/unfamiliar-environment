@@ -1,0 +1,34 @@
+= form_for [@curriculum, @exercise], html: {class: "form-horizontal"} do |f|
+  .row
+    .col-md-6
+      .form-group
+        .col-md-offset-2.col-md-10
+          = errors_for(f)
+
+      .form-group
+        = f.label :name, class: "col-sm-4 control-label"
+        .col-sm-8
+          = f.text_field :name, class: "form-control"
+
+      .form-group
+        = f.label :github_repo, "GitHub Repo", class: "col-sm-4 control-label"
+        .col-sm-8
+          = f.text_field :github_repo, class: "form-control"
+
+      .form-group
+        = f.label :response_type, "Response Type", class: "col-sm-4 control-label"
+        .col-sm-8
+          = f.select :response_type, Exercise.response_types.to_a.map { |rt| [rt[0].humanize, rt[0]] }, {}, class: "form-control"
+          %p.help-block file lets the student paste in contents, project will be a link to a repo
+
+      .form-group
+        .col-md-offset-4.col-md-8
+          = f.submit value: submit_text, class: 'btn btn-primary'
+
+
+    .col-md-6
+      = react_component 'ExerciseForm'
+
+- content_for :javascripts do
+  :javascript
+    window.standards = #{@standards_json.to_json.html_safe}

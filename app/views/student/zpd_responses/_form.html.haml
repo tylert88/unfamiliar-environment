@@ -1,0 +1,13 @@
+.page-header
+  = link_to "Back", cohort_zpd_responses_path(@cohort), class: "pull-right"
+  %h2= "ZPD Response for #{Date.today}"
+= form_for([@cohort, @zpd_response]) do |f|
+  = errors_for(f)
+  .form-group
+    = f.label :response
+    = f.collection_select(:response, ZpdResponse::RESPONSES, :first, :last, {}, class: "form-control")
+  .form-group
+    = f.label :date
+    = f.date_field :date, class: 'form-control', value: Date.current
+  .form-group
+    = f.submit "Submit", class: "btn btn-primary"

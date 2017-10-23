@@ -1,0 +1,5 @@
+%nav.navbar.navbar-default.cohort-nav
+  .container
+    %ul.nav.navbar-nav
+      - instructor_tab_renderers(cohort).each do |renderer|
+        = renderer.render

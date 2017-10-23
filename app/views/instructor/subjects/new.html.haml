@@ -1,0 +1,9 @@
+.page-header
+  %h2 New Subject
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li.active New Subject
+
+= render 'form'

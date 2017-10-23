@@ -1,0 +1,19 @@
+.page-header
+  %h1 Reorder Subjects
+
+= render '/instructor/curriculums/nav', tab: :subjects
+
+%ul.breadcrumb
+  %li= link_to 'Curriculums', curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to 'Subjects', curriculum_subjects_path(@curriculum)
+  %li.avtive Reorder
+
+%table.table.table-striped{data: {behavior: :tablednd, reorder_url: reorder_curriculum_subjects_path(@curriculum)}}
+  %thead
+    %tr
+      %th Subject
+  %tbody
+    - @subjects.each do |subject|
+      %tr{id: subject.id}
+        %td= subject.name

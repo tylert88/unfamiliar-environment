@@ -1,0 +1,218 @@
+.page-header
+  .pull-right
+    .btn-group
+      %button.btn.btn-info.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
+        User Links
+        %span.caret
+      %ul.dropdown-menu{:role => "menu"}
+        - user_links(@user).each do |link|
+          %li= link_to link.text, link.url
+
+  %h1
+    = @user.full_name
+    (#{@user.status})
+
+- if @cohort
+  %ol.breadcrumb
+    %li= link_to "Cohorts", cohorts_path
+    %li= link_to @cohort.name, cohort_path(@cohort)
+    %li.active= @user.full_name
+- else
+  %ol.breadcrumb
+    %li= link_to "Users", users_path
+    %li.active= @user.full_name
+
+.row
+  .col-md-3
+    = image_tag(@user.avatar.url(:card), class: "img-responsive")
+
+  .col-md-6
+    %h2 Personal Info
+    %dl.dl-horizontal
+      %dt Email
+      %dd= mail_to @user.email, @user.email
+
+      %dt GitHub Username
+      - if @user.github_username?
+        %dd= link_to @user.github_username, "https://github.com/#{@user.github_username}"
+      - else
+        %dd Unknown
+
+      %dt Role
+      %dd= @user.role
+
+      %dt Phone
+      %dd= @user.phone
+
+      %dt Address 1
+      %dd= @user.address_1
+
+      %dt Address 2
+      %dd= @user.address_2
+
+      %dt City / State
+      %dd= [@user.city, @user.state].reject(&:blank?).join(", ")
+
+      %dt Zip
+      %dd= @user.zip_code
+
+      %dt Twitter
+      %dd
+        - if @user.twitter.present?
+          = link_to @user.twitter, @user.twitter_url
+
+      %dt LinkedIn
+      %dd
+        - if @user.linkedin.present?
+          = link_to @user.linkedin, @user.linkedin
+
+      %dt Blog
+      %dd
+        - if @user.blog.present?
+          = link_to @user.blog, @user.blog
+
+      %dt Shirt Size
+      %dd= @user.shirt_size
+
+      - if @user.greenhouse_candidate_id
+        %dt Greenhouse ID
+        %dd= link_to @user.greenhouse_candidate_id, "https://app.greenhouse.io/people/#{@user.greenhouse_candidate_id}"
+
+      %dt Auth Token
+      %dd= @user.auth_token
+
+    %h2 Enrollments
+    %dl.dl-horizontal
+      - @user.enrollments.each do |enrollment|
+        %dt= enrollment.role.humanize
+        %dd
+          = link_to enrollment.cohort.name, cohort_path(enrollment.cohort)
+          (#{enrollment.status})
+
+    - StudentProject.for_user(@user).each do |project|
+      %h2 Project
+      %dl.dl-horizontal
+        %dt Name:
+        %dd= project.name
+
+        %dt Description:
+        %dd= project.description
+
+        %dt Technical Notes:
+        %dd= project.technical_notes
+
+        %dt Github URL:
+        %dd= link_to project.github_url, project.github_url
+
+        %dt Tracker URL:
+        %dd= link_to project.tracker_url, project.tracker_url
+
+        %dt Production:
+        %dd= link_to project.production_url, project.production_url
+
+    %h2 Employment
+
+    - @user.employments.each do |employment|
+      .panel.panel-default.panel-employment
+        .panel-heading
+          .pull-right
+            = link_to "edit", edit_user_employment_path(@user, employment, cohort_id: params[:cohort_id])
+            |
+            = link_to "delete", user_employment_path(@user, employment, cohort_id: params[:cohort_id]), method: :delete, data: {confirm: "Are you sure?"}
+          %h3.panel-title
+            = employment.company_name.presence || "(unknown)"
+        .panel-body
+          %dl.dl-horizontal
+            %dt City
+            %dd= employment.city
+
+            %dt Company Type
+            %dd= employment.company_type
+
+  .col-md-3
+    %ul.nav.nav-stacked
+      - user_links(@user).each do |link|
+        %li= link_to link.text, link.url
+
+.row
+  .col-md-12
+    %h2 Exercises
+    - if current_user == @user
+      = link_to "Download Exercise File", generate_dot_file_user_submitted_exercises_path(@user)
+      %p
+        After downloading, move the downloaded file to your root directory.
+        %b `mv ~/Downloads/gschool.json ~/.gschool.json`
+
+    %section.complete-exercises
+      %h3 Completed Exercises
+      - if @user.completed_exercises.present?
+        %ul
+          - @user.completed_exercises.each do |exercise|
+            %li= exercise.name
+      - else
+        .well
+          There are no completed exercises
+
+    %section.incomplete-exercises
+      %h3 Incomplete Exercises
+      - if @user.incomplete_exercises.present?
+        %ul
+          - @user.incomplete_exercises.each do |exercise|
+            %li= exercise.name
+      - else
+        .well
+          There are no incomplete exercises
+
+.row
+  .col-md-12
+    %h2 Pair Feedback
+
+    - pairings = Pairing.where(pair_id: @user)
+    - if pairings.present?
+      - pairings.each do |pairing|
+        .panel.panel-default
+          .panel-heading
+            .pull-right
+              = pairing.paired_on.to_s(:long)
+            %h3.panel-title
+              = pairing.user.full_name
+          .panel-body
+            = markdownify(pairing.feedback)
+    - else
+      .well
+        There is no pair feedback
+
+.row
+  .col-md-12
+    %h2 Writeups
+
+    - writeups = Writeup.where(user_id: @user)
+    - if writeups.present?
+      - writeups.each do |writeup|
+        .panel.panel-default
+          .panel-heading
+            .pull-right
+              = writeup.created_at.to_s(:long)
+            %h3.panel-title
+              = writeup.writeup_topic.subject
+          .panel-body
+            = markdownify(writeup.response)
+    - else
+      .well
+        This user hasn't written anything up yet
+
+.row
+  .col-md-12
+    %h2 Action Plan
+
+    - entry = ActionPlanEntry.order('created_at desc').where(user_id: @user).first
+    - if entry
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            = entry.created_at.to_s(:long)
+        .panel-body
+          = markdownify(entry.description)
+    - else
+      .well
+        This user has no current action plan

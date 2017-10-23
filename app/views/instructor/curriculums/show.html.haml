@@ -1,0 +1,52 @@
+.page-header
+  .pull-right
+    - if policy(Standard).create?
+      = link_to "New Standard",
+                new_curriculum_standard_path(@curriculum),
+                class: "btn btn-info"
+    - if policy(@curriculum).update?
+      = link_to "Edit",
+                edit_curriculum_path(@curriculum),
+                class: "btn btn-info"
+  %h1 #{@curriculum.name} Standards
+
+= render '/instructor/curriculums/nav', tab: :standards
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li.active= @curriculum.name
+
+%blockquote= markdownify(@curriculum.description)
+
+- @standards.group_by(&:subject).sort_by{|subject, _| subject.try(:position) || 0 }.each do |subject, standards|
+  .page-header
+    - if subject
+      - if policy(@curriculum).update?
+        .pull-right
+          = link_to "reorder",
+                    reorder_curriculum_standards_path(@curriculum, subject_id: subject.id),
+                    class: "btn btn-default"
+
+          = link_to "new standard",
+                    new_curriculum_standard_path(@curriculum, subject_id: subject),
+                    class: "btn btn-default"
+
+          = link_to "edit subject",
+                    edit_curriculum_subject_path(@curriculum, subject),
+                    class: "btn btn-default"
+      %h3= subject.name
+    - else
+      %h3 -- No Subject Yet --
+
+  %table.table.table-hover
+    %tbody
+      - standards.each do |standard|
+        %tr.tr-standard
+          %th
+            %div= link_to standard.name, standard_path(standard)
+            .standard-tags= standard.tags.join(", ")
+          %td.text-right= link_to 'edit', edit_standard_path(standard, return_to: :index)
+        - standard.objectives.sort_by(&:position).each do |objective|
+          %tr
+            %td= link_to objective.name, objective_path(objective)
+            %td.text-right= link_to 'edit', edit_objective_path(objective, return_to: :index)

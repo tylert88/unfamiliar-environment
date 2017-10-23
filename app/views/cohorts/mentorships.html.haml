@@ -1,0 +1,42 @@
+.page-header
+  %h1 #{@cohort.name} Mentorships
+
+- students_without_mentors = (@users - @mentorships.map(&:user)).sort_by(&:first_name)
+
+- if students_without_mentors.present?
+  %h3 Students without current mentors
+
+  %table.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th Student
+        %th
+    %tbody
+      - students_without_mentors.each do |user|
+        %tr
+          %td= user.full_name
+          %td= link_to "Manage", cohort_student_mentorships_path(@cohort, user)
+- else
+  %p
+    All students have mentors
+
+%h3 Mentorship List
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Student
+      %th Mentor
+      %th
+        %a{"href" => "", "data-clipboard-text" => @mentorships.map(&:mentor).map(&:email).join(", ")}
+          Mentor Email
+      %th Company
+      %th
+  %tbody
+    - @mentorships.each do |mentorship|
+      %tr
+        %td= link_to mentorship.user.full_name, user_path(mentorship.user, cohort_id: @cohort)
+        %td= link_to mentorship.mentor.full_name, user_path(mentorship.mentor, cohort_id: @cohort)
+        %td= mail_to mentorship.mentor.email, mentorship.mentor.email
+        %td= mentorship.company_name
+        %td= link_to "Manage", cohort_student_mentorships_path(@cohort, mentorship.user)

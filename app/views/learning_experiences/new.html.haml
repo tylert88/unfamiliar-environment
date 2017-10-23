@@ -1,0 +1,10 @@
+.page-header
+  %h2 New Learning Experience for #{@curriculum.name}
+
+%ul.breadcrumb
+  %li= link_to 'Curriculums', curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to 'Learning Experiences', curriculum_learning_experiences_path(@curriculum)
+  %li.active New
+
+= render 'form'

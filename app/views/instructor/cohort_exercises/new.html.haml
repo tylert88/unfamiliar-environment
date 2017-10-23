@@ -1,0 +1,16 @@
+.page-header
+  %h2 Add Exercise
+
+%table.table
+  %thead
+    %tr
+      %th Exercise Name
+      %th Actions
+  %tbody
+    - @exercises.each do |exercise|
+      %tr
+        %td= link_to exercise.name, exercise.github_repo
+        %td
+          = form_tag instructor_cohort_cohort_exercises_path(params[:cohort_id]) do
+            = hidden_field_tag "cohort_exercise[exercise_id]", exercise.id
+            = submit_tag "Add", class: "btn btn-primary"

@@ -1,0 +1,16 @@
+.page-header
+  %h2 Edit Standard
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name, curriculum_path(@curriculum)
+  %li= link_to @standard.name_was, standard_path(@standard)
+  %li.active Edit
+
+= form_for @standard, html: {class: 'form-horizontal'} do |f|
+  = render 'form', f: f
+
+.row
+  .col-md-11.col-md-offset-1
+    .well.text-center
+      = link_to "Delete Standard", delete_standard_path(@standard), class: "btn btn-danger"

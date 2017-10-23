@@ -1,0 +1,12 @@
+.page-header
+  .pull-right
+    = link_to "GitHub", @exercise.github_repo_url, :class => "btn btn-info"
+  %h1= @exercise.name
+
+%p
+  Tags:
+  - @exercise.tag_list.each do |tag|
+    %span.label.label-default= tag
+%p= @exercise.submission_text
+
+= @exercise.submission_link

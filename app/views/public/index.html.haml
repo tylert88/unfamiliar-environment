@@ -1,0 +1,59 @@
+.students-index
+  .row
+    %ul.nav.nav-pills
+      %li= link_to "Hire a Galvanize Student", root_path, class: "list-group-item all-students"
+  .row.students-wrapper
+    .col-md-3
+      .student-filters
+        .row
+          .col-md-12
+            %ul.list-unstyled
+              %li.interest-header Cohort
+              - @cohorts.each do |cohort|
+                = link_to cohort.name, root_path(cohort_id: cohort.id), class: "list-group-item #{params[:cohort_id] == cohort.id.to_s ? "active" : ""}"
+        .row
+          .col-md-12
+            %ul.list-unstyled
+              %li.interest-header Preferred Locations
+              - @locations.each do |location|
+                = link_to location, root_path(location: location), class: "list-group-item #{params[:location].try(:include?, location) ? "active" : ""}"
+    .col-md-9
+      - if @students.present?
+        - @students.each do |student|
+          .row
+            .col-md-12.student-row
+              .col-md-3
+                = link_to public_student_path(student) do
+                  .thumbnail
+                    .caption.text-center= student.full_name
+                    = image_tag student.avatar_url(:card), class: "img-rounded"
+              .col-md-8
+                -if student.employment_profile.headline.present?
+                  %h4.headline-link
+                    = link_to student.employment_profile.headline, public_student_path(student)
+                %ul.list-unstyled.bullets
+                  %li.list-header Looking for:
+                  - student.employment_profile.looking_for.split("\n").first(3).each do |line|
+                    %li= line
+              .col-md-1.student-social-links
+                - if student.github_url
+                  %span.fa-stack.fa-lg
+                    = link_to student.github_url do
+                      %i.fa.fa-github.fa-stack-1x
+                - if student.twitter
+                  %span.fa-stack.fa-lg
+                    = link_to student.twitter_url do
+                      %i.fa.fa-twitter.fa-stack-1x
+                - if student.linkedin
+                  %span.fa-stack.fa-lg
+                    = link_to student.linkedin do
+                      %i.fa.fa-linkedin.fa-stack-1x
+                - if student.blog?
+                  %span.fa-stack.fa-lg
+                    = link_to student.blog do
+                      %i.fa.fa-rss.fa-stack-1x
+      - else
+        .jumbotron
+          %p.lead.text-center
+            No students match the select filters.
+            = link_to "Clear search results", root_path

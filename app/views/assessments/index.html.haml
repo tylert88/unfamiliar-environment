@@ -1,0 +1,15 @@
+.page-header
+  .pull-right
+    = link_to "New Assessment", new_assessment_path, class: "btn btn-info"
+  %h1 Assessments
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Time Allowed
+  %tbody
+    - @assessments.each do |assessment|
+      %tr
+        %td= link_to assessment.name, assessment
+        %td= assessment.time_allowed_in_minutes

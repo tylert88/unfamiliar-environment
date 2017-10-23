@@ -1,0 +1,59 @@
+.page-header
+  %h1 #{@cohort.name}: #{@given_assessment.name} Assessment
+
+%ol.breadcrumb
+  %li= link_to "Assessments given to #{@cohort.name}", cohort_given_assessments_path(@cohort)
+  %li.active= link_to @given_assessment.name, cohort_given_assessment_path(@cohort, @given_assessment)
+  %li.active Score #{@question.id}
+
+%p.lead Percent Complete: #{@given_assessment.score_info}
+
+.progress
+  - percent = @given_assessment.score_info
+  .progress-bar.progress-bar-info{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => percent.to_i, :role => "progressbar", :style => "width: #{percent.to_i}%;"}
+    %span.sr-only #{percent.to_i}% Complete
+
+%h3
+  Question:
+  = @question.text
+
+= form_tag cohort_given_assessment_score_path(@cohort, @given_assessment, params[:question_id]), method: :post do
+  %table.table.table-striped.table-hover
+    %thead
+      %tr
+        %th Score
+        %th Response
+    %tbody
+      - @users.each do |user|
+        - answer = @answers_indexed[user.id]
+        %tr
+          - if answer
+            %td
+              %label
+                %input{type: 'radio', name: "answers[#{user.id}][score]", value: 1, checked: answer.score == 1}
+                Correct
+              %label
+                %input{type: 'radio', name: "answers[#{user.id}][score]", value: 0, checked: answer.score == 0}
+                Incorrect
+              %textarea{name: "answers[#{user.id}][notes]", rows: 4, class: "form-control"}
+                = answer.notes
+            %td{style: "width: 70%"}
+              - if answer.response?
+                - if @question.format == 'html'
+                  = answer.response
+                - else
+                  = markdownify answer.response
+              - else
+                (unanswered)
+              - if @question.answer
+                .text-muted
+                  %em= @question.answer
+
+  = submit_tag "Score!", class: "btn btn-primary"
+
+.page-header
+  %h3 Preview
+
+.assessment-form
+  = @given_assessment.form_preview_markdown.html_safe
+- content_for :css, @given_assessment.css

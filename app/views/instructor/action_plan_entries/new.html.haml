@@ -1,0 +1,15 @@
+.page-header
+  %h1 #{@user.full_name}: New Action Plan Entries
+
+= form_for [:instructor, :cohort, :student, @entry], html: {class: 'form-horizontal'} do |f|
+  = render 'form', f: f
+
+.row
+  .col-md-10.col-md-offset-2
+    .page-header
+      %h3 Additional Objectives
+    - if @cohort.curriculum_id?
+      = react_component 'StudentPerformanceTable',
+                        spinnerPath: image_path('spinner.gif'),
+                        updatePerformancesPath: user_performances_path(@user, format: :json),
+                        performancesPath: user_performances_path(@user)

@@ -1,0 +1,39 @@
+- model ||= @job_activity
+= form_for [@user, model], html: {class: 'form-horizontal'} do |f|
+  .form-group
+    .col-md-offset-2.col-md-10
+      = errors_for(f)
+
+  .form-group
+    = f.label :company, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :company, class: "form-control"
+
+  .form-group
+    = f.label :position, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :position, class: "form-control"
+
+  .form-group
+    = f.label :status, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :status, class: "form-control"
+
+  .form-group
+    = f.label :date_of_last_interaction, class: "control-label col-md-2"
+    .col-md-4
+      = f.date_field :date_of_last_interaction, class: "form-control"
+
+  .form-group
+    = f.label :job_source, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :job_source, class: "form-control"
+
+  .form-group
+    = f.label :url, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :url, class: "form-control"
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit class: "btn btn-primary"

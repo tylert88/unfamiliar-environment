@@ -1,0 +1,19 @@
+.page-header
+  .pull-right
+    = link_to 'New Class Project', new_class_project_path, class: 'btn btn-info'
+
+  %h2 Class Projects
+
+.row
+  .col-md-12
+    %table.table.table-hover
+      %thead
+        %th Name
+        %th Slug (for the acceptor)
+        %th
+      %tbody
+        - @class_projects.each do |class_project|
+          %tr
+            %td= link_to class_project.name, class_project_epics_path(class_project)
+            %td= class_project.slug
+            %td.text-right= link_to 'edit', edit_class_project_path(class_project)

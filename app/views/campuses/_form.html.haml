@@ -1,0 +1,23 @@
+= form_for @campus, html: {class: 'form-horizontal'} do |f|
+  .form-group
+    .col-md-offset-2.col-md-10
+      = errors_for(f)
+
+  .form-group
+    = f.label :name, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :name, class: "form-control", autofocus: true
+
+  .form-group
+    = f.label :google_maps_location, class: "control-label col-md-2"
+    .col-md-4
+      = f.text_field :google_maps_location, class: "form-control", placeholder: 'the iframe url'
+
+  .form-group
+    = f.label :directions, class: "control-label col-md-2"
+    .col-md-10
+      = f.text_area :directions, class: "form-control", rows: 12, placeholder: 'Accepts markdown...'
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit class: "btn btn-primary"

@@ -1,0 +1,85 @@
+.page-header
+  .pull-right
+    = link_to new_class_project_epic_path(@class_project), class: "btn btn-info" do
+      %i.glyphicon.glyphicon-plus
+      New Epic
+    = link_to edit_class_project_epic_path(@class_project, @epic), class: "btn btn-info" do
+      %i.glyphicon.glyphicon-pencil
+      Edit
+
+  %h1 #{@epic.name}
+
+%ol.breadcrumb
+  %li= link_to "Class Projects", class_projects_path
+  %li= link_to "#{@class_project.name} Epics", class_project_epics_path(@class_project)
+  %li.active= @epic.name
+
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      MVP Stories
+  - if @epic.stories.present?
+    %table.table.table-bordered{data: {behavior: :tablednd, reorder_url: reorder_class_project_epic_stories_path(@class_project, @epic)}}
+      %thead
+        %tr
+          %th
+          %th Title
+          %th Description
+      %tbody
+        - @epic.stories.ordered.each do |story|
+          %tr{id: story.id}
+            %td(style="width: 1em;")
+              - css_class = {'feature' => 'label label-info', 'bug' => 'label label-danger', 'chore' => 'label label-default'}
+              %span{class: css_class[story.story_type], title: story.story_type}= story.story_type.first
+            %td
+              = link_to "#{story.title}", edit_class_project_epic_story_path(@class_project, @epic, story)
+              - if story.slug?
+                %br
+                %small= story.slug
+            %td= markdownify story.description
+  .panel-body
+    = render 'stories/form'
+
+#cohort-assignments.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      Cohort Assignments
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Cohort
+        %th
+    %tbody
+      - cohort_epics = CohortEpic.where(epic_id: @epic).index_by(&:cohort_id)
+      - Cohort.all.each do |cohort|
+        %tr
+          %td= link_to cohort.name, cohort_path(cohort)
+          %td.text-right
+            - if cohort_epic = cohort_epics[cohort.id]
+              = link_to "Unassign",
+                        epic_cohort_path(@epic, cohort_epic),
+                        method: :delete,
+                        data: {confirm: "Are you sure?"},
+                        class: "btn btn-danger btn-sm"
+            - else
+              = link_to "Assign",
+                        epic_cohorts_path(@epic, cohort_id: cohort.id),
+                        method: :post,
+                        class: "btn btn-primary btn-sm"
+
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      Wireframes
+  .panel-body
+    = markdownify(@epic.wireframes)
+
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title
+      .pull-right
+        = link_to "Copy to Clipboard", "#", data: {clipboard_text: epic_markdown(@epic), prevent_jump: true}
+      Markdown for class notes
+  .panel-body
+    %pre
+      = epic_markdown(@epic)

@@ -1,0 +1,17 @@
+.container
+	%table.table.table-striped
+		%thead
+			%tr
+				%th Snippet
+				%th Link
+		%tbody
+			- @snippet_presenters.each do |snippet_presenter|
+				%tr
+					%td= snippet_presenter.snippet.name
+					%td
+						- if snippet_presenter.student_snippet.nil?
+							= form_for @student_snippet, url: cohort_student_snippets_path do |f|
+								= f.hidden_field :snippet_id, value: snippet_presenter.snippet.id
+								= f.submit "Activate", class: "btn btn-primary btn-xs"
+						- else
+							= link_to("View", cohort_student_snippet_path(@cohort, snippet_presenter.student_snippet))

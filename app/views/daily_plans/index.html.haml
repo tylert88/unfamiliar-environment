@@ -1,0 +1,26 @@
+= page_header "Daily Plans for #{@cohort.name}" do
+  - if policy(DailyPlan.new).new?
+    = link_to new_cohort_daily_plan_path(@cohort), class: "btn btn-info" do
+      %i.glyphicon.glyphicon-plus
+      New Daily Plan
+
+- if policy(@cohort).show?
+  %ol.breadcrumb
+    %li= link_to @cohort.name, cohort_path(@cohort)
+    %li.active Daily Plans
+
+.row
+  .col-md-12
+    - if @grouped_plans.present?
+      - @grouped_plans.each do |week_number, days|
+        %h3 Week #{week_number}
+        %ul
+          - days.each do |day|
+            - renderer = new_daily_plan_renderer(day)
+            %li
+              = link_to day.date.strftime("%B #{day.date.day.ordinalize}, %Y (%A)"),
+                        cohort_daily_plan_path(@cohort, day),
+                        class: renderer.css_class
+    - else
+      .jumbotron
+        %h2 No plans yet...

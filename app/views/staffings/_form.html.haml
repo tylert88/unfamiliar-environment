@@ -1,0 +1,19 @@
+= form_for [@cohort, @staffing], html: {class: "form-horizontal"} do |f|
+  .form-group
+    .col-sm-offset-2.col-sm-6
+      = errors_for(f)
+
+  - if show_user
+    .form-group
+      = f.label :user_id, class: "col-sm-2 control-label"
+      .col-sm-6
+        = f.collection_select :user_id, User.instructor.order(:first_name, :last_name), :id, :full_name, {prompt: true}, class: "form-control"
+
+  .form-group
+    = f.label :status, class: "col-sm-2 control-label"
+    .col-sm-6
+      = f.collection_select :status, Staffing.statuses, :first, :first, {}, class: "form-control"
+
+  .form-group
+    .col-sm-offset-2.col-sm-6
+      = f.submit class: 'btn btn-primary'

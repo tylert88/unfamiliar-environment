@@ -1,0 +1,17 @@
+.page-header
+  %h2 Edit #{@user.first_name_was} #{@user.last_name_was}
+
+- if policy(@user).new?
+  - if @cohort
+    %ol.breadcrumb
+      %li= link_to "Cohorts", cohorts_path
+      %li= link_to @cohort.name, cohort_path(@cohort)
+      %li= link_to "#{@user.first_name_was} #{@user.last_name_was}", user_path(@user, cohort_id: @cohort)
+      %li.active Edit
+  - else
+    %ol.breadcrumb
+      %li= link_to "Users", users_path
+      %li= link_to "#{@user.first_name_was} #{@user.last_name_was}", user_path(@user)
+      %li.active Edit
+
+= render 'form'

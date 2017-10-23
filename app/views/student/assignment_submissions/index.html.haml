@@ -1,0 +1,28 @@
+%h2.page-title Assignment Submissions
+.row
+  .col-md-12
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th URL
+          %th Submitted
+          %th Complete
+          %th Due Date
+          %th Actions
+          %th Notes
+      %tbody
+        - @assignment_submissions.each do |assignment_submission|
+          %tr
+            %td= link_to assignment_submission.assignment.name, assignment_submission.assignment.url
+            - if assignment_submission.submission_url.present?
+              %td= link_to "Submission URL", assignment_submission.submission_url, target: "_blank"
+            - else
+              %td Not Submitted
+            %td= assignment_submission.submitted
+            %td= assignment_submission.complete
+            %td= assignment_submission.assignment.due_date.strftime("%b %e, 9:10 AM")
+            %td= link_to "Submit Assignment", edit_cohort_assignment_submission_path(@cohort, assignment_submission), class: "btn btn-info btn-xs"
+            %td
+              - if assignment_submission.assignment_submission_notes.present?
+                = link_to "Notes", cohort_assignment_submission_path(@cohort.id, assignment_submission.id)

@@ -1,0 +1,23 @@
+%ul.nav.nav-tabs
+  - if policy(@curriculum).update?
+    %li{class: tab == :subjects ? "active" : nil}
+      = link_to "Subjects", curriculum_subjects_path(@curriculum)
+  - if policy(@curriculum).update?
+    %li{class: tab == :standards ? "active" : nil}
+      = link_to "Standards", curriculum_path(@curriculum)
+  - if policy(LearningExperience).create?
+    %li{class: tab == :learning_experiences ? "active" : nil}
+      = link_to "Learning Experiences",
+                curriculum_learning_experiences_path(@curriculum)
+  - if policy(@curriculum).import?
+    %li{class: tab == :import ? "active" : nil}
+      = link_to "Import", new_import_curriculum_path(@curriculum)
+  - if policy(@curriculum).update?
+    %li{class: tab == :progress ? "active" : nil}
+      = link_to "Progress", progress_curriculum_path(@curriculum)
+  - if policy(@curriculum).activity?
+    %li{class: tab == :activity ? "active" : nil}
+      = link_to "Activity", activity_curriculum_path(@curriculum)
+  - if policy(Exercise).create?
+    %li{class: tab == :exercises ? "active" : nil}
+      = link_to "Exercises", curriculum_exercises_path(@curriculum)

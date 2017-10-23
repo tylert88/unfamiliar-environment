@@ -1,0 +1,41 @@
+.page-header
+  .pull-right
+    = link_to refresh_acceptance_cohort_path(@cohort, class_project_id: params[:class_project_id]), class: "btn btn-primary", method: :post, data: {disable_with: "Refreshing..."} do
+      %i.glyphicon.glyphicon-refresh
+      Refresh
+  %h1 #{@cohort.name} Acceptance: #{@class_project.name}
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Accepted Count
+      %th Delivered Count
+      %th(colspan="3" class="text-center") URLs
+  %tbody
+    - @users.each do |user|
+      - project = @projects[user.id]
+      %tr
+        %td= link_to user.full_name, user_path(user, cohort_id: @cohort)
+        %td
+          - if @tracker_statuses[user.id].try(:accepted)
+            = @tracker_statuses[user.id].try(:accepted)
+          - else
+            %span.text-muted ?
+        %td
+          - if @tracker_statuses[user.id].try(:delivered)
+            = @tracker_statuses[user.id].try(:delivered)
+          - else
+            %span.text-muted ?
+          - if created = @tracker_statuses[user.id].try(:created_at)
+            %small.text-muted
+              (#{time_ago_in_words(created)})
+        %td
+          - if project.try(:tracker_url?)
+            = link_to 'Tracker', project.tracker_url, target: :_blank
+        %td
+          - if project.try(:production_url?)
+            = link_to 'Heroku', project.production_url, target: :_blank
+        %td
+          - if project.try(:github_url?)
+            = link_to 'Github', project.github_url, target: :_blank

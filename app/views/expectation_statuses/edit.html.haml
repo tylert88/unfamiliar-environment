@@ -1,0 +1,4 @@
+.page-header
+  %h1 Edit Expectation Status: #{@user.full_name} / #{@expectation.name}
+
+= render 'form', status: @status, expectation: @expectation, user: @user

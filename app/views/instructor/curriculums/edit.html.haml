@@ -1,0 +1,9 @@
+.page-header
+  %h1 Edit #{@curriculum.name_was}
+
+%ol.breadcrumb
+  %li= link_to "Curriculums", curriculums_path
+  %li= link_to @curriculum.name_was, curriculum_path(@curriculum)
+  %li.active Edit
+
+= render 'form'

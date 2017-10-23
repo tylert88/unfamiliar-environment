@@ -1,0 +1,15 @@
+.page-header
+  %h1 #{@cohort.name} Action Plans
+
+%table.table
+  %thead
+    %th View Entries
+    %th
+  %tbody
+    - @students.each do |student|
+      %tr
+        %td= link_to student.full_name, instructor_cohort_student_action_plan_entries_path(@cohort, student)
+        %td
+          = link_to new_instructor_cohort_student_action_plan_entry_path(@cohort, student) do
+            %i.glyphicon.glyphicon-plus
+            New Entry
