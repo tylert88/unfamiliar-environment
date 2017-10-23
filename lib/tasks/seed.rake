@@ -19,7 +19,7 @@ namespace :db do
 
     desc 'Seeds the app the fullstack curriculum'
     task full_stack_curriculum: :environment do
-      curriculum = Curriculum.find_or_create_by!(name: 'Full Stack', description: 'full stack')
+      curriculum = Curriculum.find_or_create_by!(name: 'Full Stack', description: 'full stack', version: "not blank")
       data = JSON.parse(File.read(Rails.root.join('db/seeds/full-stack-curriculum.json')), symbolize_names: true)
       data.each do |unit_name, data|
         tags = data[:tags] + [unit_name]
